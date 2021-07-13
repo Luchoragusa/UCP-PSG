@@ -149,8 +149,8 @@ DROP TABLE IF EXISTS `ran_integrante`;
 CREATE TABLE `ran_integrante` (
   `idRango` int NOT NULL,
   `idIntegrante` int NOT NULL,
-  `fecha_desde` varchar(45) NOT NULL,
-  PRIMARY KEY (`fecha_desde`,`idIntegrante`)
+  `fecha_desde` date NOT NULL,
+  PRIMARY KEY (`fecha_desde`,`idIntegrante`,`idRango`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -207,6 +207,30 @@ CREATE TABLE `rango` (
 LOCK TABLES `rango` WRITE;
 /*!40000 ALTER TABLE `rango` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rango` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ransub_integrante`
+--
+
+DROP TABLE IF EXISTS `ransub_integrante`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ransub_integrante` (
+  `idIntegramte` int NOT NULL,
+  `fecha_desde` date NOT NULL,
+  `nomRangoSub` varchar(45) NOT NULL,
+  PRIMARY KEY (`fecha_desde`,`idIntegramte`,`nomRangoSub`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ransub_integrante`
+--
+
+LOCK TABLES `ransub_integrante` WRITE;
+/*!40000 ALTER TABLE `ransub_integrante` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ransub_integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -341,4 +365,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-13 12:31:00
+-- Dump completed on 2021-07-13 13:17:01
