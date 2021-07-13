@@ -51,6 +51,59 @@ public class DataIntegrante {
 		return i;
 	}
 
+	public Integrante getByIdIntegrante(Integrante inte) {
+
+
+		DataRol dr=new DataRol();
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+			 "select nombre,apellido, discorId,steamHex,usuario from integrante where idIntegrante = ?");
+			stmt.setString(1, inte.getApellido());
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+				{
+					Integrante i=new Integrante();					
+					i.setNombre(rs.getString("nombre"));
+					i.setApellido(rs.getString("apellido"));
+					i.setIdIntegrante(inte.getIdIntegrante());
+					i.setDiscordId(rs.getString("discordId"));
+					i.setSteamHex(rs.getString("steamHex"));
+					i.setUsuario(rs.getString("usuario"));
+					
+					dr.setRoles(i);
+					
+				}
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} 
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return inte;
+	
+	
+	}
+	
 	public LinkedList<Integrante> getAll() {
 		
 		DataRol dr=new DataRol();
@@ -108,7 +161,7 @@ public class DataIntegrante {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select idIntegrante,nombre,discorId,steamHex,usuario from persona where apellido = ?");
+			 "select idIntegrante,nombre,discorId,steamHex,usuario from integrante where apellido = ?");
 			stmt.setString(1, inte.getApellido());
 			rs=stmt.executeQuery();
 			
@@ -120,8 +173,8 @@ public class DataIntegrante {
 					i.setIdIntegrante(rs.getInt("idIntegrante"));
 					i.setNombre(rs.getString("nombre"));
 					i.setApellido(inte.getApellido());
-					i.setDiscordId(rs.getString("email"));
-					i.setSteamHex(rs.getString("tel"));
+					i.setDiscordId(rs.getString("discorId"));
+					i.setSteamHex(rs.getString("steamHex"));
 					i.setUsuario(rs.getString("usuario"));
 					
 					dr.setRoles(i);

@@ -22,6 +22,10 @@ public class Login
 		 */
 		return di.getByUser(i);
 	}
+	
+	public Integrante getByIdIntegrante(Integrante I) {
+		return di.getByIdIntegrante(I);
+	}
 
 	public LinkedList<Integrante> getAll()
 	{
