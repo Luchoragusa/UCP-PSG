@@ -205,7 +205,7 @@ public class DataRango
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from rol where id=?");
+							"delete from rol where idRango=?");
 			stmt.setInt(1, rango.getIdRango());
 			stmt.executeUpdate();
 		} 
