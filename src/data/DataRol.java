@@ -292,4 +292,49 @@ public class DataRol {
             }
 		}
 	}
+
+	public void setRoles(Integrante inte) {
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					  "select rol.* "
+					+ "from rol "
+					+ "inner join rol_integrante "
+					+ "on rol.idRol = rol_integrante.idRol "
+					+ "where idIntegrante=?"
+					);
+			stmt.setInt(1, inte.getIdIntegrante());
+			rs= stmt.executeQuery();
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+				{
+					Rol r=new Rol();
+					r.setIdRol(rs.getInt("idRol"));
+					r.setDescripcion(rs.getString("descripcion"));
+					inte.addRol(r);;
+				}
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 }
