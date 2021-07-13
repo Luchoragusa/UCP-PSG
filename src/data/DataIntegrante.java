@@ -53,32 +53,27 @@ public class DataIntegrante {
 	}
 
 	public LinkedList<Integrante> getAll() {
-		/*
+		
 		DataRol dr=new DataRol();
 		Statement stmt=null;
 		ResultSet rs=null;
-		LinkedList<Persona> pers= new LinkedList<>();		
+		LinkedList<Integrante> inte= new LinkedList<>();		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select id,nombre,apellido,tipo_doc,nro_doc,email,tel,habilitado from persona");
-			//intencionalmente no se recupera la password
+			rs= stmt.executeQuery("select idIntegrante,nombre,apellido,discorId,steamHex from integrante");
+		
 			if(rs!=null) {
 				while(rs.next()) {
-					Persona p=new Persona();
-					p.setDocumento(new Documento());
-					p.setId(rs.getInt("id"));
-					p.setNombre(rs.getString("nombre"));
-					p.setApellido(rs.getString("apellido"));
-					p.getDocumento().setTipo(rs.getString("tipo_doc"));
-					p.getDocumento().setNro(rs.getString("nro_doc"));
-					p.setEmail(rs.getString("email"));
-					p.setTel(rs.getString("tel"));
+					Integrante i=new Integrante();
 					
-					p.setHabilitado(rs.getBoolean("habilitado"));
+					i.setIdIntegrante(rs.getInt("idIntegrante"));
+					i.setNombre(rs.getString("nombre"));
+					i.setApellido(rs.getString("apellido"));
+					i.setDiscordId(rs.getString("discorId"));
+					i.setSteamHex(rs.getString("steamHex"));
+					dr.setRoles(i);
 					
-					dr.setRoles(p);
-					
-					pers.add(p);
+					inte.add(i);
 				}
 			}	
 		} 
@@ -99,19 +94,106 @@ public class DataIntegrante {
 				e.printStackTrace();
 			}
 		}
-		return pers;
-		*/
-		return null;
+		return inte;
+		
+	
 	}
 
-	public LinkedList<Integrante> getByApellido(Integrante i) {
-		// TODO Esbozo de método generado automáticamente
-		return null;
+	
+	
+	
+	public LinkedList<Integrante> getByApellido(Integrante inte) {
+
+		DataRol dr=new DataRol();
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Integrante> integ= new LinkedList<>();
+		
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+			 "select idIntegrante,nombre,discorId,steamHex,usuario from persona where apellido = ?");
+			stmt.setString(1, inte.getApellido());
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+				{
+					Integrante i=new Integrante();
+					i.setIdIntegrante(rs.getInt("idIntegrante"));
+					i.setNombre(rs.getString("nombre"));
+					i.setApellido(inte.getApellido());
+					i.setDiscordId(rs.getString("email"));
+					i.setSteamHex(rs.getString("tel"));
+					i.setUsuario(rs.getString("usuario"));
+					
+					dr.setRoles(i);
+					
+					integ.add(i);
+				}
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} 
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return integ;
+	
 	}
 
 	public void add(Integrante i) {
-		// TODO Esbozo de método generado automáticamente
-		
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"insert into persona(nombre, apellido, discordId, steamHex, usuario, pw) values(?,?,?,?,?,?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, i.getNombre());
+			stmt.setString(2, i.getApellido());
+			stmt.setString(3, i.getDiscordId());
+			stmt.setString(4, i.getSteamHex());
+			stmt.setString(5, i.getUsuario());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            if(keyResultSet!=null && keyResultSet.next())
+            {
+                i.setIdIntegrante(keyResultSet.getInt(1));
+            }
+		}  
+		catch (SQLException e) 
+		{
+            e.printStackTrace();
+		} 
+		finally 
+		{
+            try 
+            {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } 
+            catch (SQLException e) 
+            {
+            	e.printStackTrace();
+            }
+		}
 	}
 
 	public void update(Integrante i) {
