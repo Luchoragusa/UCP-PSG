@@ -108,7 +108,7 @@ public class DataIntegrante {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Integrante> integ= new LinkedList<>();
-		
+		//rfrfr
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
