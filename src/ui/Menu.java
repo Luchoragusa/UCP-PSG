@@ -1,14 +1,13 @@
 package ui;
 
 import java.util.Scanner;
-
 import data.DataRol;
 import entities.*;
 import logic.Login;
 public class Menu 
 {
+	Scanner s=null;
 	Login ctrlLogin = new Login();
-
 	public void start() 
 	{
 		s = new Scanner(System.in);
@@ -28,34 +27,8 @@ public class Menu
 
 	private void executeCommand(String command) 
 	{
-		String rta = null;
-		System.out.print(" \n-- COMANDOS --");	
-		
-		System.out.print("\n cargaIntegrantes");
-		System.out.print("\n cargaArmas");
-		System.out.print("\n cargaRoles");
-		System.out.print("\n cargaRobos");
-		System.out.print("\n cargaMedallas");
-		System.out.print("\n cargaRangos");
-		System.out.print("\n cargaSubdivisiones");
-		System.out.print("\n cargaRangoSub");
-		
-		System.out.print("\n registrarUnStock");
-		System.out.print("\n registrarUnRol");
-		System.out.print("\n registrarUnRango");
-		System.out.print("\n registrarHorasJugadas");
-		System.out.print("\n registrarUnRobo");
-		System.out.print("\n registrarUnaMedalla");
-		System.out.print("\n registrarUnRangoSub");
-		System.out.print("\n registrarUnaSancion");
-		
-		System.out.print("\n abrirBitacora");
-		System.out.print("\n cerrarBitacora");
-		
-		System.out.print("\n salir");
 		do {
-			rta = inputCommand();
-			switch(rta) 
+			switch(command) 
 			{
 			case "abrirBitacora":{
 				
@@ -136,16 +109,42 @@ public class Menu
 				System.out.print(" Comando invalido");
 				break;
 			}
-		}while(!rta.equals("salir"));
+		}while(!command.equals("salir"));
 	}
 	
-	private String inputCommand() {
+	private String getCommand() {
+		
+		System.out.print(" \n-- COMANDOS --");	
+		
+		System.out.print("\n cargaIntegrantes");
+		System.out.print("\n cargaArmas");
+		System.out.print("\n cargaRoles");
+		System.out.print("\n cargaRobos");
+		System.out.print("\n cargaMedallas");
+		System.out.print("\n cargaRangos");
+		System.out.print("\n cargaSubdivisiones");
+		System.out.print("\n cargaRangoSub");
+		
+		System.out.print("\n registrarUnStock");
+		System.out.print("\n registrarUnRol");
+		System.out.print("\n registrarUnRango");
+		System.out.print("\n registrarHorasJugadas");
+		System.out.print("\n registrarUnRobo");
+		System.out.print("\n registrarUnaMedalla");
+		System.out.print("\n registrarUnRangoSub");
+		System.out.print("\n registrarUnaSancion");
+		
+		System.out.print("\n abrirBitacora");
+		System.out.print("\n cerrarBitacora");
+		
+		System.out.print("\n salir");
+		
 		System.out.print("\n Escriba un comando:");
-		return scan.nextLine();
+		return s.nextLine();
 	}
 	
 	private void close() {
-		scan.close();
+		s.close();
 	}
 	
 	private void cargaIntegrante()
@@ -165,19 +164,13 @@ public class Menu
 		
 		System.out.println("Lista de roles ");
 		System.out.println(dr.getAll());
-		
 		System.out.print("Ingrese la descripcion del rol: "); 
 		r.setDescripcion(s.nextLine());
-		
 		r = dr.getByDesc(r);
-		
 		System.out.println(r.toString());
-		
 		i.addRol(r); // agrego el rol a la persona
-		
-		ctrlLogin.add(p); // agrego la persona
-		
-		dr.saveRole(p,r); // agrego el rol a la tabla de rol_persona
+		ctrlLogin.add(i); // agrego la persona
+		dr.saveRole(i,r); // agrego el rol a la tabla de rol_persona
 		
 		System.out.println("Operacion realizada con Exito");
 	}
