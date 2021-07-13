@@ -2,8 +2,8 @@ package entities;
 
 public class Arma 
 {
-	int idArma;
-	String tipoArma, nombreArma;
+	private int idArma;
+	private String tipoArma, nombreArma;
 	
 	public Arma() 
 	{
