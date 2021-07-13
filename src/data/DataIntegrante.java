@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import entities.Integrante;
-import entities.Rol;
 
 public class DataIntegrante {
 
@@ -98,9 +97,6 @@ public class DataIntegrante {
 		
 	
 	}
-
-	
-	
 	
 	public LinkedList<Integrante> getByApellido(Integrante inte) {
 
@@ -161,7 +157,7 @@ public class DataIntegrante {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into persona(nombre, apellido, discordId, steamHex, usuario, pw) values(?,?,?,?,?,?)",
+							"insert into integrante(nombre, apellido, discordId, steamHex, usuario, pw) values(?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, i.getNombre());
@@ -169,6 +165,7 @@ public class DataIntegrante {
 			stmt.setString(3, i.getDiscordId());
 			stmt.setString(4, i.getSteamHex());
 			stmt.setString(5, i.getUsuario());
+			stmt.setString(6, i.getPw());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
@@ -197,13 +194,73 @@ public class DataIntegrante {
 	}
 
 	public void update(Integrante i) {
-		// TODO Esbozo de método generado automáticamente
-		
+
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"update integrante set nombre=?, apellido=?, usuario=?, pw=?, discordId=?, steamHex=? where idIntegrante = ?");
+			
+			stmt.setString(1, i.getNombre());
+			stmt.setString(2, i.getApellido());
+			stmt.setString(3, i.getUsuario());
+			stmt.setString(4, i.getPw());
+			stmt.setString(5, i.getDiscordId());
+			stmt.setString(6, i.getSteamHex());	
+			stmt.setInt(7, i.getIdIntegrante());	
+			stmt.executeUpdate();
+		}  
+		catch (SQLException e) 
+		{
+            e.printStackTrace();
+		} 
+		finally 
+		{
+            try 
+            {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } 
+            catch (SQLException e) 
+            {
+            	e.printStackTrace();
+            }
+		}
+    
 	}
 
 	public void delete(Integrante i) {
-		// TODO Esbozo de método generado automáticamente
-		
+
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement("delete from integrante where idIntegrante = ?");
+			stmt.setInt(1, i.getIdIntegrante());	
+			stmt.execute();
+		}  
+		catch (SQLException e) 
+		{
+            e.printStackTrace();
+		} 
+		finally 
+		{
+            try 
+            {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } 
+            catch (SQLException e) 
+            {
+            	e.printStackTrace();
+            }
+		}
+    
 	}
 
 }

@@ -32,17 +32,17 @@ public class Login
 	{
 		return di.getByApellido(I);
 	}
-	
-	
-	
+
 	public void add(Integrante I)
 	{
 		di.add(I);
 	}
+	
 	public void update(Integrante I)
 	{
 		di.update(I);
 	}
+	
 	public void delete(Integrante I)
 	{
 		di.delete(I);
