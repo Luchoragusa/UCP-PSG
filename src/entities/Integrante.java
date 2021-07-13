@@ -1,13 +1,12 @@
 package entities;
 
+import java.util.HashMap;
+
 public class Integrante {
 
 	private int idIntegrante;
-	private String nombre, apellido, steamHex, discordId;
-	
-	public Integrante() {
-		
-	}
+	private String nombre, apellido, steamHex, discordId, usuario, pw;
+	private HashMap<Integer, Rol> roles;
 
 	public Integrante(int idIntegrante, String nombre, String apellido, String steamHex, String discordId) {
 		super();
@@ -57,6 +56,41 @@ public class Integrante {
 	public void setDiscordId(String discordId) {
 		this.discordId = discordId;
 	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getPw() {
+		return pw;
+	}
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
 	
+	public Integrante() 
+	{
+		this.roles=new HashMap<>();
+	}
+	
+	public void addRol(Rol rolToBeAdded) 
+	{
+		this.roles.put(rolToBeAdded.getIdRol(), rolToBeAdded);
+	}
+	
+	public void removeRol(Rol rolToBeRemoved) 
+	{
+		this.roles.remove(rolToBeRemoved.getIdRol());
+	}
+	
+	public boolean hasRol(Rol rolToCheck) 
+	{
+		return this.roles.containsKey(rolToCheck.getIdRol());
+	}
 	
 }
