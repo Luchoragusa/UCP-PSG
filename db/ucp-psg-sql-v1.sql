@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `arma`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `arma` (
-  `idArma` int NOT NULL,
+  `idArma` int NOT NULL AUTO_INCREMENT,
   `tipoArma` varchar(45) NOT NULL,
   `nombreArma` varchar(45) NOT NULL,
   PRIMARY KEY (`idArma`)
@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS `horas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `horas` (
-  `idIntegramte` int NOT NULL,
+  `idIntegramte` int NOT NULL AUTO_INCREMENT,
   `horaInicio` time NOT NULL,
   `horaFin` time DEFAULT NULL,
   `fecha` date NOT NULL,
@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `integrante`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `integrante` (
-  `idIntegrante` int NOT NULL,
+  `idIntegrante` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(15) NOT NULL,
   `apellido` varchar(15) NOT NULL,
   `steamHex` varchar(45) NOT NULL,
@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS `medalla`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `medalla` (
-  `idMedalla` int NOT NULL,
+  `idMedalla` int NOT NULL AUTO_INCREMENT,
   `nomMedalla` varchar(45) NOT NULL,
   `tipoMedalla` varchar(45) NOT NULL,
   PRIMARY KEY (`idMedalla`)
@@ -194,7 +194,7 @@ DROP TABLE IF EXISTS `rango`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rango` (
-  `idRango` int NOT NULL,
+  `idRango` int NOT NULL AUTO_INCREMENT,
   `nombRango` varchar(45) NOT NULL,
   PRIMARY KEY (`idRango`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -217,7 +217,7 @@ DROP TABLE IF EXISTS `robo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `robo` (
-  `idLugarRobo` int NOT NULL,
+  `idLugarRobo` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(255) DEFAULT NULL,
   `nomRobo` varchar(45) NOT NULL,
   `lugarRobo` varchar(45) NOT NULL,
@@ -316,7 +316,7 @@ DROP TABLE IF EXISTS `subdivision`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subdivision` (
-  `idSub` int NOT NULL,
+  `idSub` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) NOT NULL,
   `nomSubdivision` varchar(45) NOT NULL,
   PRIMARY KEY (`idSub`)
@@ -341,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-12 19:13:49
+-- Dump completed on 2021-07-13 12:31:00
