@@ -11,7 +11,7 @@ public class Menu
 	public void start() 
 	{
 		s = new Scanner(System.in);
-		Integrante i = Login();
+		Integrante i = login();
 		System.out.println("Bienvenido "+i.getNombre()+" "+i.getApellido());
 		System.out.println();
 		
