@@ -7,7 +7,5 @@ public class Main {
 		Menu m=new Menu();
 		m.start();
 		System.out.println("\n -- FIN DEL PROGRAMA -- ");
-		
-		System.out.println("adadadsadasas");
 	}
 }
