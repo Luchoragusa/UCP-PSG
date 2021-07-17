@@ -1,6 +1,10 @@
 package ui;
 
 import java.util.Scanner;
+
+import data.DataArma;
+import data.DataMedalla;
+import data.DataRobo;
 import data.DataRol;
 import entities.*;
 import logic.Login;
@@ -43,31 +47,31 @@ public class Menu
 			}
 				break;
 			case "cargaArmas":{
-				
+				newArmas();
 			}
 				break;
 			case "cargaRoles":{
-				
+				newRoles();
 			}
 				break;
 			case "cargaRobos":{
-				
+				newRobos();
 			}
 				break;
 			case "cargaMedallas":{
-				
+				newMedallas();
 			}
 				break;
 			case "cargaRangos":{
-				
+				newRangos();
 			}
 				break;
 			case "cargaSubdivisiones":{
-				
+				newSubdivisiones();
 			}
 				break;
 			case "cargaRangoSub":{
-				
+				newRangoSub();
 			}
 				break;
 			case "actualizarIntegrantes":{
@@ -75,31 +79,31 @@ public class Menu
 			}
 				break;
 			case "actualizarArmas":{
-				
+				updateArmas();
 			}
 				break;
 			case "actualizarRoles":{
-				
+				updateRoles();
 			}
 				break;
 			case "actualizarRobos":{
-				
+				updateRobos();
 			}
 				break;
 			case "actualizarMedallas":{
-				
+				updateMedallas();
 			}
 				break;
 			case "actualizarRangos":{
-				
+				updateRangos();
 			}
 				break;
 			case "actualizarSubdivisiones":{
-				
+				updateSubdivisiones();
 			}
 				break;
 			case "actualizarRangoSub":{
-				
+				updateRangoSub();
 			}
 				break;
 			
@@ -178,6 +182,50 @@ public class Menu
 		}while(!command.equals("salir"));
 	}
 	
+	private void newMedallas() {
+		System.out.println();
+		Medalla m = new Medalla();
+		DataMedalla dm = new DataMedalla();
+		
+		System.out.println("Nombre de la medalla: "); m.setNomMedalla(s.nextLine());
+		System.out.println("Lugar del robo: "); robo.setLugarRobo(s.nextLine());
+		
+		dro.add(robo);
+	}
+
+	private void newRobos() {
+		System.out.println();
+		Robo robo = new Robo();
+		DataRobo dro = new DataRobo();
+		
+		System.out.println("Descripcion del robo: "); robo.setDescripcion(s.nextLine());
+		System.out.println("Nombre del robo: "); robo.setNomRobo(s.nextLine());
+		System.out.println("Lugar del robo: "); robo.setLugarRobo(s.nextLine());
+		
+		dro.add(robo);
+	}
+
+	private void newRoles() {
+		System.out.println();
+		Rol r = new Rol();
+		DataRol dr = new DataRol();
+		
+		System.out.println("Descripcion del rol: "); r.setDescripcion(s.nextLine());
+		
+		dr.add(r);
+	}
+
+	private void newArmas() {
+		System.out.println();
+		Arma a = new Arma();
+		DataArma da = new DataArma();
+		
+		System.out.println("Tipo arma: "); a.setTipoArma(s.nextLine());
+		System.out.println("Nombre del arma: "); a.setNombreArma(s.nextLine());
+		
+		da.add(a);
+	}
+
 	private String getCommand() {
 		
 		System.out.print(" \n-- COMANDOS --");	
