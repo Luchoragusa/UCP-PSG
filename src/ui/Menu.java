@@ -4,8 +4,11 @@ import java.util.Scanner;
 
 import data.DataArma;
 import data.DataMedalla;
+import data.DataRan_Subdivision;
+import data.DataRango;
 import data.DataRobo;
 import data.DataRol;
+import data.DataSubdivision;
 import entities.*;
 import logic.Login;
 public class Menu 
@@ -71,7 +74,7 @@ public class Menu
 			}
 				break;
 			case "cargaRangoSub":{
-				newRangoSub();
+				newRan_Subdivision();
 			}
 				break;
 			case "actualizarIntegrantes":{
@@ -176,21 +179,52 @@ public class Menu
 				close();
 				break;
 			default:
-				System.out.print(" Comando invalido");
+				System.out.print("Comando invalido");
 				break;
 			}
 		}while(!command.equals("salir"));
 	}
 	
+	private void newRan_Subdivision() {
+		System.out.println();
+		Ran_Subdivision rsb = new Ran_Subdivision();
+		DataRan_Subdivision drsb = new DataRan_Subdivision();
+		
+		System.out.println("Nombre del rango de la subdivision: "); rsb.setNombreRangoSub(s.nextLine());
+		
+		drsb.add(rsb);
+	}
+
+	private void newSubdivisiones() {
+		System.out.println();
+		Subdivision sb = new Subdivision();
+		DataSubdivision dsb = new DataSubdivision();
+		
+		System.out.println("Descripcion de la subdivision: "); sb.setDescripcion(s.nextLine());
+		System.out.println("Nombre de la subdivision: "); sb.setNomSubDivision(s.nextLine());
+		
+		dsb.add(sb);
+	}
+
+	private void newRangos() {
+		System.out.println();
+		Rango r = new Rango();
+		DataRango dr = new DataRango();
+		
+		System.out.println("Nombre del rango: "); m.setNomRango(s.nextLine());
+		
+		dr.add(r);
+	}
+
 	private void newMedallas() {
 		System.out.println();
 		Medalla m = new Medalla();
 		DataMedalla dm = new DataMedalla();
 		
 		System.out.println("Nombre de la medalla: "); m.setNomMedalla(s.nextLine());
-		System.out.println("Lugar del robo: "); robo.setLugarRobo(s.nextLine());
+		System.out.println("Tipo medalla: "); m.setTipoMedalla(s.nextLine());
 		
-		dro.add(robo);
+		dm.add(m);
 	}
 
 	private void newRobos() {
