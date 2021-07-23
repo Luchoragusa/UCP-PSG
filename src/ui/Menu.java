@@ -8,6 +8,7 @@ import java.util.Scanner;
 import data.DataArma;
 import data.DataHoras;
 import data.DataIntegrante;
+import data.DataMed_Integrante;
 import data.DataMedalla;
 import data.DataRan_Subdivision;
 import data.DataRango;
@@ -165,13 +166,16 @@ public class Menu
 			case "registrarHorasJugadas":{
 				regHorasJugadas();							//tuneado
 			}
+			case "registrarHoraFin":{
+				regHoraFin();								//tuneado
+			}
 				break;
 			case "registrarUnRobo":{						//tuneado
 				regRoboxdia();
 			}
 				break;
 			case "registrarUnaMedalla":{
-				regMedalla();
+				regMedalla();								//tuneado
 			}
 				break;
 			case "registrarUnRangoSub":{
@@ -192,6 +196,21 @@ public class Menu
 		}while(!command.equals("salir"));
 	}
 	
+	private void regHoraFin() {
+		Horas h = new Horas(); 
+		DataHoras dh = new DataHoras();
+		
+		System.out.println("Ingrese la hora de finalizacion: ");
+		int hora = Integer.parseInt(s.nextLine());
+		System.out.println("Ingrese los minutos de la hora de finalizacion: ");
+		int minuto = Integer.parseInt(s.nextLine());
+		 
+		LocalTime horaFin = LocalTime.of(hora, minuto);
+		h.setHoraFin(horaFin);
+		
+		dh.update(h);
+	}
+
 	//delete de ds deberia recibir de parametro al integrante en vez de sancion? hacer saveSancion?
 	private void regSancion() {
 		System.out.println();
@@ -214,29 +233,69 @@ public class Menu
 	private void regRangoSub() {
 		System.out.println();
 		Ran_Subdivision rsb = new Ran_Subdivision();
+		DataSubdivision dsb = new DataSubdivision();
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
 		Integrante i = new Integrante();
 		
-		//codificarlo una vez hecho el DB de RangoSub
+		i = find();
+		
+		System.out.println("Listado de las subdivisiones: ");
+		System.out.println(dsb.getAll());
+		
+		System.out.println("A que subdivision corresponde? Ingrese la ID: ");
+		rsb.setIdSub(Integer.parseInt(s.nextLine())); 
+		
+		System.out.println("Listado de rangos de la subdivision encontrada: ");
+		System.out.println(drsb.getByIdSub(rsb));
+		
+		System.out.println("Ingrese la ID del rango: ");
+		int idrangoSub = Integer.parseInt(s.nextLine());
+		
+		
 	}
 
-	//el delete de dm deberia recibir de parametro al integrante en vez de medalla? crear un saveMedalla?
 	private void regMedalla() {
 		System.out.println();
 		Medalla m = new Medalla();
 		DataMedalla dm = new DataMedalla();
 		Integrante i = new Integrante();
+		Med_integrante medInt = new Med_integrante();
+		DataMed_Integrante dataMedInt = new DataMed_Integrante();
+		LocalDate fecha = null;
 		
 		i = find();
-
-		//dm.delete(i);
 		
-		System.out.println("Ingrese el nombrre de la medalla para el integrante: "); m.setNomMedalla(s.nextLine());
-		System.out.println("Ingrese el tipo de medalla para el integrante: "); m.setTipoMedalla(s.nextLine());
+		System.out.println("Registra tipo de medalla Semanal (S) o Mensual (M): ");
+		m.setTipoMedalla(s.nextLine());
 		
-		dm.add(m);
+		if (m.getTipoMedalla().equalsIgnoreCase("S")) {				
+			
+			System.out.println("Lista de medallas: ");
+			System.out.println(dm.getByTipo(m));
+			
+			System.out.println("Ingrese la ID de la medalla a registrar al integrante: ");
+			m.setIdMedalla(Integer.parseInt(s.nextLine()));
+			
+		}
+		else if (m.getTipoMedalla().equalsIgnoreCase("M")) {
+			
+			System.out.println("Lista de medallas: ");
+			System.out.println(dm.getByTipo(m));
+			
+			System.out.println("Ingrese la ID de la medalla a registrar al integrante: ");
+			m.setIdMedalla(Integer.parseInt(s.nextLine()));
+			
+		}
 		
-		//dm.saveMedalla(i,m);
+		medInt.setIdIntegrante(i.getIdIntegrante());
+		medInt.setIdMedalla(m.getIdMedalla());
+		
+		System.out.println("Ingrese la recompensa. Seguido de eso, se setea la fecha de hoy. ");
+		medInt.setRecompensa(s.nextLine());
+		medInt.setFecha_recompensa(fecha = LocalDate.now());
+		
+		//dataMedInt.setMedallas(i);
+		dataMedInt.saveMedalla(i, m, medInt);
 	}
 
 	private void regRoboxdia() {
@@ -314,15 +373,7 @@ public class Menu
 			 int minuto = Integer.parseInt(s.nextLine());
 			 
 			 LocalTime horaInicio = LocalTime.of(hora, minuto);
-			 h.setHoraInicio(horaInicio);
-			 
-			 System.out.println("Ingrese la hora de finalizacion: ");
-			 hora = Integer.parseInt(s.nextLine());
-			 System.out.println("Ingrese los minutos de la hora de finalizacion: ");
-			 minuto = Integer.parseInt(s.nextLine());
-			 
-			 LocalTime horaFin = LocalTime.of(hora, minuto);
-			 h.setHoraFin(horaFin);
+			 h.setHoraInicio(horaInicio);			 			 
 			
 			//codificar Fecha en el dh
 			 LocalDate fecha = LocalDate.now();
