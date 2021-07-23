@@ -3,8 +3,14 @@ package entities;
 public class Ran_Subdivision {
 
 	private String nombreRangoSub;
-	private int idSub;
+	private int idSub, idRanSub;
 	
+	public int getIdRanSub() {
+		return idRanSub;
+	}
+	public void setIdRanSub(int idRanSub) {
+		this.idRanSub = idRanSub;
+	}
 	public String getNombreRangoSub() {
 		return nombreRangoSub;
 	}

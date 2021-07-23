@@ -27,7 +27,7 @@ CREATE TABLE `arma` (
   `tipoArma` varchar(45) NOT NULL,
   `nombreArma` varchar(45) NOT NULL,
   PRIMARY KEY (`idArma`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `arma` (
 
 LOCK TABLES `arma` WRITE;
 /*!40000 ALTER TABLE `arma` DISABLE KEYS */;
+INSERT INTO `arma` VALUES (1,'Pistola','Combate'),(2,'SubFusil','SMG'),(3,'Fusil','AK-47');
 /*!40000 ALTER TABLE `arma` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +52,8 @@ CREATE TABLE `horas` (
   `horaInicio` time NOT NULL,
   `horaFin` time DEFAULT NULL,
   `fecha` date NOT NULL,
-  PRIMARY KEY (`idIntegramte`)
+  PRIMARY KEY (`idIntegramte`),
+  CONSTRAINT `id_Integrantehr` FOREIGN KEY (`idIntegramte`) REFERENCES `integrante` (`idIntegrante`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -80,7 +82,7 @@ CREATE TABLE `integrante` (
   `usuario` varchar(45) NOT NULL,
   `pw` varchar(45) NOT NULL,
   PRIMARY KEY (`idIntegrante`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,6 +91,7 @@ CREATE TABLE `integrante` (
 
 LOCK TABLES `integrante` WRITE;
 /*!40000 ALTER TABLE `integrante` DISABLE KEYS */;
+INSERT INTO `integrante` VALUES (1,'Juan','Pucheta','steam:123','558091838259724309','jpucheta','jp123'),(2,'Camilo','Pereyra','steam:321','404471332991008768','cpereyra','cp123'),(3,'Luciano','Ragusa','steam:890','328247693724090369','lragusa','lr123');
 /*!40000 ALTER TABLE `integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +107,10 @@ CREATE TABLE `med_integrante` (
   `idIntegrante` int NOT NULL,
   `fecha_recompensa` date NOT NULL,
   `recompensa` varchar(45) NOT NULL,
-  PRIMARY KEY (`idIntegrante`,`fecha_recompensa`)
+  PRIMARY KEY (`idIntegrante`,`fecha_recompensa`),
+  KEY `id_Medalla_idx` (`idMedalla`),
+  CONSTRAINT `id_Integr` FOREIGN KEY (`idIntegrante`) REFERENCES `integrante` (`idIntegrante`),
+  CONSTRAINT `id_Medalla` FOREIGN KEY (`idMedalla`) REFERENCES `medalla` (`idMedalla`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -129,7 +135,7 @@ CREATE TABLE `medalla` (
   `nomMedalla` varchar(45) NOT NULL,
   `tipoMedalla` varchar(45) NOT NULL,
   PRIMARY KEY (`idMedalla`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,30 +144,8 @@ CREATE TABLE `medalla` (
 
 LOCK TABLES `medalla` WRITE;
 /*!40000 ALTER TABLE `medalla` DISABLE KEYS */;
+INSERT INTO `medalla` VALUES (1,'TopHoras-High1','Semanal'),(2,'TopHoras-High2','Semanal'),(3,'TopHoras-Low1','Semanal'),(4,'TopHoras-Low2','Semanal'),(5,'TopHoras-Low3','Semanal'),(6,'Central','Mensual'),(7,'Tiro','Mensual'),(8,'Companero','Mensual');
 /*!40000 ALTER TABLE `medalla` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `new_table`
---
-
-DROP TABLE IF EXISTS `new_table`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `new_table` (
-  `idRol` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) NOT NULL,
-  PRIMARY KEY (`idRol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `new_table`
---
-
-LOCK TABLES `new_table` WRITE;
-/*!40000 ALTER TABLE `new_table` DISABLE KEYS */;
-/*!40000 ALTER TABLE `new_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -175,7 +159,11 @@ CREATE TABLE `ran_integrante` (
   `idRango` int NOT NULL,
   `idIntegrante` int NOT NULL,
   `fecha_desde` date NOT NULL,
-  PRIMARY KEY (`fecha_desde`,`idIntegrante`,`idRango`)
+  PRIMARY KEY (`fecha_desde`),
+  KEY `id_Rango_idx` (`idRango`),
+  KEY `id_Integranterb_idx` (`idIntegrante`),
+  CONSTRAINT `id_int` FOREIGN KEY (`idIntegrante`) REFERENCES `integrante` (`idIntegrante`),
+  CONSTRAINT `id_Ran` FOREIGN KEY (`idRango`) REFERENCES `rango` (`idRango`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,10 +184,13 @@ DROP TABLE IF EXISTS `ran_subdivision`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ran_subdivision` (
-  `nombreRangoSub` varchar(45) NOT NULL,
+  `idRanSub` int NOT NULL AUTO_INCREMENT,
   `idSub` int NOT NULL,
-  PRIMARY KEY (`nombreRangoSub`,`idSub`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `nombreRangoSub` varchar(45) NOT NULL,
+  PRIMARY KEY (`idRanSub`),
+  KEY `id_Sub_idx` (`idSub`),
+  CONSTRAINT `id_Sub` FOREIGN KEY (`idSub`) REFERENCES `subdivision` (`idSub`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,6 +199,7 @@ CREATE TABLE `ran_subdivision` (
 
 LOCK TABLES `ran_subdivision` WRITE;
 /*!40000 ALTER TABLE `ran_subdivision` DISABLE KEYS */;
+INSERT INTO `ran_subdivision` VALUES (1,2,'Cadete'),(2,1,'Capitan de la Brigada'),(3,2,'Encargado de Infante'),(4,3,'Encargado de U.A'),(5,2,'Encargado de U.I'),(6,1,'Encargado de U.R.A'),(7,1,'Guardia'),(8,2,'Infante Supreme'),(9,3,'Piloto Avanzado'),(10,3,'Piloto Experto'),(11,3,'Piloto Instructor'),(12,3,'Piloto Novato'),(13,1,'Recluta'),(14,2,'Recluta'),(15,2,'Sargento'),(16,1,'Sub-Capitan'),(17,2,'Supervisor'),(18,1,'Teniente');
 /*!40000 ALTER TABLE `ran_subdivision` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,7 +214,7 @@ CREATE TABLE `rango` (
   `idRango` int NOT NULL AUTO_INCREMENT,
   `nombRango` varchar(45) NOT NULL,
   PRIMARY KEY (`idRango`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,6 +223,7 @@ CREATE TABLE `rango` (
 
 LOCK TABLES `rango` WRITE;
 /*!40000 ALTER TABLE `rango` DISABLE KEYS */;
+INSERT INTO `rango` VALUES (1,'Aprendiz'),(2,'Empleado'),(3,'Experimentado'),(4,'Vigilante'),(5,'Supervisor'),(6,'Agente'),(7,'Controlista del Cuerpo'),(8,'Maestro del Cuerpo'),(9,'Sub Encargado del Cuerpo'),(10,'Encargado del Cuerpo'),(11,'Auxiliar del Cuerpo'),(12,'Instructor del Cuerpo'),(13,'Sub Jefe del Cuerpo'),(14,'Jefe del Cuerpo'),(15,'Gerente del Cuerpo'),(16,'Interventor');
 /*!40000 ALTER TABLE `rango` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,8 +237,12 @@ DROP TABLE IF EXISTS `ransub_integrante`;
 CREATE TABLE `ransub_integrante` (
   `idIntegramte` int NOT NULL,
   `fecha_desde` date NOT NULL,
-  `nomRangoSub` varchar(45) NOT NULL,
-  PRIMARY KEY (`fecha_desde`,`idIntegramte`,`nomRangoSub`)
+  `idRangoSub` int NOT NULL,
+  PRIMARY KEY (`fecha_desde`,`idIntegramte`,`idRangoSub`),
+  KEY `id_Integranters_idx` (`idIntegramte`),
+  KEY `id_RangSub_idx` (`idRangoSub`),
+  CONSTRAINT `id_Integranters` FOREIGN KEY (`idIntegramte`) REFERENCES `integrante` (`idIntegrante`),
+  CONSTRAINT `id_RangSub` FOREIGN KEY (`idRangoSub`) REFERENCES `ran_subdivision` (`idRanSub`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -269,9 +266,9 @@ CREATE TABLE `robo` (
   `idLugarRobo` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(255) DEFAULT NULL,
   `nomRobo` varchar(45) NOT NULL,
-  `lugarRobo` varchar(45) NOT NULL,
+  `lugarRobo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idLugarRobo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,6 +277,7 @@ CREATE TABLE `robo` (
 
 LOCK TABLES `robo` WRITE;
 /*!40000 ALTER TABLE `robo` DISABLE KEYS */;
+INSERT INTO `robo` VALUES (1,'4-6 Atracadores/Psg','Yate',NULL),(2,'4-5 Atracadores/Psg','Life Invader',NULL),(3,'8-10 Atracadores/Psg','Humane',NULL),(4,'2-3 Atracadores/Psg','Cerveceria','Salita medica'),(5,'2-3 Atracadores/Psg','Cerveceria','Vespucci'),(6,'2-3 Atracadores/Psg','Cerveceria','Costa'),(7,'2-3 Atracadores/Psg','Cerveceria','Atas de Comisaria');
 /*!40000 ALTER TABLE `robo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -296,7 +294,10 @@ CREATE TABLE `roboxdia` (
   `fecha_robo` date NOT NULL,
   `hora_robo` time NOT NULL,
   `resultado` varchar(45) NOT NULL,
-  PRIMARY KEY (`idIntegrante`,`fecha_robo`,`hora_robo`)
+  PRIMARY KEY (`idIntegrante`,`fecha_robo`,`hora_robo`),
+  KEY `id_LugarRobo_idx` (`idLugarRobo`),
+  CONSTRAINT `id_Integranterb` FOREIGN KEY (`idIntegrante`) REFERENCES `integrante` (`idIntegrante`),
+  CONSTRAINT `id_LugarRobo` FOREIGN KEY (`idLugarRobo`) REFERENCES `robo` (`idLugarRobo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -310,6 +311,30 @@ LOCK TABLES `roboxdia` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `rol`
+--
+
+DROP TABLE IF EXISTS `rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rol` (
+  `idRol` int NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`idRol`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rol`
+--
+
+LOCK TABLES `rol` WRITE;
+/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol` VALUES (1,'Admin'),(2,'Usuario');
+/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `rol_integrante`
 --
 
@@ -319,7 +344,10 @@ DROP TABLE IF EXISTS `rol_integrante`;
 CREATE TABLE `rol_integrante` (
   `idRol` int NOT NULL,
   `idIntegrante` int NOT NULL,
-  PRIMARY KEY (`idRol`,`idIntegrante`)
+  PRIMARY KEY (`idRol`,`idIntegrante`),
+  KEY `id_Integrante_idx` (`idIntegrante`),
+  CONSTRAINT `id_Integrante` FOREIGN KEY (`idIntegrante`) REFERENCES `integrante` (`idIntegrante`),
+  CONSTRAINT `id_Rol` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -367,7 +395,9 @@ CREATE TABLE `stockarma` (
   `fecha` date NOT NULL,
   `idArma` int NOT NULL,
   `cantidad` int NOT NULL,
-  PRIMARY KEY (`idArma`,`fecha`)
+  PRIMARY KEY (`fecha`,`idArma`),
+  KEY `id_Arma_idx` (`idArma`),
+  CONSTRAINT `id_Arma` FOREIGN KEY (`idArma`) REFERENCES `arma` (`idArma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -392,7 +422,7 @@ CREATE TABLE `subdivision` (
   `descripcion` varchar(45) NOT NULL,
   `nomSubdivision` varchar(45) NOT NULL,
   PRIMARY KEY (`idSub`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -401,6 +431,7 @@ CREATE TABLE `subdivision` (
 
 LOCK TABLES `subdivision` WRITE;
 /*!40000 ALTER TABLE `subdivision` DISABLE KEYS */;
+INSERT INTO `subdivision` VALUES (1,'Unidad de rapida accion','U.R.A'),(2,'Unidad de infanteria','U.I'),(3,'Unidad aerea','U.A');
 /*!40000 ALTER TABLE `subdivision` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -413,4 +444,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-13 17:32:50
+-- Dump completed on 2021-07-23 15:12:48
