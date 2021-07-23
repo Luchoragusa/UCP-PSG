@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import entities.Arma;
+import entities.Integrante;
 import entities.Ran_Subdivision;
 import entities.Rango;
 import entities.Stockarma;
