@@ -54,6 +54,51 @@ public class DataSancion {
 		return sanciones;
 	}
 	
+	public LinkedList<Sancion> getById(Sancion s){
+
+
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Sancion> sanciones= new LinkedList<>();
+		
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+			 "select motivo, tipoSancion from ran_subdivision where idIntegrante = ?");
+			stmt.setInt(1, s.getIdIntegrante());
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+				{
+					Sancion san =new Sancion();
+					san.setIdIntegrante(s.getIdIntegrante());
+					san.setMotivo(rs.getString("motivo"));		
+					san.setTipoSancion(rs.getString("tipoSancion"));
+					sanciones.add(san);
+				}
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} 
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return sanciones;
+	}
+	
 	public Sancion getByIdAndMotivo(Sancion sancionToSearch) {
 		Sancion s = null;
 		PreparedStatement stmt=null;
