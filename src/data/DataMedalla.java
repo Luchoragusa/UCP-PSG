@@ -130,22 +130,24 @@ public class DataMedalla {
 		
 	}
 
-	public LinkedList<Medalla> getByTipo(){
-		Statement stmt=null;
+	public LinkedList<Medalla> getByTipo(Medalla medallaToSearch){
+		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Medalla> medallas= new LinkedList<>();
 		
 		
 		try {
-			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select * from medalla where tipoMedalla = ?");
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					 "select idMedalla, nomMedalla from medalla where tipoMedalla = ?");
+					stmt.setString(1, medallaToSearch.getTipoMedalla());
+					rs=stmt.executeQuery();
 			if(rs!=null) 
 			{
 				while(rs.next()) 
 				{
 					Medalla m = new Medalla();
 					m.setIdMedalla(rs.getInt("idMedalla"));
-					m.setTipoMedalla(rs.getString("tipomedalla"));
+					m.setTipoMedalla(medallaToSearch.getTipoMedalla());
 					m.setNomMedalla(rs.getString("nomMedalla"));
 					medallas.add(m);
 				}
