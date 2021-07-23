@@ -146,10 +146,8 @@ public class DataHoras {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update horas set horaInicio=?, horaFin = ?, fecha = ? where idIntegrante=?");
-			stmt.setObject(1, hr.getHoraInicio());
-			stmt.setObject(2, hr.getHoraFin());
-			stmt.setObject(3, hr.getFecha());
+							"update horas set horaFin = ? where idIntegrante=?");
+			stmt.setObject(1, hr.getHoraFin());
 			
 			stmt.executeUpdate();
 		} 

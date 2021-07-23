@@ -1,5 +1,7 @@
 package ui;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -10,6 +12,7 @@ import data.DataMedalla;
 import data.DataRan_Subdivision;
 import data.DataRango;
 import data.DataRobo;
+import data.DataRoboxdia;
 import data.DataRol;
 import data.DataSancion;
 import data.DataStockarma;
@@ -79,7 +82,7 @@ public class Menu
 			}
 				break;
 			case "cargaRangoSub":{
-				newRan_Subdivision();
+				newRan_Subdivision();					//tuneado
 			}
 				break;
 			case "actualizarIntegrantes":{
@@ -111,7 +114,7 @@ public class Menu
 			}
 				break;
 			case "actualizarRangoSub":{
-				updateRangoSub();
+				updateRangoSub();					//tuneado
 			}
 				break;
 			
@@ -144,11 +147,11 @@ public class Menu
 			}
 				break;
 			case "mostrarRangoSub":{
-				System.out.println(showRangoSub());
+				System.out.println(showRangoSub());			//tuneado
 			}
 				break;
 			case "registrarUnStock":{
-				regStock();
+				regStock();									//tuneado
 			}
 				break;
 			case "registrarUnRol":{
@@ -156,15 +159,15 @@ public class Menu
 			}
 				break;
 			case "registrarUnRango":{
-				regRango();
+				regRango();									//ver comentario en metodo
 			}
 				break;
 			case "registrarHorasJugadas":{
-				regHorasJugadas();
+				regHorasJugadas();							//tuneado
 			}
 				break;
-			case "registrarUnRobo":{
-				regRobo();
+			case "registrarUnRobo":{						//tuneado
+				regRoboxdia();
 			}
 				break;
 			case "registrarUnaMedalla":{
@@ -236,22 +239,59 @@ public class Menu
 		//dm.saveMedalla(i,m);
 	}
 
-	//crear un saveRobo??
-	private void regRobo() {
+	private void regRoboxdia() {
 		System.out.println();
 		Robo r = new Robo();
 		DataRobo dr = new DataRobo();
+		Roboxdia rxd = new Roboxdia();
+		DataRoboxdia Datarxd = new DataRoboxdia(); 
 		Integrante i = new Integrante();
+		LinkedList<Integrante> integrantes= new LinkedList<>();
+		String resultado = null;
 		
-		i = find();
+		System.out.println("Listado de todos los robos: ");
+		System.out.println(dr.getAll());
 		
-		System.out.println("Ingrese la descripcion del robo para el integrante: "); r.setDescripcion(s.nextLine());
-		System.out.println("Ingrese el nombre del robo para el integrante: "); r.setNomRobo(s.nextLine());
-		System.out.println("Ingrese el lugar del robo para el integrante: "); r.setLugarRobo(s.nextLine());
+		System.out.println("Ingrese la ID del robo a registrar: ");
+		r.setIdLugarRobo(Integer.parseInt(s.nextLine()));
+		rxd.setIdLugarRobo(r.getIdLugarRobo());
 		
-		dr.add(r);
+		System.out.println("Cuantos fueron al robo?");
+		int integrantesCant = Integer.parseInt(s.nextLine());
 		
-		//dr.saveRobo(i, r);		
+		if (integrantesCant >= r.getMinIntregantes() && integrantesCant <= r.getMaxIntegrantes()) {
+			
+			System.out.println("Ingrese el resultado del robo: (V- Victoria ; E- Empate ; F- Fracaso)");
+			String op = s.nextLine();
+			if (op.equalsIgnoreCase("S")) {
+				resultado = "Victoria";
+			}
+			else if (op.equalsIgnoreCase("E")) 
+			{
+				resultado = "Empate";
+			}
+			else if (op.equalsIgnoreCase("F")) {
+				resultado = "Fracaso";
+			}
+			
+			System.out.println("Se setea la fecha y hora actual del robo del dia para el integrante."); 
+			LocalDate fecha = LocalDate.now();
+			LocalTime hora = LocalTime.now();
+			
+			for (int j = 0; j <= integrantesCant; j++) {
+				
+				i = find();	
+											
+				rxd.setFecha_robo(fecha);
+				rxd.setHora_robo(hora);
+				
+				rxd.setResultado(resultado);
+				rxd.setIdIntegrante(i.getIdIntegrante());
+				
+				Datarxd.saveRobo(i, r, rxd);
+			}
+			
+		}													
 	}
 
 	private void regHorasJugadas() {
@@ -264,22 +304,36 @@ public class Menu
 		i = find();
 		
 		if (i != null) {
-			//agregar al dh el integrante
-			
-			/*
+			//agregar al h el integrante
+			h.setIdIntegrante(i.getIdIntegrante());
+		
+			//se agregan hora inicio y fin
+			 System.out.println("Ingrese la hora de inicio: ");
+			 int hora = Integer.parseInt(s.nextLine());
+			 System.out.println("Ingrese los minutos de la hora de inicio: ");
+			 int minuto = Integer.parseInt(s.nextLine());
 			 
-			 System.out.println("Ingrese hora inicio: ");
-			 System.out.println("Ingrese hora fin: ");
-	
-			 esto en el dh
+			 LocalTime horaInicio = LocalTime.of(hora, minuto);
+			 h.setHoraInicio(horaInicio);
 			 
-			*/
+			 System.out.println("Ingrese la hora de finalizacion: ");
+			 hora = Integer.parseInt(s.nextLine());
+			 System.out.println("Ingrese los minutos de la hora de finalizacion: ");
+			 minuto = Integer.parseInt(s.nextLine());
+			 
+			 LocalTime horaFin = LocalTime.of(hora, minuto);
+			 h.setHoraFin(horaFin);
 			
-			//codificar Fecha en el dh 
+			//codificar Fecha en el dh
+			 LocalDate fecha = LocalDate.now();
+			 h.setFecha(fecha);
+			 
+			 //agrego a DB
+			 dh.add(h);
 		}
 	}
 
-	//validar que el nombre no coincida con alguno ya hecho
+	//validar que el nombre no coincida con alguno ya hecho con un try-catch
 	private void regRango() {
 		System.out.println();
 		Rango r = new Rango();
@@ -317,41 +371,46 @@ public class Menu
 		dr.saveRole(i, r);
 	}
 
-	//codificar la Fecha en el DB de DataStockarma, y que el metodo (cree juani) reciba como parametro el arma
+
 	private void regStock() {
 		System.out.println();
-		Arma a = new Arma();
 		DataArma da = new DataArma();
 		Stockarma stockarma = new Stockarma();
 		DataStockarma dstock = new DataStockarma();
 		
+		System.out.println(da.getAll());
+		
 		System.out.println("Ingrese el ID del arma a registrar stock: ");
-		a.setIdArma(Integer.parseInt(s.nextLine()));
-		
-		a = da.getById(a);
-		
-		if(a != null) {
-			stockarma.setIdArma(a.getIdArma());
-			
+		stockarma.setIdArma(Integer.parseInt(s.nextLine()));
+	
+		int cantidad = 0;
+		do {
 			System.out.println("Ingrese la cantidad para el stock: ");
 			stockarma.setCantidad(Integer.parseInt(s.nextLine()));
 			
-			//codificar la Fecha 
+		} while (cantidad != 0);
 			
-			//guardar stock en la DB
-		}		
+		//codificar la Fecha 
+		LocalDate fecha = LocalDate.now();
+		stockarma.setFecha(fecha);
+		
+		//guardar stock en la DB
+		dstock.add(stockarma);
 	}
 
-	//falta hacer el getById en DataRan_Subdivision
 	private Ran_Subdivision showRangoSub() {
 		System.out.println();
 		Ran_Subdivision rsb = new Ran_Subdivision();
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
+		DataSubdivision dsb = new DataSubdivision();
 		
-		System.out.println("Ingrese el ID del rango de la subdivision a mostrar: ");
+		System.out.println("Listado de las subdivisiones: ");
+		System.out.println(dsb.getAll());
+		
+		System.out.println("Ingrese la ID de la subdivision para mostrar los rangos: ");
 		rsb.setIdSub(Integer.parseInt(s.nextLine()));
 		
-		//rsb = drsb.getById(rsb);
+		drsb.getByIdSub(rsb);
 		
 		return rsb;
 	}
@@ -446,19 +505,21 @@ public class Menu
 		return Integrantes;
 	}
 
-	//falta hacer el update en DataRan_Subdivision
 	private void updateRangoSub() {
 		System.out.println();
 		Ran_Subdivision rsb = new Ran_Subdivision();
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
+		Rango r = new Rango();
 		
 		rsb = findRanSub();
 		
 		System.out.println("Nombre del rango de la subdivision (ACTUAL): " + rsb.getNombreRangoSub());
 		System.out.println();
-		System.out.println("Nombre del rango de la subdivision (NUEVO): "); rsb.setNombreRangoSub(s.nextLine());
+		System.out.println("Nombre del rango de la subdivision (NUEVO): "); r.setNomRango(s.nextLine());
 		
-		//drsb.update(rsb);
+		rsb.setNombreRangoSub(r.getNomRango());
+		
+		drsb.update(r);
 	}
 
 	private Ran_Subdivision findRanSub() {
@@ -632,10 +693,19 @@ public class Menu
 		System.out.println();
 		Ran_Subdivision rsb = new Ran_Subdivision();
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
+		Subdivision sb = new Subdivision();
+		DataSubdivision dsb = new DataSubdivision();
+		Rango r = new Rango();
 		
-		System.out.println("Nombre del rango de la subdivision: "); rsb.setNombreRangoSub(s.nextLine());
+		System.out.println("Listado de las subdivisiones: ");
+		System.out.println(dsb.getAll());
 		
-		//drsb.add(rsb);
+		System.out.println("A qué subdivision le crea un rango? Ingrese el nombre: ");
+		r.setNomRango(s.nextLine());
+		
+		rsb.setNombreRangoSub(r.getNomRango());
+		
+		drsb.add(r);
 	}
 
 	private void newSubdivisiones() {
@@ -776,7 +846,7 @@ public class Menu
 		System.out.println();
 		Integrante i=new Integrante();
 		
-		System.out.print("Ingrese la id del integrante: ");
+		System.out.print("Ingrese la ID del integrante: ");
 		i.setIdIntegrante(Integer.parseInt(s.nextLine()));
 		
 		return ctrlLogin.getByIdIntegrante(i);

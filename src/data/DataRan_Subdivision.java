@@ -135,7 +135,7 @@ public class DataRan_Subdivision {
 		return rsb;
 	}
 	
-	public void add(Rango rango) 									//Juani: dejé hasta aca
+	public void add(Rango rango) 									
 	{
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
