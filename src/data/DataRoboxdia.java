@@ -97,7 +97,7 @@ public class DataRoboxdia {
 				while(rs.next()) 
 				{
 					Robo r=new Robo();
-					r.setIdLugarRobo(rs.getInt("idRol"));
+					r.setIdLugarRobo(rs.getInt("idLugarRobo"));
 					r.setDescripcion(rs.getString("descripcion"));
 					r.setNomRobo(rs.getString("nomRobo"));
 					r.setLugarRobo(rs.getString("lugarRobo"));
