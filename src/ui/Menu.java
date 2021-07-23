@@ -10,6 +10,7 @@ import data.DataHoras;
 import data.DataIntegrante;
 import data.DataMed_Integrante;
 import data.DataMedalla;
+import data.DataRanSub_Integrante;
 import data.DataRan_Subdivision;
 import data.DataRango;
 import data.DataRobo;
@@ -179,11 +180,11 @@ public class Menu
 			}
 				break;
 			case "registrarUnRangoSub":{
-				regRangoSub();
+				regRangoSub();								//tuneado
 			}
 				break;	
 			case "registrarUnaSancion":{
-				regSancion();
+				regSancion();								//tuneado
 			}
 				break;	
 			case "salir":
@@ -211,7 +212,6 @@ public class Menu
 		dh.update(h);
 	}
 
-	//delete de ds deberia recibir de parametro al integrante en vez de sancion? hacer saveSancion?
 	private void regSancion() {
 		System.out.println();
 		Sancion san = new Sancion();
@@ -219,15 +219,15 @@ public class Menu
 		Integrante i = new Integrante();
 		
 		i = find();
+		san.setIdIntegrante(i.getIdIntegrante());
 		
-		//ds.delete(i);
+		System.out.println("Se muestra la lista de sanciones del integrante: ");
+		System.out.println(ds.getById(san));
 		
 		System.out.println("Ingrese Tipo de sancion para el integrante: "); san.setTipoSancion(s.nextLine());
 		System.out.println("Ingrese el motivo de la sancion para el integrante: "); san.setMotivo(s.nextLine());
 		
 		ds.add(san);
-		
-		//ds.saveSancion(i, san);
 	}
 
 	private void regRangoSub() {
@@ -236,6 +236,8 @@ public class Menu
 		DataSubdivision dsb = new DataSubdivision();
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
 		Integrante i = new Integrante();
+		Ransub_integrante rsbi = new Ransub_integrante();
+		DataRanSub_Integrante drsbi = new DataRanSub_Integrante();
 		
 		i = find();
 		
@@ -251,7 +253,12 @@ public class Menu
 		System.out.println("Ingrese la ID del rango: ");
 		int idrangoSub = Integer.parseInt(s.nextLine());
 		
+		rsbi.setIdIntegrante(i.getIdIntegrante());
+		LocalDate fecha = LocalDate.now();
+		rsbi.setFecha_desde(fecha);
+		rsbi.setIdRangoSub(idrangoSub);
 		
+		drsbi.add(rsbi);
 	}
 
 	private void regMedalla() {
@@ -746,17 +753,17 @@ public class Menu
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
 		Subdivision sb = new Subdivision();
 		DataSubdivision dsb = new DataSubdivision();
-		Rango r = new Rango();
 		
 		System.out.println("Listado de las subdivisiones: ");
 		System.out.println(dsb.getAll());
 		
-		System.out.println("A qué subdivision le crea un rango? Ingrese el nombre: ");
-		r.setNomRango(s.nextLine());
+		System.out.println("A qué subdivision le crea un rango? Ingrese la ID: ");
+		rsb.setIdSub(Integer.parseInt(s.nextLine()));
 		
-		rsb.setNombreRangoSub(r.getNomRango());
+		System.out.println("Ingrese el nombre del rango: ");
+		rsb.setNombreRangoSub(s.nextLine());
 		
-		drsb.add(r);
+		drsb.add(rsb);
 	}
 
 	private void newSubdivisiones() {

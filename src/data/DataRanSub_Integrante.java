@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import entities.Ransub_integrante;
 
 public class DataRanSub_Integrante {
+	
 	public void add(Ransub_integrante rsi) 									
 	{
 		PreparedStatement stmt= null;
