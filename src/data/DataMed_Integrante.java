@@ -81,7 +81,7 @@ public class DataMed_Integrante {
 		
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
-		try 
+		try  
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					  "select medalla.* "
