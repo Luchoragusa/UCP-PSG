@@ -117,7 +117,7 @@ public class Menu
 			
 			case "mostrarIntegrantes":{
 				System.out.println(showIntegrantes());
-;			}
+			}
 				break;
 			case "mostrarArmas":{
 				System.out.println(showArmas());
