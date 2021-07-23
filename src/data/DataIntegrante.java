@@ -17,7 +17,7 @@ public class DataIntegrante {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select idIntegrante,nombre,apellido,discorId,steamHex from persona where usuario=? and pw=?"
+					"select idIntegrante,nombre,apellido,discordId,steamHex from integrante where usuario=? and pw=?"
 					);
 			stmt.setString(1, inte.getUsuario());
 			stmt.setString(2, inte.getPw());
@@ -28,7 +28,7 @@ public class DataIntegrante {
 				i.setNombre(rs.getString("nombre"));
 				i.setApellido(rs.getString("apellido"));
 				i.setSteamHex(rs.getString("steamHex"));
-				i.setDiscordId(rs.getString("discorId"));
+				i.setDiscordId(rs.getString("discordId"));
 				//
 				dr.setRoles(i);
 			}
@@ -62,7 +62,7 @@ public class DataIntegrante {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select nombre,apellido, discorId,steamHex,usuario from integrante where idIntegrante = ?");
+			 "select nombre,apellido, discordId,steamHex,usuario from integrante where idIntegrante = ?");
 			stmt.setString(1, inte.getApellido());
 			rs=stmt.executeQuery();
 			
@@ -112,7 +112,7 @@ public class DataIntegrante {
 		LinkedList<Integrante> inte= new LinkedList<>();		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select idIntegrante,nombre,apellido,discorId,steamHex from integrante");
+			rs= stmt.executeQuery("select idIntegrante,nombre,apellido,discordId,steamHex from integrante");
 		
 			if(rs!=null) {
 				while(rs.next()) {
@@ -121,7 +121,7 @@ public class DataIntegrante {
 					i.setIdIntegrante(rs.getInt("idIntegrante"));
 					i.setNombre(rs.getString("nombre"));
 					i.setApellido(rs.getString("apellido"));
-					i.setDiscordId(rs.getString("discorId"));
+					i.setDiscordId(rs.getString("discordId"));
 					i.setSteamHex(rs.getString("steamHex"));
 					dr.setRoles(i);
 					
@@ -161,7 +161,7 @@ public class DataIntegrante {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select idIntegrante,nombre,discorId,steamHex,usuario from integrante where apellido = ?");
+			 "select idIntegrante,nombre,discordId,steamHex,usuario from integrante where apellido = ?");
 			stmt.setString(1, inte.getApellido());
 			rs=stmt.executeQuery();
 			
@@ -173,7 +173,7 @@ public class DataIntegrante {
 					i.setIdIntegrante(rs.getInt("idIntegrante"));
 					i.setNombre(rs.getString("nombre"));
 					i.setApellido(inte.getApellido());
-					i.setDiscordId(rs.getString("discorId"));
+					i.setDiscordId(rs.getString("discordId"));
 					i.setSteamHex(rs.getString("steamHex"));
 					i.setUsuario(rs.getString("usuario"));
 					

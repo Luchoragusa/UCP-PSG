@@ -360,7 +360,7 @@ public class Menu
 		}													
 	}
 
-	private void regHorasJugadas() {
+	private void regHorasJugadas() {			//no pedir ID
 		System.out.println();
 		Horas h = new Horas();
 		DataHoras dh = new DataHoras();
@@ -888,7 +888,7 @@ public class Menu
 	{
 		Integrante i=new Integrante();
 		
-		System.out.print("Email: ");
+		System.out.print("User: ");
 		i.setUsuario(s.nextLine());
 
 		System.out.print("Password: ");
