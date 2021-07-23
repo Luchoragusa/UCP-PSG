@@ -99,7 +99,7 @@ public class DataRobo
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select * from rol where descripcion=?"
+					"select * from rol where nomRobo=?"
 					);
 			stmt.setString(1, roboToSearch.getNomRobo());
 			rs=stmt.executeQuery();
