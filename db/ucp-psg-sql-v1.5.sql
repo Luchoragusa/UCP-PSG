@@ -264,9 +264,10 @@ DROP TABLE IF EXISTS `robo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `robo` (
   `idLugarRobo` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
   `nomRobo` varchar(45) NOT NULL,
   `lugarRobo` varchar(45) DEFAULT NULL,
+  `maxIntegrantes` int NOT NULL,
+  `minIntegrantes` int NOT NULL,
   PRIMARY KEY (`idLugarRobo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -277,7 +278,7 @@ CREATE TABLE `robo` (
 
 LOCK TABLES `robo` WRITE;
 /*!40000 ALTER TABLE `robo` DISABLE KEYS */;
-INSERT INTO `robo` VALUES (1,'4-6 Atracadores/Psg','Yate',NULL),(2,'4-5 Atracadores/Psg','Life Invader',NULL),(3,'8-10 Atracadores/Psg','Humane',NULL),(4,'2-3 Atracadores/Psg','Cerveceria','Salita medica'),(5,'2-3 Atracadores/Psg','Cerveceria','Vespucci'),(6,'2-3 Atracadores/Psg','Cerveceria','Costa'),(7,'2-3 Atracadores/Psg','Cerveceria','Atas de Comisaria');
+INSERT INTO `robo` VALUES (1,'Yate',NULL,6,4),(2,'Life Invader',NULL,5,4),(3,'Humane',NULL,10,8),(4,'Cerveceria','Salita medica',3,2),(5,'Cerveceria','Vespucci',3,2),(6,'Cerveceria','Costa',3,2),(7,'Cerveceria','Atras de Comisaria',3,2);
 /*!40000 ALTER TABLE `robo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -444,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-23 15:12:48
+-- Dump completed on 2021-07-23 17:06:12
