@@ -6,11 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-import entities.Arma;
+import entities.Integrante;
 import entities.Ran_Subdivision;
 import entities.Rango;
-import entities.Stockarma;
-import entities.Subdivision;
+import entities.Ran_Integrante;
 
 public class DataRan_Subdivision {
 
@@ -237,7 +236,7 @@ public class DataRan_Subdivision {
 		}
 	}
 
-	public void saveRango(Integrante intg, Rango rango) 
+	public void saveRango(Integrante intg, Rango rango, Ran_Integrante ri) 
 	{
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -248,7 +247,7 @@ public class DataRan_Subdivision {
 			
 			stmt.setInt(1, rango.getIdRango());
 			stmt.setInt(2, intg.getIdIntegrante());
-			//stmt.setDate(3, ); funcion que de la fecha de hoy
+			stmt.setObject(3, ri.getFecha_desde());
 			stmt.executeUpdate();
 		} 
 		catch (SQLException e) 
