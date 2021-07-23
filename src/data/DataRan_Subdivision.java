@@ -135,7 +135,7 @@ public class DataRan_Subdivision {
 		return rsb;
 	}
 	
-	public void add(Rango rango) 									
+	public void add(Ran_Subdivision rsub) 									
 	{
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
@@ -143,16 +143,18 @@ public class DataRan_Subdivision {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into ran_subdivision(idSub, nombRango) values(?)",
+							"insert into ran_subdivision(idSub, nombRango, idRanSub) values(?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
-			stmt.setString(1, rango.getNomRango());
+			stmt.setString(1, rsub.getNombreRangoSub());
+			stmt.setInt(2, rsub.getIdSub());
+			stmt.setInt(2, rsub.getIdRanSub());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next())
             {
-                rango.setIdRango(keyResultSet.getInt(1));   // creo q es al pedo pq no le devolvemos
+                rsub.setIdRanSub(keyResultSet.getInt(1));   // creo q es al pedo pq no le devolvemos
             }
 
 		} 
