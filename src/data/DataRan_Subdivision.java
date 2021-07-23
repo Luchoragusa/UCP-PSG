@@ -114,7 +114,6 @@ public class DataRan_Subdivision {
 				rsb.setNombreRangoSub(rs.getString("nombreRangoSub"));
 			}
 		}
-		
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
