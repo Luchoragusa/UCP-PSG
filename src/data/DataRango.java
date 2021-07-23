@@ -95,7 +95,7 @@ public class DataRango
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select * from rol where descripcion=?"
+					"select * from rango where nombRango=?"
 					);
 			stmt.setString(1, rangoToSearch.getNomRango());
 			rs=stmt.executeQuery();
@@ -205,7 +205,7 @@ public class DataRango
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from rol where idRango=?");
+							"delete from rango where idRango=?");
 			stmt.setInt(1, rango.getIdRango());
 			stmt.executeUpdate();
 		} 

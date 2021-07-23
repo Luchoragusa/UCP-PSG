@@ -96,7 +96,7 @@ public class DataMedalla {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select * from medalla where nomMedalla=?"
 					);
-			stmt.setInt(1, medallaToSearch.getIdMedalla());
+			stmt.setString(1, medallaToSearch.getNomMedalla());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) 
 			{

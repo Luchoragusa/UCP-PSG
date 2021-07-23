@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import entities.Arma;
 import entities.Ran_Subdivision;
 import entities.Rango;
+import entities.Stockarma;
 import entities.Subdivision;
 
 public class DataRan_Subdivision {
@@ -51,29 +53,34 @@ public class DataRan_Subdivision {
 		return rangosSub;
 	}
 	
-	public Rango getById(Rango rangoSubToSearch) 
+	public LinkedList<Ran_Subdivision> getByIdSub(Ran_Subdivision rsub) 
 	{
-		Ran_Subdivision rsb = null;
+
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
+		LinkedList<Ran_Subdivision> rsubs= new LinkedList<>();
+		
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select * from ran_subdivision where idSub=?"
-					);
-			stmt.setInt(1, rangoSubToSearch.getIdRango());
+			 "select nombreRangoSub from ran_subdivision where idSub = ?");
+			stmt.setInt(1, rsub.getIdSub());
 			rs=stmt.executeQuery();
-			if(rs!=null && rs.next()) 
+			
+			if(rs!=null) 
 			{
-				rsb = new Ran_Subdivision();
-				rsb.setIdSub(rs.getInt("idSub"));
-				rsb.setNombreRangoSub(rs.getString("nombreRangoSub"));
-			}
-		} 
-		catch (SQLException e) 
-		{
+				while(rs.next()) 
+				{
+					Ran_Subdivision s =new Ran_Subdivision();
+					s.setIdSub(rsub.getIdSub());
+					s.setNombreRangoSub(rs.getString("nombreRangoSub"));			
+					rsubs.add(s);
+				}
+			}	
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+			
+		} 
 		finally 
 		{
 			try 
@@ -87,24 +94,25 @@ public class DataRan_Subdivision {
 				e.printStackTrace();
 			}
 		}
-		return r;
+		return rsubs;
+	
 	}
 	
-	public Rango getByNomb(Rango rangoSubToSearch) 
+	public Ran_Subdivision getByNombre(Ran_Subdivision rsub) 
 	{
 		Ran_Subdivision rsb = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select * from rol where nombreRangoSub=?"
+					"select * from ran_subdivision where nombreRangoSub=?"
 					);
-			stmt.setString(1, rangoSubToSearch.getNomRango());
+			stmt.setString(1, rsub.getNombreRangoSub());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) 
 			{
 				rsb = new Ran_Subdivision();
-				rsb.setIdSub(rs.getInt("idRango"));
+				rsb.setIdSub(rs.getInt("idSub"));
 				rsb.setNombreRangoSub(rs.getString("nombreRangoSub"));
 			}
 		}
@@ -126,7 +134,7 @@ public class DataRan_Subdivision {
 				e.printStackTrace();
 			}
 		}
-		return r;
+		return rsb;
 	}
 	
 	public void add(Rango rango) 									//Juani: dejé hasta aca

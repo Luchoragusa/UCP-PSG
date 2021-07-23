@@ -102,7 +102,7 @@ public class DataArma {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select * from arma where nombreArma=?"
 					);
-			stmt.setInt(1, armaToSearch.getIdArma());
+			stmt.setString(1, armaToSearch.getNombreArma());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) 
 			{
