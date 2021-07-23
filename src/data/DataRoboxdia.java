@@ -22,8 +22,8 @@ public class DataRoboxdia {
 			stmt.setInt(1, rd.getIdLugarRobo());
 			stmt.setInt(2, intg.getIdIntegrante());
 			stmt.setObject(3, rd.getFecha_robo());
-			stmt.setObject(3, rd.getHora_robo());
-			stmt.setString(3, rd.getResultado());
+			stmt.setObject(4, rd.getHora_robo());
+			stmt.setString(5, rd.getResultado());
 			stmt.executeUpdate();
 		} 
 		catch (SQLException e) 
