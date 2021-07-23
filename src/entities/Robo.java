@@ -2,7 +2,23 @@ package entities;
 
 public class Robo {
 
-	private int idLugarRobo;
+	private int idLugarRobo, minIntregantes, maxIntegrantes;
+	public int getMinIntregantes() {
+		return minIntregantes;
+	}
+
+	public void setMinIntregantes(int minIntregantes) {
+		this.minIntregantes = minIntregantes;
+	}
+
+	public int getMaxIntegrantes() {
+		return maxIntegrantes;
+	}
+
+	public void setMaxIntegrantes(int maxIntegrantes) {
+		this.maxIntegrantes = maxIntegrantes;
+	}
+
 	private String descripcion, nomRobo, lugarRobo;
 	
 	public Robo() {
