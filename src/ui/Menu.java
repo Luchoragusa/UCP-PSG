@@ -677,10 +677,6 @@ public class Menu
 		
 		robo = findRobo();
 		
-		System.out.println("Descricpion del robo (ACTUAL): " + robo.getDescripcion());
-		System.out.println();
-		System.out.println("Descripcion del robo (NUEVO): "); robo.setDescripcion(s.nextLine());
-		
 		System.out.println("Nombre del robo (ACTUAL): " + robo.getNomRobo());
 		System.out.println();
 		System.out.println("Nombre del robo (NUEVO): "); robo.setNomRobo(s.nextLine());
@@ -688,6 +684,14 @@ public class Menu
 		System.out.println("Lugar del robo (ACTUAL): " + robo.getLugarRobo());
 		System.out.println();
 		System.out.println("Lugar del robo (NUEVO): "); robo.setLugarRobo(s.nextLine());
+		
+		System.out.println("Maximo de integrantes (ACTUAL): " + robo.getMaxIntegrantes());
+		System.out.println();
+		System.out.println("Maximo de integrantes (NUEVO): "); robo.setMaxIntegrantes(Integer.parseInt(s.nextLine()));
+		
+		System.out.println("Minimo de integrantes (ACTUAL): " + robo.getMinIntregantes());
+		System.out.println();
+		System.out.println("Minimo de integrantes (NUEVO): "); robo.setMinIntregantes(Integer.parseInt(s.nextLine()));
 		
 		dr.update(robo);
 	}
