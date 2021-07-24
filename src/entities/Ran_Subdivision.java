@@ -23,4 +23,9 @@ public class Ran_Subdivision {
 	public void setIdSub(int idSub) {
 		this.idSub = idSub;
 	}
+	@Override
+	public String toString() {
+		return "Ran_Subdivision [nombreRangoSub=" + nombreRangoSub + ", idSub=" + idSub + ", idRanSub=" + idRanSub
+				+ "]";
+	}
 }
