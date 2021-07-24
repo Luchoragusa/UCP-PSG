@@ -944,10 +944,11 @@ public class Menu
 		System.out.println("Lista de roles ");
 		System.out.println(dr.getAll());
 		
-		System.out.print("Ingrese la descripcion del rol: "); 
-		r.setDescripcion(s.nextLine());
-		r = dr.getByDesc(r);
-		System.out.println(r.toString());
+		System.out.print("Ingrese la ID del rol: "); 
+		r.setIdRol(Integer.parseInt(s.nextLine()));
+		
+		System.out.println("La ID ingresada: ");
+		System.out.println(dr.getById(r).toString());
 		i.addRol(r); // agrego el rol a la persona
 		ctrlLogin.add(i); // agrego la persona
 		dr.saveRole(i,r); // agrego el rol a la tabla de rol_persona
@@ -997,12 +998,11 @@ public class Menu
 		System.out.println("Lista de roles ");
 		System.out.println(dr.getAll());
 		
-		System.out.print("Ingrese la descripcion del rol: "); 
-		r.setDescripcion(s.nextLine());
+		System.out.print("Ingrese la ID del rol: "); 
+		r.setIdRol(Integer.parseInt(s.nextLine()));		
 		
-		r = dr.getByDesc(r);
-		
-		System.out.println(r.toString());
+		System.out.println("El rol, actualizado, es: ");
+		System.out.println(dr.getById(r).toString());
 		
 		ctrlLogin.update(i); // agrego la persona
 		
