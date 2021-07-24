@@ -24,9 +24,10 @@ public class DataRobo
 				{
 					Robo r=new Robo();
 					r.setIdLugarRobo(rs.getInt("idLugarRobo"));
-					r.setDescripcion(rs.getString("descripcion"));
 					r.setNomRobo(rs.getString("nomRobo"));
 					r.setLugarRobo(rs.getString("lugarRobo"));
+					r.setMaxIntegrantes(rs.getInt("maxIntegrantes"));
+					r.setMinIntregantes(rs.getInt("minIntegrantes"));
 					robos.add(r);
 				}
 			}
@@ -67,9 +68,10 @@ public class DataRobo
 			{
 				r=new Robo();
 				r.setIdLugarRobo(rs.getInt("idLugarRobo"));
-				r.setDescripcion(rs.getString("descripcion"));
 				r.setNomRobo(rs.getString("nomRobo"));
 				r.setLugarRobo(rs.getString("lugarRobo"));
+				r.setMaxIntegrantes(rs.getInt("maxIntegrantes"));
+				r.setMinIntregantes(rs.getInt("minIntegrantes"));
 			}
 		} 
 		catch (SQLException e) 
@@ -107,9 +109,10 @@ public class DataRobo
 			{
 				r=new Robo();
 				r.setIdLugarRobo(rs.getInt("idLugarRobo"));
-				r.setDescripcion(rs.getString("descripcion"));
 				r.setNomRobo(rs.getString("nomRobo"));
 				r.setLugarRobo(rs.getString("lugarRobo"));
+				r.setMaxIntegrantes(rs.getInt("maxIntegrantes"));
+				r.setMinIntregantes(rs.getInt("minIntegrantes"));
 			}
 		}
 		
@@ -141,12 +144,13 @@ public class DataRobo
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into robo(descripcion, nomRobo, lugarRobo) values(?,?,?)",
+							"insert into robo(nomRobo, lugarRobo, maxIntegrantes, minIntegrantes) values(?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
-			stmt.setString(1, robo.getDescripcion());
-			stmt.setString(2, robo.getNomRobo());
-			stmt.setString(3, robo.getLugarRobo());
+			stmt.setString(1, robo.getNomRobo());
+			stmt.setString(2, robo.getLugarRobo());
+			stmt.setInt(3, robo.getMaxIntegrantes());
+			stmt.setInt(4, robo.getMinIntregantes());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
@@ -183,11 +187,12 @@ public class DataRobo
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update robo set descripcion=?, nomRobo=?, lugarRobo=? where idLugarRobo=?");
-			stmt.setString(1, robo.getDescripcion());
-			stmt.setString(2, robo.getNomRobo());
-			stmt.setString(3, robo.getLugarRobo());
-			stmt.setInt(4, robo.getIdLugarRobo());
+							"update robo set nomRobo=?, lugarRobo=?, maxIntegrantes=?, minIntegrantes=? where idLugarRobo=?");
+			stmt.setString(1, robo.getNomRobo());
+			stmt.setString(2, robo.getLugarRobo());
+			stmt.setInt(3, robo.getMaxIntegrantes());
+			stmt.setInt(4, robo.getMinIntregantes());
+			stmt.setInt(5, robo.getIdLugarRobo());
 			stmt.executeUpdate();
 		} 
 		catch (SQLException e) 

@@ -19,7 +19,7 @@ public class Robo {
 		this.maxIntegrantes = maxIntegrantes;
 	}
 
-	private String descripcion, nomRobo, lugarRobo;
+	private String nomRobo, lugarRobo;
 	
 	public Robo() {
 		
@@ -31,14 +31,6 @@ public class Robo {
 
 	public void setIdLugarRobo(int idLugarRobo) {
 		this.idLugarRobo = idLugarRobo;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 
 	public String getNomRobo() {

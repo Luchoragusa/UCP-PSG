@@ -137,7 +137,7 @@ public class DataRol {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement( 
-					"insert into rol_persona (idIntegrante, idRol) values(?,?)");
+					"insert into rol_integrante (idIntegrante, idRol) values(?,?)");
 			
 			stmt.setInt(1, intg.getIdIntegrante());
 			stmt.setInt(2, rol.getIdRol());

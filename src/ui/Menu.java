@@ -529,17 +529,12 @@ public class Menu
 		return r;
 	}
 
-	private Rol showRoles() {
+	private LinkedList<Rol> showRoles() {
 		System.out.println();
-		Rol r = new Rol();
 		DataRol dr = new DataRol();
 		
-		System.out.println("Ingrese el ID del rol a mostrar: ");
-		r.setIdRol(Integer.parseInt(s.nextLine()));
-		
-		r = dr.getById(r);
-		
-		return r;
+		System.out.println("Lista de todos los roles: ");
+		return dr.getAll();
 	}
 
 	private Arma showArmas() {
@@ -677,10 +672,6 @@ public class Menu
 		
 		robo = findRobo();
 		
-		System.out.println("Descricpion del robo (ACTUAL): " + robo.getDescripcion());
-		System.out.println();
-		System.out.println("Descripcion del robo (NUEVO): "); robo.setDescripcion(s.nextLine());
-		
 		System.out.println("Nombre del robo (ACTUAL): " + robo.getNomRobo());
 		System.out.println();
 		System.out.println("Nombre del robo (NUEVO): "); robo.setNomRobo(s.nextLine());
@@ -688,6 +679,14 @@ public class Menu
 		System.out.println("Lugar del robo (ACTUAL): " + robo.getLugarRobo());
 		System.out.println();
 		System.out.println("Lugar del robo (NUEVO): "); robo.setLugarRobo(s.nextLine());
+		
+		System.out.println("Maximo de integrantes (ACTUAL): " + robo.getMaxIntegrantes());
+		System.out.println();
+		System.out.println("Maximo de integrantes (NUEVO): "); robo.setMaxIntegrantes(Integer.parseInt(s.nextLine()));
+		
+		System.out.println("Minimo de integrantes (ACTUAL): " + robo.getMinIntregantes());
+		System.out.println();
+		System.out.println("Minimo de integrantes (NUEVO): "); robo.setMinIntregantes(Integer.parseInt(s.nextLine()));
 		
 		dr.update(robo);
 	}
@@ -932,10 +931,15 @@ public class Menu
 		
 		System.out.println("Lista de roles ");
 		System.out.println(dr.getAll());
+		
 		System.out.print("Ingrese la descripcion del rol: "); 
 		r.setDescripcion(s.nextLine());
+		
 		r = dr.getByDesc(r);
+		
+		System.out.println("Muestro el rol ingresado: ");
 		System.out.println(r.toString());
+		
 		i.addRol(r); // agrego el rol a la persona
 		ctrlLogin.add(i); // agrego la persona
 		dr.saveRole(i,r); // agrego el rol a la tabla de rol_persona
