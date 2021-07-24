@@ -34,5 +34,10 @@ public class Stockarma {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+
+	@Override
+	public String toString() {
+		return "Stockarma [fecha=" + fecha + ", idArma=" + idArma + ", cantidad=" + cantidad + "]";
+	}
 	
 }
