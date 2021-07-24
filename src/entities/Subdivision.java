@@ -38,7 +38,4 @@ public class Subdivision {
 		return "Subdivision [idSub=" + idSub + ", descripcion=" + descripcion + ", nomSubDivision=" + nomSubDivision
 				+ "]\n";
 	}
-	
-	
-	
 }
