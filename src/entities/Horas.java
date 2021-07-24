@@ -37,6 +37,11 @@ public class Horas
 	public void setHoraFin(LocalTime horaFin) {
 		this.horaFin = horaFin;
 	}
+	@Override
+	public String toString() {
+		return "Horas [idIntegrante=" + idIntegrante + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin
+				+ ", fecha=" + fecha + "]";
+	}
 	public LocalDate getFecha() {
 		return fecha;
 	}
