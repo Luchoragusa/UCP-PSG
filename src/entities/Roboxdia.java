@@ -52,5 +52,11 @@ public class Roboxdia {
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
+
+	@Override
+	public String toString() {
+		return "Roboxdia [hora_robo=" + hora_robo + ", fecha_robo=" + fecha_robo + ", idIntegrante=" + idIntegrante
+				+ ", idLugarRobo=" + idLugarRobo + ", resultado=" + resultado + "]";
+	}
 	
 }
