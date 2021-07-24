@@ -727,7 +727,7 @@ public class Menu
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
 		Rango r = new Rango();
 		
-		rsb = findRanSub();
+		rsb = findRanSub(findSubdivision());
 		
 		System.out.println("Nombre del rango de la subdivision (ACTUAL): " + rsb.getNombreRangoSub());
 		System.out.println();
@@ -1110,10 +1110,11 @@ public class Menu
 	private void newIntegrante()
 	{
 		System.out.println();
-		Integrante i=new Integrante();
-		
+		Integrante i=new Integrante();		
 		Rol r = new Rol();
 		DataRol dr = new DataRol();
+		Rango rango = new Rango();
+		DataRango drango = new DataRango();
 		
 		System.out.print("Apellido: "); i.setApellido(s.nextLine());
 		System.out.print("Nombre: "); i.setNombre(s.nextLine());
@@ -1130,9 +1131,18 @@ public class Menu
 		
 		System.out.println("La ID ingresada: ");
 		System.out.println(dr.getById(r).toString());
+		
+		System.out.println("A continuacion la lista de Rangos: ");
+		System.out.println(drango.getAll());
+		
+		System.out.println("Ingrese la ID del rango a cargarle: ");
+		rango.setIdRango(Integer.parseInt(s.nextLine()));
+		
 		i.addRol(r); // agrego el rol a la persona
+		i.addRango(rango); //agrego el rango a la persona
 		ctrlLogin.add(i); // agrego la persona
-		dr.saveRole(i,r); // agrego el rol a la tabla de rol_persona
+		dr.saveRole(i,r); // agrego el rol a la tabla de rol_integrante
+		drango.saveRango(i, rango); //agrego el rango a la tabla ran_integrante
 		
 		System.out.println("Operacion realizada con Exito");
 	}

@@ -7,6 +7,7 @@ public class Integrante {
 	private int idIntegrante;
 	private String nombre, apellido, steamHex, discordId, usuario, pw;
 	private HashMap<Integer, Rol> roles;
+	private HashMap<Integer, Rango> rangos;
 
 	public Integrante(int idIntegrante, String nombre, String apellido, String steamHex, String discordId) {
 		super();
@@ -98,6 +99,21 @@ public class Integrante {
 		return "Integrante [idIntegrante=" + idIntegrante + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", steamHex=" + steamHex + ", discordId=" + discordId + ", usuario=" + usuario + ", pw=" + pw
 				+ ", roles=" + roles + "]";
+	}
+
+	public void addRango(Rango rangoToBeAdded) {
+		this.rangos.put(rangoToBeAdded.getIdRango(), rangoToBeAdded);
+		
+	}
+	
+	public void removeRango(Rango rangoToBeRemoved) 
+	{
+		this.rangos.remove(rangoToBeRemoved.getIdRango());
+	}
+	
+	public boolean hasRango(Rango rangoToCheck) 
+	{
+		return this.rangos.containsKey(rangoToCheck.getIdRango());
 	}
 	
 }
