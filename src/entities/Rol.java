@@ -25,4 +25,8 @@ public class Rol {
 		this.descripcion = descripcion;
 	}
 	
+	public String toString() 
+	{
+		return "Rol [id=" + idRol + ", descripcion=" + descripcion + "]";
+	}
 }
