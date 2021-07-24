@@ -226,7 +226,45 @@ public class DataRango
             }
 		}
 	}
-
+	
+	public Rango getById_Int(Integrante intg) 
+	{
+		Rango rango = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement( 
+					"select idRango from ran_integrante ORDER BY fecha_desde DESC WHERE idIntegrante=?");
+			
+			stmt.setInt(1, intg.getIdIntegrante());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) 
+			{
+				rango = new Rango();
+				rango.setIdRango(rs.getInt("idRango"));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return rango;
+	}
+	
 	public void saveRango(Integrante intg, Rango rango) 
 	{
 		PreparedStatement stmt=null;

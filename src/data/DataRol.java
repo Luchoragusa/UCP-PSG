@@ -28,7 +28,6 @@ public class DataRol {
 					roles.add(r);
 				}
 			}
-			
 		} 
 		catch (SQLException e) 
 		{
@@ -47,8 +46,6 @@ public class DataRol {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		return roles;
 	}
 	

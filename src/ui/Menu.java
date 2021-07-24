@@ -399,14 +399,13 @@ public class Menu
 	private void regRangoSub() {
 		System.out.println();
 		Ran_Subdivision rsb = new Ran_Subdivision();
-		DataSubdivision dsb = new DataSubdivision();
-		DataRan_Subdivision drsb = new DataRan_Subdivision();
 		Integrante i = new Integrante();
 		Ransub_integrante rsbi = new Ransub_integrante();
 		DataRanSub_Integrante drsbi = new DataRanSub_Integrante();
 		Subdivision sb = new Subdivision();
+		DataRango dr = new DataRango();
 		
-		i = find();
+		i = find(); // se rompio NO HICE NADA YO
 		
 		sb = findSubdivision();
 		
@@ -414,11 +413,17 @@ public class Menu
 		
 		rsbi.setIdIntegrante(i.getIdIntegrante());
 		
-		LocalDate fecha = LocalDate.now();
-		rsbi.setFecha_desde(fecha);
-		rsbi.setIdRangoSub(rsb.getIdRanSub());
-		
-		drsbi.add(rsbi);
+		// Valido que el rango del integrante sea mayor a empleado antes de asignarle el rangodesub
+		if (dr.getById_Int(i).getIdRango() >= 2)
+		{
+			LocalDate fecha = LocalDate.now();
+			rsbi.setFecha_desde(fecha);
+			rsbi.setIdRangoSub(rsb.getIdRanSub());
+			
+			drsbi.add(rsbi);
+		}
+		else
+			System.out.println("El usuario no cumple con el rango minimo para pertenecer a una subdivison.");
 	}
 
 	private void regMedalla() {

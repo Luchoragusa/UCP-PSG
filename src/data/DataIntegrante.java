@@ -63,13 +63,11 @@ public class DataIntegrante {
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 			 "select nombre,apellido, discordId,steamHex,usuario from integrante where idIntegrante = ?");
-			stmt.setString(1, inte.getApellido());
+			stmt.setInt(1, inte.getIdIntegrante());
 			rs=stmt.executeQuery();
 			
-			if(rs!=null) 
+			if(rs!=null && rs.next()) 
 			{
-				while(rs.next()) 
-				{
 					i=new Integrante();					
 					i.setNombre(rs.getString("nombre"));
 					i.setApellido(rs.getString("apellido"));
@@ -79,12 +77,9 @@ public class DataIntegrante {
 					i.setUsuario(rs.getString("usuario"));
 					
 					dr.setRoles(i);
-					
-				}
 			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
 		} 
 		finally 
 		{
@@ -100,8 +95,6 @@ public class DataIntegrante {
 			}
 		}
 		return i;
-	
-	
 	}
 	
 	public LinkedList<Integrante> getAll() {
