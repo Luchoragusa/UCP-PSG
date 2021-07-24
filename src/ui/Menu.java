@@ -290,11 +290,6 @@ public class Menu
 		dr.remove(r);
 	}
 
-<<<<<<< Updated upstream
-	private void bajaMedallas() 
-	{
-		// TODO Auto-generated method stub
-=======
 	private void bajaMedallas() {
 		System.out.println();
 		Medalla m = new Medalla();
@@ -308,7 +303,6 @@ public class Menu
 		dm.delete(m);
 		
 		System.out.println("Operacion de baja de medalla completada.");
->>>>>>> Stashed changes
 	}
 
 	private void bajaRobos() {
