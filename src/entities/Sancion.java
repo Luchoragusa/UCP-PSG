@@ -32,5 +32,10 @@ public class Sancion {
 	public void setTipoSancion(String tipoSancion) {
 		this.tipoSancion = tipoSancion;
 	}
+
+	@Override
+	public String toString() {
+		return "Sancion [idIntegrante=" + idIntegrante + ", motivo=" + motivo + ", tipoSancion=" + tipoSancion + "]";
+	}
 	
 }
