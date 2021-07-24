@@ -182,6 +182,38 @@ public class Menu
 			case "registrarUnaSancion":{
 				regSancion();								//tuneado
 			}
+				break;
+			case "bajaIntegrantes":{
+				bajaIntegrantes();
+			}
+				break;	
+			case "bajaArmas":{
+				bajaArmas();
+			}
+				break;	
+			case "bajaRoles":{
+				bajaRoles();
+			}
+				break;	
+			case "bajaRobos":{
+				bajaRobos();
+			}
+				break;	
+			case "bajaMedallas":{
+				bajaMedallas();
+			}
+				break;	
+			case "bajaRangos":{
+				bajaRangos();
+			}
+				break;	
+			case "bajaSubdivisiones":{
+				bajaSubdivisiones();
+			}
+				break;	
+			case "bajaRangoSub":{
+				bajaRangoSub();
+			}
 				break;	
 			case "salir":
 				close();
@@ -194,6 +226,46 @@ public class Menu
 		}
 	}
 	
+	private void bajaRangoSub() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bajaSubdivisiones() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bajaRangos() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bajaMedallas() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bajaRobos() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bajaRoles() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bajaArmas() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void bajaIntegrantes() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void regHoraFin(Integrante i) {
 		Horas h = new Horas(); 
 		DataHoras dh = new DataHoras();
@@ -875,6 +947,19 @@ public class Menu
 		System.out.print("\n registrarUnaMedalla");
 		System.out.print("\n registrarUnRangoSub");
 		System.out.print("\n registrarUnaSancion");
+
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
+		System.out.print("\n bajaIntegrantes");
+		System.out.print("\n bajaArmas");
+		System.out.print("\n bajaRoles");
+		System.out.print("\n bajaRobos");
+		System.out.print("\n bajaMedallas");
+		System.out.print("\n bajaRangos");
+		System.out.print("\n bajaSubdivisiones");
+		System.out.print("\n bajaRangoSub");
+		
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		
 		System.out.print("\n salir");
 		
