@@ -511,7 +511,6 @@ public class Menu
 				
 				Datarxd.saveRobo(i, r, rxd);
 			}
-			
 		}													
 	}
 
@@ -519,25 +518,24 @@ public class Menu
 		System.out.println();
 		Horas h = new Horas();
 		DataHoras dh = new DataHoras();
-				//agregar al h el integrante
-			h.setIdIntegrante(i.getIdIntegrante());
+			//agregar al h el integrante
+		h.setIdIntegrante(i.getIdIntegrante());
+	
+		//se agregan hora inicio y fin
+		 System.out.println("Ingrese la hora de inicio: ");
+		 int hora = Integer.parseInt(s.nextLine());
+		 System.out.println("Ingrese los minutos de la hora de inicio: ");
+		 int minuto = Integer.parseInt(s.nextLine());
+		 
+		 LocalTime horaInicio = LocalTime.of(hora, minuto);
+		 h.setHoraInicio(horaInicio);			 			 
 		
-			//se agregan hora inicio y fin
-			 System.out.println("Ingrese la hora de inicio: ");
-			 int hora = Integer.parseInt(s.nextLine());
-			 System.out.println("Ingrese los minutos de la hora de inicio: ");
-			 int minuto = Integer.parseInt(s.nextLine());
-			 
-			 LocalTime horaInicio = LocalTime.of(hora, minuto);
-			 h.setHoraInicio(horaInicio);			 			 
-			
-			//codificar Fecha en el dh
-			 LocalDate fecha = LocalDate.now();
-			 h.setFecha(fecha);
-			 
-			 //agrego a DB
-			 dh.add(h);
-		
+		//codificar Fecha en el dh
+		 LocalDate fecha = LocalDate.now();
+		 h.setFecha(fecha);
+		 
+		 //agrego a DB
+		 dh.add(h);
 	}
 
 	//validar que el nombre no coincida con alguno ya hecho con un try-catch
@@ -1138,11 +1136,11 @@ public class Menu
 		System.out.println("Ingrese la ID del rango a cargarle: ");
 		rango.setIdRango(Integer.parseInt(s.nextLine()));
 		
-		i.addRol(r); // agrego el rol a la persona
-		i.addRango(rango); //agrego el rango a la persona
-		ctrlLogin.add(i); // agrego la persona
-		dr.saveRole(i,r); // agrego el rol a la tabla de rol_integrante
-		drango.saveRango(i, rango); //agrego el rango a la tabla ran_integrante
+		i.addRol(r);
+		i.addRango(rango); 
+		ctrlLogin.add(i); 
+		dr.saveRole(i,r); 
+		drango.saveRango(i, rango); 
 		
 		System.out.println("Operacion realizada con Exito");
 	}
@@ -1195,9 +1193,9 @@ public class Menu
 		System.out.println("El rol, actualizado, es: ");
 		System.out.println(dr.getById(r).toString());
 		
-		ctrlLogin.update(i); // agrego la persona
+		ctrlLogin.update(i);
 		
-		dr.saveRole(i,r); // agrego el rol a la tabla de rol_persona
+		dr.saveRole(i,r);
 		
 		System.out.println();
 		System.out.println("Operacion realizada con Exito");
