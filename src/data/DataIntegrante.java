@@ -57,7 +57,7 @@ public class DataIntegrante {
 		DataRol dr=new DataRol();
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
-		
+		Integrante i=null;
 		
 		try 
 		{
@@ -70,7 +70,7 @@ public class DataIntegrante {
 			{
 				while(rs.next()) 
 				{
-					Integrante i=new Integrante();					
+					i=new Integrante();					
 					i.setNombre(rs.getString("nombre"));
 					i.setApellido(rs.getString("apellido"));
 					i.setIdIntegrante(inte.getIdIntegrante());
@@ -99,7 +99,7 @@ public class DataIntegrante {
 				e.printStackTrace();
 			}
 		}
-		return inte;
+		return i;
 	
 	
 	}
