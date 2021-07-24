@@ -43,5 +43,11 @@ public class Med_integrante {
 	public void setFecha_recompensa(LocalDate fecha_recompensa) {
 		this.fecha_recompensa = fecha_recompensa;
 	}
+
+	@Override
+	public String toString() {
+		return "Med_integrante [idMedalla=" + idMedalla + ", idIntegrante=" + idIntegrante + ", recompensa="
+				+ recompensa + ", fecha_recompensa=" + fecha_recompensa + "]";
+	}
 	
 }
