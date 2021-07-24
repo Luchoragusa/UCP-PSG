@@ -37,6 +37,12 @@ public class Ran_Integrante {
 		return fecha_desde;
 	}
 
+	@Override
+	public String toString() {
+		return "Ran_Integrante [idRango=" + idRango + ", idIntegrante=" + idIntegrante + ", fecha_desde=" + fecha_desde
+				+ "]";
+	}
+
 	public void setFecha_desde(LocalDate fecha_desde) {
 		this.fecha_desde = fecha_desde;
 	}
