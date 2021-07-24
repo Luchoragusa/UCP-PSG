@@ -1,7 +1,9 @@
 package ui;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -359,8 +361,9 @@ public class Menu
 	private void regHorasJugadas(Integrante i) {			//no pedir ID
 		System.out.println();
 		Horas h = new Horas();
-		DataHoras dh = new DataHoras();
-				//agregar al h el integrante
+		DataHoras dh = new DataHoras();		
+		
+			//agregar al h el integrante
 			h.setIdIntegrante(i.getIdIntegrante());
 		
 			//se agregan hora inicio y fin
@@ -369,9 +372,16 @@ public class Menu
 			 System.out.println("Ingrese los minutos de la hora de inicio: ");
 			 int minuto = Integer.parseInt(s.nextLine());
 			 
-			 LocalTime horaInicio = LocalTime.of(hora, minuto);
-			 h.setHoraInicio(horaInicio);			 			 
-			
+			 DateTimeFormatter tFormat = DateTimeFormatter.ofPattern(dateTimeFormat);
+			 
+			 h.setHoraFin(LocalTime.parse(Integer.parseInt(s.nextLine()), tFormat));
+			 
+			 
+			 
+			 
+			 /*LocalTime horaInicio = LocalTime.of(hora, minuto);
+			 h.setHoraInicio(horaInicio);*/			 			 
+						 
 			//codificar Fecha en el dh
 			 LocalDate fecha = LocalDate.now();
 			 h.setFecha(fecha);
