@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `ucp-psg` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `ucp-psg`;
 -- MySQL dump 10.13  Distrib 8.0.24, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: ucp-psg
+-- Host: localhost    Database: ucp-psg
 -- ------------------------------------------------------
 -- Server version	8.0.24
 
@@ -27,7 +29,7 @@ CREATE TABLE `arma` (
   `tipoArma` varchar(45) NOT NULL,
   `nombreArma` varchar(45) NOT NULL,
   PRIMARY KEY (`idArma`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +38,7 @@ CREATE TABLE `arma` (
 
 LOCK TABLES `arma` WRITE;
 /*!40000 ALTER TABLE `arma` DISABLE KEYS */;
-INSERT INTO `arma` VALUES (1,'Pistola','Combate'),(2,'SubFusil','SMG'),(3,'Fusil','AK-47');
+INSERT INTO `arma` VALUES (1,'Pistola','Combate'),(2,'SubFusil','SMG'),(3,'Fusil','AK-47'),(8,'Metralleta','NSV');
 /*!40000 ALTER TABLE `arma` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -48,13 +50,13 @@ DROP TABLE IF EXISTS `horas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `horas` (
-  `idIntegramte` int NOT NULL AUTO_INCREMENT,
+  `idIntegrante` int NOT NULL AUTO_INCREMENT,
   `horaInicio` time NOT NULL,
   `horaFin` time DEFAULT NULL,
   `fecha` date NOT NULL,
-  PRIMARY KEY (`idIntegramte`),
-  CONSTRAINT `id_Integrantehr` FOREIGN KEY (`idIntegramte`) REFERENCES `integrante` (`idIntegrante`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idIntegrante`,`horaInicio`,`fecha`),
+  CONSTRAINT `id_Integrantehr` FOREIGN KEY (`idIntegrante`) REFERENCES `integrante` (`idIntegrante`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +65,7 @@ CREATE TABLE `horas` (
 
 LOCK TABLES `horas` WRITE;
 /*!40000 ALTER TABLE `horas` DISABLE KEYS */;
+INSERT INTO `horas` VALUES (1,'17:34:00',NULL,'2021-07-23'),(2,'17:36:00',NULL,'2021-07-23'),(3,'17:35:00',NULL,'2021-07-23');
 /*!40000 ALTER TABLE `horas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +85,7 @@ CREATE TABLE `integrante` (
   `usuario` varchar(45) NOT NULL,
   `pw` varchar(45) NOT NULL,
   PRIMARY KEY (`idIntegrante`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +94,7 @@ CREATE TABLE `integrante` (
 
 LOCK TABLES `integrante` WRITE;
 /*!40000 ALTER TABLE `integrante` DISABLE KEYS */;
-INSERT INTO `integrante` VALUES (1,'Juan','Pucheta','steam:123','558091838259724309','jpucheta','jp123'),(2,'Camilo','Pereyra','steam:321','404471332991008768','cpereyra','cp123'),(3,'Luciano','Ragusa','steam:890','328247693724090369','lragusa','lr123');
+INSERT INTO `integrante` VALUES (1,'Juan','Pucheta','steam:123','558091838259724309','jpucheta','jp123'),(2,'Camilo','Pereyra','steam:321','404471332991008768','cpereyra','cp123'),(3,'Luciano','Ragusa','steam:890','328247693724090369','lragusa','lr123'),(4,'quetal','hola','steam:000','0000000','h','q');
 /*!40000 ALTER TABLE `integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +138,7 @@ CREATE TABLE `medalla` (
   `nomMedalla` varchar(45) NOT NULL,
   `tipoMedalla` varchar(45) NOT NULL,
   PRIMARY KEY (`idMedalla`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +217,7 @@ CREATE TABLE `rango` (
   `idRango` int NOT NULL AUTO_INCREMENT,
   `nombRango` varchar(45) NOT NULL,
   PRIMARY KEY (`idRango`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +226,7 @@ CREATE TABLE `rango` (
 
 LOCK TABLES `rango` WRITE;
 /*!40000 ALTER TABLE `rango` DISABLE KEYS */;
-INSERT INTO `rango` VALUES (1,'Aprendiz'),(2,'Empleado'),(3,'Experimentado'),(4,'Vigilante'),(5,'Supervisor'),(6,'Agente'),(7,'Controlista del Cuerpo'),(8,'Maestro del Cuerpo'),(9,'Sub Encargado del Cuerpo'),(10,'Encargado del Cuerpo'),(11,'Auxiliar del Cuerpo'),(12,'Instructor del Cuerpo'),(13,'Sub Jefe del Cuerpo'),(14,'Jefe del Cuerpo'),(15,'Gerente del Cuerpo'),(16,'Interventor');
+INSERT INTO `rango` VALUES (1,'Aprendiz'),(2,'Empleado'),(3,'Experimentado'),(4,'Vigilante'),(5,'Supervisor'),(6,'Agente'),(7,'Controlista del Cuerpo'),(8,'Maestro del Cuerpo'),(9,'Sub Encargado del Cuerpo'),(10,'Encargado del Cuerpo'),(11,'Auxiliar del Cuerpo'),(12,'Instructor del Cuerpo'),(13,'Sub Jefe del Cuerpo'),(14,'Jefe del Cuerpo'),(15,'Gerente del Cuerpo'),(16,'Interventor'),(17,'Gerente');
 /*!40000 ALTER TABLE `rango` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +325,7 @@ CREATE TABLE `rol` (
   `idRol` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) NOT NULL,
   PRIMARY KEY (`idRol`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,6 +438,10 @@ LOCK TABLES `subdivision` WRITE;
 INSERT INTO `subdivision` VALUES (1,'Unidad de rapida accion','U.R.A'),(2,'Unidad de infanteria','U.I'),(3,'Unidad aerea','U.A');
 /*!40000 ALTER TABLE `subdivision` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'ucp-psg'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -445,4 +452,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-23 17:06:12
+-- Dump completed on 2021-07-23 23:51:05
