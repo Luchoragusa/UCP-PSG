@@ -259,10 +259,9 @@ public class Menu
 		Ran_Subdivision rsb = new Ran_Subdivision();
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
 		Subdivision sb = new Subdivision();
-		DataSubdivision dsb = new DataSubdivision();
 		
 		sb = findSubdivision();
-		rsb.setIdSub(sb.getIdSub());
+		rsb = findRanSub(sb);
 		
 		drsb.remove(rsb);
 	}
@@ -400,25 +399,19 @@ public class Menu
 		Integrante i = new Integrante();
 		Ransub_integrante rsbi = new Ransub_integrante();
 		DataRanSub_Integrante drsbi = new DataRanSub_Integrante();
+		Subdivision sb = new Subdivision();
 		
 		i = find();
 		
-		System.out.println("Listado de las subdivisiones: ");
-		System.out.println(dsb.getAll());
+		sb = findSubdivision();
 		
-		System.out.println("A que subdivision corresponde? Ingrese la ID: ");
-		rsb.setIdSub(Integer.parseInt(s.nextLine())); 
-		
-		System.out.println("Listado de rangos de la subdivision encontrada: ");
-		System.out.println(drsb.getByIdSub(rsb));
-		
-		System.out.println("Ingrese la ID del rango: ");
-		int idrangoSub = Integer.parseInt(s.nextLine());
+		rsb = findRanSub(sb);
 		
 		rsbi.setIdIntegrante(i.getIdIntegrante());
+		
 		LocalDate fecha = LocalDate.now();
 		rsbi.setFecha_desde(fecha);
-		rsbi.setIdRangoSub(idrangoSub);
+		rsbi.setIdRangoSub(rsb.getIdRanSub());
 		
 		drsbi.add(rsbi);
 	}
@@ -736,9 +729,14 @@ public class Menu
 		drsb.update(r);
 	}
 
-	private Ran_Subdivision findRanSub() {
+	private Ran_Subdivision findRanSub(Subdivision sb) 
+	{
 		System.out.println();
 		Ran_Subdivision rsb = new Ran_Subdivision();
+		DataRan_Subdivision drsb = new DataRan_Subdivision();
+		
+		System.out.println("Listado de rangos de la subdivision encontrada: ");
+		System.out.println(drsb.getByIdSub(rsb));
 		
 		System.out.print("Ingrese la ID de la subdivision a encontrar en la tabla RangoSub: ");
 		rsb.setIdSub(Integer.parseInt(s.nextLine()));
@@ -763,7 +761,8 @@ public class Menu
 		dsb.update(sb);
 	}
 
-	private Subdivision findSubdivision() {
+	private Subdivision findSubdivision() 
+	{
 		Subdivision sb = new Subdivision();
 		DataSubdivision dsb = new DataSubdivision();
 		

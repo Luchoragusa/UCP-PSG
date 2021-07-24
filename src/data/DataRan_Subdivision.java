@@ -214,7 +214,7 @@ public class DataRan_Subdivision {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from rol where idRango=?");
+							"delete from ran_subdivision where idRanSub=?");
 			stmt.setInt(1, rango.getIdRanSub());
 			stmt.executeUpdate();
 		} 
