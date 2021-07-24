@@ -159,6 +159,43 @@ public class DataRol {
 			}
 		}
 	}
+	
+	public Rol getByIdInte(Integrante intg) 
+	{
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		Rol r = new Rol();
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement( 
+					"select * from rol_integrante where idIntegrante=?");
+			
+			stmt.setInt(1, intg.getIdIntegrante());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) 
+			{
+				r.setIdRol(rs.getInt("idRol"));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return r;
+	}
 
 	public void deleteRole(Integrante intg) 
 	{
