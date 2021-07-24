@@ -92,5 +92,12 @@ public class Integrante {
 	{
 		return this.roles.containsKey(rolToCheck.getIdRol());
 	}
+
+	@Override
+	public String toString() {
+		return "Integrante [idIntegrante=" + idIntegrante + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", steamHex=" + steamHex + ", discordId=" + discordId + ", usuario=" + usuario + ", pw=" + pw
+				+ ", roles=" + roles + "]";
+	}
 	
 }
