@@ -19,7 +19,7 @@ public class DataSubdivision {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select * from subdivisiones");
+			rs= stmt.executeQuery("select * from subdivision");
 			if(rs!=null) 
 			{
 				while(rs.next()) 

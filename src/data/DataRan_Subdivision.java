@@ -142,12 +142,12 @@ public class DataRan_Subdivision {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into ran_subdivision(idSub, nombRango, idRanSub) values(?,?,?)",
+							"insert into ran_subdivision(idSub, nombreRangoSub, idRanSub) values(?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
-			stmt.setString(1, rsub.getNombreRangoSub());
-			stmt.setInt(2, rsub.getIdSub());
-			stmt.setInt(2, rsub.getIdRanSub());
+			stmt.setInt(1, rsub.getIdSub());
+			stmt.setString(2, rsub.getNombreRangoSub());			
+			stmt.setInt(3, rsub.getIdRanSub());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();

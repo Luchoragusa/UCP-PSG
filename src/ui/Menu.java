@@ -3,7 +3,6 @@ package ui;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -29,7 +28,6 @@ public class Menu
 	Login ctrlLogin = new Login();
 	public void start() 
 	{
-		Boolean admin = false;
 		s = new Scanner(System.in);
 		Integrante i = login();
 		System.out.println("Bienvenido "+i.getNombre()+" "+i.getApellido());
@@ -38,16 +36,7 @@ public class Menu
 		String command;
 		do 
 		{
-			DataRol dr = new DataRol();
-			Rol r = dr.getByIdInte(i);
-			
-			
-			if (r.getIdRol() == 1)
-			{
-				admin = true;
-			}
-			
-			command=getCommand(admin);
+			command=getCommand();
 			executeCommand(command, i);
 			System.out.println();
 		} while(!command.equalsIgnoreCase("exit"));
@@ -60,6 +49,8 @@ public class Menu
 			{
 			case "cargaIntegrantes":{
 				newIntegrante();			
+				//Lista de roles no funciona adecuadamente
+				//Al asignar rol, tira error pero crea al usuario en SQL
 			}
 				break;
 			case "cargaArmas": 
@@ -369,9 +360,8 @@ public class Menu
 	private void regHorasJugadas(Integrante i) {			//no pedir ID
 		System.out.println();
 		Horas h = new Horas();
-		DataHoras dh = new DataHoras();		
-		
-			//agregar al h el integrante
+		DataHoras dh = new DataHoras();
+				//agregar al h el integrante
 			h.setIdIntegrante(i.getIdIntegrante());
 		
 			//se agregan hora inicio y fin
@@ -380,16 +370,9 @@ public class Menu
 			 System.out.println("Ingrese los minutos de la hora de inicio: ");
 			 int minuto = Integer.parseInt(s.nextLine());
 			 
-			 DateTimeFormatter tFormat = DateTimeFormatter.ofPattern(dateTimeFormat);
-			 
-			 h.setHoraFin(LocalTime.parse(Integer.parseInt(s.nextLine()), tFormat));
-			 
-			 
-			 
-			 
-			 /*LocalTime horaInicio = LocalTime.of(hora, minuto);
-			 h.setHoraInicio(horaInicio);*/			 			 
-						 
+			 LocalTime horaInicio = LocalTime.of(hora, minuto);
+			 h.setHoraInicio(horaInicio);			 			 
+			
 			//codificar Fecha en el dh
 			 LocalDate fecha = LocalDate.now();
 			 h.setFecha(fecha);
@@ -844,62 +827,56 @@ public class Menu
 		da.add(a);
 	}
 
-	private String getCommand(Boolean admin) {
+	private String getCommand() {
 		
 		System.out.print(" \n-- COMANDOS --");	
 		
 		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-		if (admin) 
-		{
-			System.out.print("\n cargaIntegrantes");
-			System.out.print("\n cargaArmas");
-			System.out.print("\n cargaRoles");
-			System.out.print("\n cargaRobos");
-			System.out.print("\n cargaMedallas");
-			System.out.print("\n cargaRangos");
-			System.out.print("\n cargaSubdivisiones");
-			System.out.print("\n cargaRangoSub");
-			
-			System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-			
-			System.out.print("\n actualizarIntegrantes");
-			System.out.print("\n actualizarArmas");
-			System.out.print("\n actualizarRoles");
-			System.out.print("\n actualizarRobos");
-			System.out.print("\n actualizarMedallas");
-			System.out.print("\n actualizarRangos");
-			System.out.print("\n actualizarSubdivisiones");
-			System.out.print("\n actualizarRangoSub");
-			
-			System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-			
-			System.out.print("\n mostrarIntegrantes");
-			System.out.print("\n mostrarArmas");
-			System.out.print("\n mostrarRoles");
-			System.out.print("\n mostrarRobos");
-			System.out.print("\n mostrarMedallas");
-			System.out.print("\n mostrarRangos");
-			System.out.print("\n mostrarSubdivisiones");
-			System.out.print("\n mostrarRangoSub");
-			
-			System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-			
-			System.out.print("\n registrarUnRol");
-			System.out.print("\n registrarUnRango");
-			System.out.print("\n registrarUnaMedalla");
-			System.out.print("\n registrarUnRangoSub");
-			System.out.print("\n registrarUnaSancion");
-		}
 		
-		System.out.print("\n registrarUnStock");
-		System.out.print("\n registrarHorasJugadas");
-		System.out.print("\n registrarHorasFin");
-		System.out.print("\n registrarUnRobo");
+		System.out.print("\n cargaIntegrantes");
+		System.out.print("\n cargaArmas");
+		System.out.print("\n cargaRoles");
+		System.out.print("\n cargaRobos");
+		System.out.print("\n cargaMedallas");
+		System.out.print("\n cargaRangos");
+		System.out.print("\n cargaSubdivisiones");
+		System.out.print("\n cargaRangoSub");
 		
 		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		
-		System.out.print("\n \n salir");
+		System.out.print("\n actualizarIntegrantes");
+		System.out.print("\n actualizarArmas");
+		System.out.print("\n actualizarRoles");
+		System.out.print("\n actualizarRobos");
+		System.out.print("\n actualizarMedallas");
+		System.out.print("\n actualizarRangos");
+		System.out.print("\n actualizarSubdivisiones");
+		System.out.print("\n actualizarRangoSub");
+		
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
+		System.out.print("\n mostrarIntegrantes");
+		System.out.print("\n mostrarArmas");
+		System.out.print("\n mostrarRoles");
+		System.out.print("\n mostrarRobos");
+		System.out.print("\n mostrarMedallas");
+		System.out.print("\n mostrarRangos");
+		System.out.print("\n mostrarSubdivisiones");
+		System.out.print("\n mostrarRangoSub");
+		
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
+		System.out.print("\n registrarUnStock");
+		System.out.print("\n registrarUnRol");
+		System.out.print("\n registrarUnRango");
+		System.out.print("\n registrarHorasJugadas");
+		System.out.print("\n registrarHorasFin");
+		System.out.print("\n registrarUnRobo");
+		System.out.print("\n registrarUnaMedalla");
+		System.out.print("\n registrarUnRangoSub");
+		System.out.print("\n registrarUnaSancion");
+		
+		System.out.print("\n salir");
 		
 		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		
@@ -960,11 +937,9 @@ public class Menu
 		
 		System.out.println("La ID ingresada: ");
 		System.out.println(dr.getById(r).toString());
-		
 		i.addRol(r); // agrego el rol a la persona
 		ctrlLogin.add(i); // agrego la persona
-		
-		dr.saveRole(i,r); // agrego el rol a la tabla de rol_integrante
+		dr.saveRole(i,r); // agrego el rol a la tabla de rol_persona
 		
 		System.out.println("Operacion realizada con Exito");
 	}

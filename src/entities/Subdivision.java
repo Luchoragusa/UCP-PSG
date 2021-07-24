@@ -32,5 +32,13 @@ public class Subdivision {
 	public void setNomSubDivision(String nomSubDivision) {
 		this.nomSubDivision = nomSubDivision;
 	}
+
+	@Override
+	public String toString() {
+		return "Subdivision [idSub=" + idSub + ", descripcion=" + descripcion + ", nomSubDivision=" + nomSubDivision
+				+ "]\n";
+	}
+	
+	
 	
 }
