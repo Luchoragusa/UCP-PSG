@@ -844,6 +844,8 @@ public class Menu
 		
 		System.out.print(" \n-- COMANDOS --");	
 		
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
 		System.out.print("\n cargaIntegrantes");
 		System.out.print("\n cargaArmas");
 		System.out.print("\n cargaRoles");
@@ -852,6 +854,8 @@ public class Menu
 		System.out.print("\n cargaRangos");
 		System.out.print("\n cargaSubdivisiones");
 		System.out.print("\n cargaRangoSub");
+		
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		
 		System.out.print("\n actualizarIntegrantes");
 		System.out.print("\n actualizarArmas");
@@ -862,6 +866,8 @@ public class Menu
 		System.out.print("\n actualizarSubdivisiones");
 		System.out.print("\n actualizarRangoSub");
 		
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
 		System.out.print("\n mostrarIntegrantes");
 		System.out.print("\n mostrarArmas");
 		System.out.print("\n mostrarRoles");
@@ -870,6 +876,8 @@ public class Menu
 		System.out.print("\n mostrarRangos");
 		System.out.print("\n mostrarSubdivisiones");
 		System.out.print("\n mostrarRangoSub");
+		
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		
 		System.out.print("\n registrarUnStock");
 		System.out.print("\n registrarUnRol");
@@ -881,6 +889,8 @@ public class Menu
 		System.out.print("\n registrarUnaSancion");
 		
 		System.out.print("\n salir");
+		
+		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		
 		System.out.print("\n Escriba un comando:");
 		return s.nextLine();
