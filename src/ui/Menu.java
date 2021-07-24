@@ -44,7 +44,6 @@ public class Menu
 
 	private void executeCommand(String command) 
 	{
-		do {
 			switch(command) 
 			{
 			case "abrirBitacora":{
@@ -56,19 +55,23 @@ public class Menu
 			}
 				break;
 			case "cargaIntegrantes":{
-				newIntegrante();
+				newIntegrante();			
+				//Lista de roles no funciona adecuadamente
+				//Al asignar rol, tira error pero crea al usuario en SQL
 			}
 				break;
-			case "cargaArmas":{
+			case "cargaArmas": 
+			{
 				newArmas();
-			}
 				break;
+			}
 			case "cargaRoles":{
 				newRoles();
 			}
 				break;
 			case "cargaRobos":{
 				newRobos();
+				//problemas con la columna descripcion, no va
 			}
 				break;
 			case "cargaMedallas":{
@@ -191,10 +194,11 @@ public class Menu
 				close();
 				break;
 			default:
-				System.out.print("Comando invalido");
+			{
+				System.out.print("Comando invalido.");
 				break;
 			}
-		}while(!command.equals("salir"));
+		}
 	}
 	
 	private void regHoraFin() {
@@ -803,9 +807,10 @@ public class Menu
 		Robo robo = new Robo();
 		DataRobo dro = new DataRobo();
 		
-		System.out.println("Descripcion del robo: "); robo.setDescripcion(s.nextLine());
 		System.out.println("Nombre del robo: "); robo.setNomRobo(s.nextLine());
 		System.out.println("Lugar del robo: "); robo.setLugarRobo(s.nextLine());
+		System.out.println("Ingrese el máximo de integrantes: "); robo.setMaxIntegrantes(Integer.parseInt(s.nextLine()));
+		System.out.println("Ingrese el minimo de integrantes: "); robo.setMinIntregantes(Integer.parseInt(s.nextLine()));
 		
 		dro.add(robo);
 	}
