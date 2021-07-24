@@ -49,8 +49,6 @@ public class Menu
 			{
 			case "cargaIntegrantes":{
 				newIntegrante();			
-				//Lista de roles no funciona adecuadamente
-				//Al asignar rol, tira error pero crea al usuario en SQL
 			}
 				break;
 			case "cargaArmas": 
@@ -64,7 +62,6 @@ public class Menu
 				break;
 			case "cargaRobos":{
 				newRobos();
-				//problemas con la columna descripcion, no va
 			}
 				break;
 			case "cargaMedallas":{
@@ -80,7 +77,7 @@ public class Menu
 			}
 				break;
 			case "cargaRangoSub":{
-				newRan_Subdivision();					//tuneado
+				newRan_Subdivision();					
 			}
 				break;
 			case "actualizarIntegrantes":{
@@ -112,7 +109,7 @@ public class Menu
 			}
 				break;
 			case "actualizarRangoSub":{
-				updateRangoSub();					//tuneado
+				updateRangoSub();					
 			}
 				break;
 			
@@ -145,11 +142,11 @@ public class Menu
 			}
 				break;
 			case "mostrarRangoSub":{
-				System.out.println(showRangoSub());			//tuneado
+				System.out.println(showRangoSub());			
 			}
 				break;
 			case "registrarUnStock":{
-				regStock();									//tuneado
+				regStock();									
 			}
 				break;
 			case "registrarUnRol":{
@@ -161,46 +158,50 @@ public class Menu
 			}
 				break;
 			case "registrarHorasJugadas":{
-				regHorasJugadas(i);							//tuneado
+				regHorasJugadas(i);							
 			}
 			case "registrarHoraFin":{
-				regHoraFin(i);								//tuneado
+				regHoraFin(i);								
 			}
 				break;
-			case "registrarUnRobo":{						//tuneado
+			case "registrarUnRobo":{						
 				regRoboxdia(i);
 			}
 				break;
 			case "registrarUnaMedalla":{
-				regMedalla();								//tuneado
+				regMedalla();								
 			}
 				break;
 			case "registrarUnRangoSub":{
-				regRangoSub();								//tuneado
+				regRangoSub();								
 			}
 				break;	
 			case "registrarUnaSancion":{
-				regSancion();								//tuneado
+				regSancion();								
 			}
 				break;
-			case "bajaIntegrantes":{
-				bajaIntegrantes();
+			case "bajaIntegrantesAdmin":{
+				bajaIntegranteAdmin(i);
+			}
+				break;
+			case "bajaIntegrante":{
+				bajaIntegrante(i);			
 			}
 				break;	
 			case "bajaArmas":{
-				bajaArmas();
+				bajaArmas();				
 			}
 				break;	
 			case "bajaRoles":{
-				bajaRoles();
+				bajaRoles();				
 			}
 				break;	
 			case "bajaRobos":{
-				bajaRobos();
+				bajaRobos();				
 			}
 				break;	
 			case "bajaMedallas":{
-				bajaMedallas();
+				bajaMedallas();				
 			}
 				break;	
 			case "bajaRangos":{
@@ -226,6 +227,32 @@ public class Menu
 		}
 	}
 	
+	private void bajaIntegranteAdmin(Integrante i) {
+		System.out.println();
+		
+		DataIntegrante di = new DataIntegrante();
+		DataRol dr = new DataRol();
+		
+		System.out.println("Desea dar de baja un integrante o usted mismo?: A- Usted ; B- Otro");
+		String op = s.nextLine();
+		
+		if (op.equalsIgnoreCase("A")) {
+			
+			di.delete(i);
+			dr.deleteRole(i);			
+			System.out.println("Operacion de baja de integrante propia con roles completado.");
+			
+		} else if (op.equalsIgnoreCase("B")) {
+			
+			Integrante otro = find();
+			di.delete(otro);
+			dr.deleteRole(otro);
+			System.out.println("Operacion de baja de otro integrante con roles completado.");
+		}
+		
+
+	}
+
 	private void bajaRangoSub() {
 		// TODO Auto-generated method stub
 		System.out.println();
@@ -263,29 +290,79 @@ public class Menu
 		dr.remove(r);
 	}
 
+<<<<<<< Updated upstream
 	private void bajaMedallas() 
 	{
 		// TODO Auto-generated method stub
+=======
+	private void bajaMedallas() {
+		System.out.println();
+		Medalla m = new Medalla();
+		DataMedalla dm = new DataMedalla();
+		
+		System.out.println("Ingrese la ID de la medalla a dar de baja: ");
+		m.setIdMedalla(Integer.parseInt(s.nextLine()));
+		
+		m = dm.getById(m);
+		
+		dm.delete(m);
+		
+		System.out.println("Operacion de baja de medalla completada.");
+>>>>>>> Stashed changes
 	}
 
 	private void bajaRobos() {
-		// TODO Auto-generated method stub
+		System.out.println();
+		Robo robo = new Robo();
+		DataRobo dro = new DataRobo();
 		
+		System.out.println("Ingrese la ID del lugar del robo a dar de baja: ");
+		robo.setIdLugarRobo(Integer.parseInt(s.nextLine()));
+		
+		robo = dro.getById(robo);
+		
+		dro.remove(robo);
+		
+		System.out.println("Operacion de baja de robo completada.");
 	}
 
 	private void bajaRoles() {
-		// TODO Auto-generated method stub
+		System.out.println();
+		Rol r = new Rol();
+		DataRol dr = new DataRol();
 		
+		System.out.println("Ingrese la ID del rol a dar de baja: ");
+		r.setIdRol(Integer.parseInt(s.nextLine()));
+		
+		r = dr.getById(r);
+		
+		dr.remove(r);
+		
+		System.out.println("Operacion de baja de rol completada.");
 	}
 
 	private void bajaArmas() {
-		// TODO Auto-generated method stub
+		System.out.println();
+		Arma a = new Arma();
+		DataArma da = new DataArma();
 		
+		a = findArma();
+		
+		da.delete(a);
+		
+		System.out.println("Operacion de baja de arma completada.");
 	}
 
-	private void bajaIntegrantes() {
-		// TODO Auto-generated method stub
+	private void bajaIntegrante(Integrante i) {
+		System.out.println();
 		
+		DataIntegrante di = new DataIntegrante();
+		DataRol dr = new DataRol();
+		
+		di.delete(i);
+		dr.deleteRole(i);
+		
+		System.out.println("Operacion de baja de integrante propia con roles completado.");
 	}
 
 	private void regHoraFin(Integrante i) {
