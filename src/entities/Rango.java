@@ -24,4 +24,9 @@ public class Rango {
 	public void setNomRango(String nomRango) {
 		this.nomRango = nomRango;
 	}
+
+	@Override
+	public String toString() {
+		return "Rango [idRango=" + idRango + ", nomRango=" + nomRango + "]";
+	}
 }
