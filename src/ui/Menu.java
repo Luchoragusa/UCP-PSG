@@ -627,6 +627,9 @@ public class Menu
 		Subdivision sb = new Subdivision();
 		DataSubdivision dsb = new DataSubdivision();
 		
+		System.out.println("Lista de todos las subdivisones: ");
+		System.out.println(dsb.getAll());
+		
 		System.out.println("Ingrese el ID de la subdivision a mostrar: ");
 		sb.setIdSub(Integer.parseInt(s.nextLine()));
 		
@@ -640,6 +643,9 @@ public class Menu
 		Rango r = new Rango();
 		DataRango dr = new DataRango();
 		
+		System.out.println("Lista de todos los rangos: ");
+		System.out.println(dr.getAll());
+		
 		System.out.println("Ingrese el ID del rango a mostrar: ");
 		r.setIdRango(Integer.parseInt(s.nextLine()));
 		
@@ -652,6 +658,9 @@ public class Menu
 		System.out.println();
 		Medalla m = new Medalla();
 		DataMedalla dm = new DataMedalla();
+		
+		System.out.println("Lista de todos las medallas: ");
+		System.out.println(dm.getAll());
 		
 		System.out.println("Ingrese el ID de la medalla a mostrar: ");
 		m.setIdMedalla(Integer.parseInt(s.nextLine()));
