@@ -32,4 +32,8 @@ public class Arma
 	public void setNombreArma(String nombreArma) {
 		this.nombreArma = nombreArma;
 	}
+	@Override
+	public String toString() {
+		return "Arma [idArma=" + idArma + ", tipoArma=" + tipoArma + ", nombreArma=" + nombreArma + "]";
+	}
 }
