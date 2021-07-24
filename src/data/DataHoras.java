@@ -103,19 +103,18 @@ public class DataHoras {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into horas(idIntegrante,horaInicio,horaFin,fecha) values(?,?,?,?)",
+							"insert into horas(idIntegrante,horaInicio,fecha) values(?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setInt(1, hr.getIdIntegrante());
 			stmt.setObject(2, hr.getHoraInicio());
-			stmt.setObject(3, hr.getHoraFin());
-			stmt.setObject(4, hr.getFecha());
+			stmt.setObject(3, hr.getFecha());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next())
             {
-                hr.setIdIntegrante(keyResultSet.getInt(1));
+                hr.setHoraFin(keyResultSet.getTime(1).toLocalTime());
             }
 
 		} 

@@ -36,24 +36,16 @@ public class Menu
 		do 
 		{
 			command=getCommand();
-			executeCommand(command);
+			executeCommand(command, i);
 			System.out.println();
 		} while(!command.equalsIgnoreCase("exit"));
 		s.close();
 	}
 
-	private void executeCommand(String command) 
+	private void executeCommand(String command, Integrante i) 
 	{
 			switch(command) 
 			{
-			case "abrirBitacora":{
-				
-			}
-				break;
-			case "cerrarBitacora":{
-				
-			}
-				break;
 			case "cargaIntegrantes":{
 				newIntegrante();			
 				//Lista de roles no funciona adecuadamente
@@ -168,14 +160,14 @@ public class Menu
 			}
 				break;
 			case "registrarHorasJugadas":{
-				regHorasJugadas();							//tuneado
+				regHorasJugadas(i);							//tuneado
 			}
 			case "registrarHoraFin":{
-				regHoraFin();								//tuneado
+				regHoraFin(i);								//tuneado
 			}
 				break;
 			case "registrarUnRobo":{						//tuneado
-				regRoboxdia();
+				regRoboxdia(i);
 			}
 				break;
 			case "registrarUnaMedalla":{
@@ -201,7 +193,7 @@ public class Menu
 		}
 	}
 	
-	private void regHoraFin() {
+	private void regHoraFin(Integrante i) {
 		Horas h = new Horas(); 
 		DataHoras dh = new DataHoras();
 		
@@ -309,7 +301,7 @@ public class Menu
 		dataMedInt.saveMedalla(i, m, medInt);
 	}
 
-	private void regRoboxdia() {
+	private void regRoboxdia(Integrante i2) {
 		System.out.println();
 		Robo r = new Robo();
 		DataRobo dr = new DataRobo();
@@ -364,17 +356,11 @@ public class Menu
 		}													
 	}
 
-	private void regHorasJugadas() {			//no pedir ID
+	private void regHorasJugadas(Integrante i) {			//no pedir ID
 		System.out.println();
 		Horas h = new Horas();
 		DataHoras dh = new DataHoras();
-		Integrante i = new Integrante();
-		DataIntegrante di = new DataIntegrante();
-		
-		i = find();
-		
-		if (i != null) {
-			//agregar al h el integrante
+				//agregar al h el integrante
 			h.setIdIntegrante(i.getIdIntegrante());
 		
 			//se agregan hora inicio y fin
@@ -392,7 +378,7 @@ public class Menu
 			 
 			 //agrego a DB
 			 dh.add(h);
-		}
+		
 	}
 
 	//validar que el nombre no coincida con alguno ya hecho con un try-catch
