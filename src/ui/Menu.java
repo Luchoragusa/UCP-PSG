@@ -718,7 +718,7 @@ public class Menu
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
 		Rango r = new Rango();
 		
-		rsb = findRanSub();
+		rsb = findRanSub(findSubdivision());
 		
 		System.out.println("Nombre del rango de la subdivision (ACTUAL): " + rsb.getNombreRangoSub());
 		System.out.println();
