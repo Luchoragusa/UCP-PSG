@@ -207,7 +207,7 @@ public class DataRan_Subdivision {
 		}
 	}
 
-	public void remove(Rango rango) 
+	public void remove(Ran_Subdivision rango) 
 	{
 		PreparedStatement stmt= null;
 		try 
@@ -215,7 +215,7 @@ public class DataRan_Subdivision {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
 							"delete from rol where idRango=?");
-			stmt.setInt(1, rango.getIdRango());
+			stmt.setInt(1, rango.getIdRanSub());
 			stmt.executeUpdate();
 		} 
 		catch (SQLException e) 

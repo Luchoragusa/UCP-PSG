@@ -228,22 +228,44 @@ public class Menu
 	
 	private void bajaRangoSub() {
 		// TODO Auto-generated method stub
+		System.out.println();
+		Ran_Subdivision rsb = new Ran_Subdivision();
+		DataRan_Subdivision drsb = new DataRan_Subdivision();
+		Subdivision sb = new Subdivision();
+		DataSubdivision dsb = new DataSubdivision();
 		
+		sb = findSubdivision();
+		rsb.setIdSub(sb.getIdSub());
+		
+		drsb.remove(rsb);
 	}
 
 	private void bajaSubdivisiones() {
 		// TODO Auto-generated method stub
+		System.out.println();
+		Subdivision sb = new Subdivision();
+		DataSubdivision dsb = new DataSubdivision();
 		
+		sb = findSubdivision();
+		
+		dsb.delete(sb);
 	}
 
-	private void bajaRangos() {
+	private void bajaRangos() 
+	{
 		// TODO Auto-generated method stub
+		System.out.println();
+		Rango r = new Rango();
+		DataRango dr = new DataRango();
 		
+		r = findRango();
+		
+		dr.remove(r);
 	}
 
-	private void bajaMedallas() {
+	private void bajaMedallas() 
+	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	private void bajaRobos() {
@@ -671,8 +693,11 @@ public class Menu
 	}
 
 	private Subdivision findSubdivision() {
-		System.out.println();
 		Subdivision sb = new Subdivision();
+		DataSubdivision dsb = new DataSubdivision();
+		
+		System.out.println("Listado de las subdivisiones: ");
+		System.out.println(dsb.getAll());
 		
 		System.out.print("Ingrese la ID de la subidivision a encontrar: ");
 		sb.setIdSub(Integer.parseInt(s.nextLine()));
@@ -696,6 +721,10 @@ public class Menu
 	private Rango findRango() {
 		System.out.println();
 		Rango r = new Rango();
+		DataRango dr = new DataRango();
+		
+		System.out.println("Lista de rangos: ");
+		System.out.println(dr.getAll());
 		
 		System.out.print("Ingrese la ID del rango a encontrar: ");
 		r.setIdRango(Integer.parseInt(s.nextLine()));

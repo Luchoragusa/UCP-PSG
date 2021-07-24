@@ -253,7 +253,7 @@ public class DataSubdivision {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().
-					prepareStatement("delete from subdivision where  idSub = ?");
+					prepareStatement("delete from subdivision where idSub = ?");
 			stmt.setInt(1, s.getIdSub());
 			stmt.execute();
 		}  
