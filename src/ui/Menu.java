@@ -232,6 +232,7 @@ public class Menu
 		
 		DataIntegrante di = new DataIntegrante();
 		DataRol dr = new DataRol();
+		DataRango drango = new DataRango();
 		
 		System.out.println("Desea dar de baja un integrante o usted mismo?: A- Usted ; B- Otro");
 		String op = s.nextLine();
@@ -239,15 +240,17 @@ public class Menu
 		if (op.equalsIgnoreCase("A")) {
 			
 			di.delete(i);
-			dr.deleteRole(i);			
-			System.out.println("Operacion de baja de integrante propia con roles completado.");
+			dr.deleteRole(i);	
+			drango.deleteRango(i);
+			System.out.println("Operacion de baja de integrante propia con roles y rangos completado.");
 			
 		} else if (op.equalsIgnoreCase("B")) {
 			
 			Integrante otro = find();
 			di.delete(otro);
 			dr.deleteRole(otro);
-			System.out.println("Operacion de baja de otro integrante con roles completado.");
+			drango.deleteRango(otro);
+			System.out.println("Operacion de baja de otro integrante con roles y rangos completado.");
 		}
 		
 
@@ -351,11 +354,13 @@ public class Menu
 		
 		DataIntegrante di = new DataIntegrante();
 		DataRol dr = new DataRol();
+		DataRango drango = new DataRango();
 		
 		di.delete(i);
 		dr.deleteRole(i);
+		drango.deleteRango(i);
 		
-		System.out.println("Operacion de baja de integrante propia con roles completado.");
+		System.out.println("Operacion de baja de integrante propia con roles y rangos completado.");
 	}
 
 	private void regHoraFin(Integrante i) {
