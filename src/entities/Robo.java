@@ -48,4 +48,10 @@ public class Robo {
 	public void setLugarRobo(String lugarRobo) {
 		this.lugarRobo = lugarRobo;
 	}
+
+	@Override
+	public String toString() {
+		return "Robo [idLugarRobo=" + idLugarRobo + ", minIntregantes=" + minIntregantes + ", maxIntegrantes="
+				+ maxIntegrantes + ", nomRobo=" + nomRobo + ", lugarRobo=" + lugarRobo + "]";
+	}
 }
