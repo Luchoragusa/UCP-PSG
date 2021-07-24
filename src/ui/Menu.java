@@ -869,7 +869,7 @@ public class Menu
 		System.out.print("\n registrarUnRol");
 		System.out.print("\n registrarUnRango");
 		System.out.print("\n registrarHorasJugadas");
-		System.out.println("\\n registrarHorasFin");
+		System.out.print("\n registrarHorasFin");
 		System.out.print("\n registrarUnRobo");
 		System.out.print("\n registrarUnaMedalla");
 		System.out.print("\n registrarUnRangoSub");
