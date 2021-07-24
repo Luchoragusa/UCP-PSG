@@ -39,4 +39,9 @@ public class Medalla {
 	public void setTipoMedalla(String tipoMedalla) {
 		this.tipoMedalla = tipoMedalla;
 	}
+
+	@Override
+	public String toString() {
+		return "Medalla [idMedalla=" + idMedalla + ", nomMedalla=" + nomMedalla + ", tipoMedalla=" + tipoMedalla + "]";
+	}
 }
