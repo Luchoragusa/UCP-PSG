@@ -25,7 +25,7 @@ public Horas getHorasDelIntegrante(int id) {
 	try 
 	{
 		stmt=DbConnector.getInstancia().getConn().prepareStatement(
-		 "select * from horas order by ? desc limit 1");
+		 "select * FROM horas WHERE idIntegrante = ? ORDER BY fecha desc, horaInicio desc limit 1");
 		stmt.setInt(1, id);
 		rs=stmt.executeQuery();
 		
@@ -37,7 +37,7 @@ public Horas getHorasDelIntegrante(int id) {
 				h.setIdIntegrante(id);
 				h.setFecha(rs.getDate("fecha").toLocalDate());
 				h.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
-				h.setHoraFin(rs.getTime("horaFin").toLocalTime());	
+				h.setHoraFin(rs.getObject("horaFin", LocalTime.class));	
 			}
 		}	
 	} catch (SQLException e) {
@@ -197,8 +197,10 @@ public Horas getHorasDelIntegrante(int id) {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update horas set horaFin = ? where idIntegrante=?");
-			stmt.setObject(1, hr.getHoraFin());
+							"update horas set horaFin = ?, fechaFin = ? where idIntegrante=?");
+			stmt.setObject(1, hr.getHoraFin());		
+			stmt.setObject(2, hr.getFechaFin());
+			stmt.setInt(3, hr.getIdIntegrante());
 			
 			stmt.executeUpdate();
 		} 
@@ -228,7 +230,7 @@ public Horas getHorasDelIntegrante(int id) {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from horas where idIntegrante=?");
+							"delete from horas where idIntegrante = ? and horaFin is null");
 			stmt.setInt(1, hr.getIdIntegrante());
 			stmt.executeUpdate();
 		} 

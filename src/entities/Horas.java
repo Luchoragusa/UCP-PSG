@@ -5,17 +5,18 @@ public class Horas
 {
 	private int idIntegrante;
 	private LocalTime horaInicio, horaFin;
-	private LocalDate fecha;
+	private LocalDate fecha, fechaFin;
 	
 	public Horas () {
 		
 	}
-	public Horas(int idIntegrante, LocalTime horaInicio, LocalTime horaFin, LocalDate fecha) {
+	public Horas(int idIntegrante, LocalTime horaInicio, LocalTime horaFin, LocalDate fecha, LocalDate fechaFin) {
 		super();
 		this.idIntegrante = idIntegrante;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 		this.fecha = fecha;
+		this.fechaFin = fechaFin;
 	}
 	
 	public int getIdIntegrante() {
@@ -39,13 +40,19 @@ public class Horas
 	@Override
 	public String toString() {
 		return "Horas [idIntegrante=" + idIntegrante + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin
-				+ ", fecha=" + fecha + "]";
+				+ ", fecha=" + fecha + ", fechaFin=" + fechaFin + "]";
 	}
 	public LocalDate getFecha() {
 		return fecha;
 	}
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
+	}
+	public LocalDate getFechaFin() {
+		return fechaFin;
+	}
+	public void setFechaFin(LocalDate fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 }

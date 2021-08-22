@@ -27,6 +27,7 @@ import logic.Login;
 public class Menu 
 {
 	private String timeFormat="HH:mm:ss";
+	private String dateFormat="dd/MM/yyyy";
 	
 	Scanner s=null;
 	Login ctrlLogin = new Login();
@@ -372,14 +373,41 @@ public class Menu
 		Horas h = new Horas(); 
 		DataHoras dh = new DataHoras();
 		
-		System.out.println("Ingrese la hora de finalizacion: ");
-		int hora = Integer.parseInt(s.nextLine());
-		System.out.println("Ingrese los minutos de la hora de finalizacion: ");
-		int minuto = Integer.parseInt(s.nextLine());
-		 
-		LocalTime horaFin = LocalTime.of(hora, minuto);
-		h.setHoraFin(horaFin);
 		
+		//agregar al h el integrante
+		h.setIdIntegrante(i.getIdIntegrante());
+			
+		//ultima tupla del integrante de la tabla horas
+		h = dh.getHorasDelIntegrante(h.getIdIntegrante());					
+				
+				System.out.println("1- ingresar hora fin manualmente ; 2- de forma automatica: ");
+				String op = s.nextLine();
+				
+				try 
+				{
+					if (op.equalsIgnoreCase("1")) 
+					{							
+						System.out.println("Hora Fin ("+timeFormat+"): ");
+						DateTimeFormatter tFormat = DateTimeFormatter.ofPattern(timeFormat);
+						h.setHoraFin(LocalTime.parse(s.nextLine(),tFormat));;
+					}
+					else if (op.equalsIgnoreCase("2")) 
+					{
+						LocalTime fin = LocalTime.now();
+						h.setHoraFin(fin);
+					}
+					else 
+					{
+						System.out.println("Opcion incorrecta.");
+					}		
+				}
+				catch(Exception e) {
+					
+				}	
+		
+				LocalDate fechaF = LocalDate.now();
+				h.setFechaFin(fechaF);
+				
 		dh.update(h);
 	}
 
@@ -537,20 +565,20 @@ public class Menu
 		//agregar al h el integrante
 		h.setIdIntegrante(i.getIdIntegrante());
 	
+		//ultima tupla del integrante de la tabla horas
+		h = dh.getHorasDelIntegrante(h.getIdIntegrante());
+		
+		if (h.getHoraFin() == null) 
+		{
+			System.out.println("El ultimo registro sera eliminado por haber dejado la registracion abierta.");
+			dh.remove(h);
+		}
+		
 		System.out.println("1- ingresar hora manualmente ; 2- de forma automatica: ");
 		String op = s.nextLine();
 		
 		try 
 		{
-			//ultima tupla del integrante de la tabla horas
-			h = dh.getHorasDelIntegrante(h.getIdIntegrante());
-			
-			if (h.getHoraFin() == null) 
-			{
-				System.out.println("El ultimo registro sera eliminado por haber dejado la registracion abierta.");
-				dh.remove(h);
-			}
-			
 			if (op.equalsIgnoreCase("1")) 
 			{							
 				System.out.println("Hora Inicio ("+timeFormat+"): ");
@@ -1087,7 +1115,7 @@ public class Menu
 		System.out.print("\n registrarUnRol");
 		System.out.print("\n registrarUnRango");
 		System.out.print("\n registrarHorasJugadas");
-		System.out.print("\n registrarHorasFin");
+		System.out.print("\n registrarHoraFin");
 		System.out.print("\n registrarUnRobo");
 		System.out.print("\n registrarUnaMedalla");
 		System.out.print("\n registrarUnRangoSub");
