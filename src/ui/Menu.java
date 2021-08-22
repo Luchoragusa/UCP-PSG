@@ -533,6 +533,7 @@ public class Menu
 		System.out.println();
 		Horas h = new Horas();
 		DataHoras dh = new DataHoras();
+		
 		//agregar al h el integrante
 		h.setIdIntegrante(i.getIdIntegrante());
 	
@@ -542,7 +543,7 @@ public class Menu
 		try 
 		{
 			//ultima tupla del integrante de la tabla horas
-			h = dh.getHorasDelIntegrante(i.getIdIntegrante());
+			h = dh.getHorasDelIntegrante(h.getIdIntegrante());
 			
 			if (h.getHoraFin() == null) 
 			{

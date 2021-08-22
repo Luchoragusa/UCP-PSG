@@ -25,7 +25,7 @@ public Horas getHorasDelIntegrante(int id) {
 	try 
 	{
 		stmt=DbConnector.getInstancia().getConn().prepareStatement(
-		 "select max(horas.idIntegrante), horaInicio, horaFin, fecha from horas where idIntegrante = ?");
+		 "select * from horas order by ? desc limit 1");
 		stmt.setInt(1, id);
 		rs=stmt.executeQuery();
 		
