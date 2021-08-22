@@ -7,7 +7,6 @@ public class Horas
 	private LocalTime horaInicio, horaFin;
 	private LocalDate fecha;
 	
-	
 	public Horas () {
 		
 	}
@@ -48,4 +47,5 @@ public class Horas
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
+
 }

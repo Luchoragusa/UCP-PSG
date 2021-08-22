@@ -3,6 +3,7 @@ package ui;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -22,8 +23,11 @@ import data.DataStockarma;
 import data.DataSubdivision;
 import entities.*;
 import logic.Login;
+@SuppressWarnings("unused")
 public class Menu 
 {
+	private String timeFormat="HH:mm:ss";
+	
 	Scanner s=null;
 	Login ctrlLogin = new Login();
 	public void start() 
@@ -160,6 +164,7 @@ public class Menu
 			case "registrarHorasJugadas":{
 				regHorasJugadas(i);							
 			}
+				break;
 			case "registrarHoraFin":{
 				regHoraFin(i);								
 			}
@@ -528,24 +533,38 @@ public class Menu
 		System.out.println();
 		Horas h = new Horas();
 		DataHoras dh = new DataHoras();
-			//agregar al h el integrante
+		//agregar al h el integrante
 		h.setIdIntegrante(i.getIdIntegrante());
 	
-		//se agregan hora inicio y fin
-		 System.out.println("Ingrese la hora de inicio: ");
-		 int hora = Integer.parseInt(s.nextLine());
-		 System.out.println("Ingrese los minutos de la hora de inicio: ");
-		 int minuto = Integer.parseInt(s.nextLine());
-		 
-		 LocalTime horaInicio = LocalTime.of(hora, minuto);
-		 h.setHoraInicio(horaInicio);			 			 
+		System.out.println("1- ingresar hora manualmente ; 2- de forma automatica: ");
+		String op = s.nextLine();
 		
-		//codificar Fecha en el dh
-		 LocalDate fecha = LocalDate.now();
-		 h.setFecha(fecha);
-		 
-		 //agrego a DB
-		 dh.add(h);
+		try 
+		{
+			if (op.equalsIgnoreCase("1")) 
+			{
+				System.out.println("Hora Inicio ("+timeFormat+"): ");
+				DateTimeFormatter tFormat = DateTimeFormatter.ofPattern(timeFormat);
+				h.setHoraInicio(LocalTime.parse(s.nextLine(),tFormat));;
+			}
+			else if (op.equalsIgnoreCase("2")) 
+			{
+				LocalTime a = LocalTime.now();
+				h.setHoraInicio(a);
+			}
+			else 
+			{
+				System.out.println("Opcion incorrecta.");
+			}		
+		}
+		catch(Exception e) {
+			
+		}			
+				
+		LocalDate fecha = LocalDate.now();
+		h.setFecha(fecha);
+
+		dh.add(h);
 	}
 
 	//validar que el nombre no coincida con alguno ya hecho con un try-catch

@@ -3,7 +3,13 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.LinkedList;
+
+import com.mysql.cj.MysqlType;
+
 import entities.Horas;
 
 
@@ -27,7 +33,7 @@ public class DataHoras {
 					Horas h=new Horas();
 					h.setIdIntegrante(hr.getIdIntegrante());
 					h.setFecha(rs.getDate("fecha").toLocalDate());
-					h.setHoraInicio(rs.getTime("horaInicio").toLocalTime());
+					h.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
 					h.setHoraFin(rs.getTime("horaFin").toLocalTime());	
 					hras.add(h);
 				}
@@ -71,7 +77,7 @@ public class DataHoras {
 					Horas h=new Horas();
 					h.setIdIntegrante(rs.getInt("idIntegrante"));
 					h.setFecha(hr.getFecha());
-					h.setHoraInicio(rs.getTime("horaInicio").toLocalTime());
+					h.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
 					h.setHoraFin(rs.getTime("horaFin").toLocalTime());	
 					hras.add(h);
 				}
@@ -107,7 +113,7 @@ public class DataHoras {
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setInt(1, hr.getIdIntegrante());
-			stmt.setObject(2, hr.getHoraInicio());
+			stmt.setObject (2, hr.getHoraInicio()); 
 			stmt.setObject(3, hr.getFecha());
 			stmt.executeUpdate();
 			
