@@ -541,8 +541,17 @@ public class Menu
 		
 		try 
 		{
-			if (op.equalsIgnoreCase("1")) 
+			//ultima tupla del integrante de la tabla horas
+			h = dh.getHorasDelIntegrante(i.getIdIntegrante());
+			
+			if (h.getHoraFin() == null) 
 			{
+				System.out.println("El ultimo registro sera eliminado por haber dejado la registracion abierta.");
+				dh.remove(h);
+			}
+			
+			if (op.equalsIgnoreCase("1")) 
+			{							
 				System.out.println("Hora Inicio ("+timeFormat+"): ");
 				DateTimeFormatter tFormat = DateTimeFormatter.ofPattern(timeFormat);
 				h.setHoraInicio(LocalTime.parse(s.nextLine(),tFormat));;

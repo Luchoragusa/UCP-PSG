@@ -11,9 +11,55 @@ import java.util.LinkedList;
 import com.mysql.cj.MysqlType;
 
 import entities.Horas;
+import entities.Integrante;
 
 
 public class DataHoras {
+	
+public Horas getHorasDelIntegrante(int id) {
+		
+	PreparedStatement stmt=null;
+	ResultSet rs=null;
+	Horas h = null;
+	
+	try 
+	{
+		stmt=DbConnector.getInstancia().getConn().prepareStatement(
+		 "select max(horas.idIntegrante), horaInicio, horaFin, fecha from horas where idIntegrante = ?");
+		stmt.setInt(1, id);
+		rs=stmt.executeQuery();
+		
+		if(rs!=null) 
+		{
+			while(rs.next()) 
+			{
+				h = new Horas();
+				h.setIdIntegrante(id);
+				h.setFecha(rs.getDate("fecha").toLocalDate());
+				h.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
+				h.setHoraFin(rs.getTime("horaFin").toLocalTime());	
+			}
+		}	
+	} catch (SQLException e) {
+		e.printStackTrace();
+		
+	} 
+	finally 
+	{
+		try 
+		{
+			if(rs!=null) {rs.close();}
+			if(stmt!=null) {stmt.close();}
+			DbConnector.getInstancia().releaseConn();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	return h;
+	}
+	
 	public LinkedList<Horas> getById(Horas hr){
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
