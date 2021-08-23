@@ -262,9 +262,7 @@ public class Menu
 		
 		horasInt = dh.getTuplasIntegrante(i.getIdIntegrante(), h.getFecha(), h.getFechaFin());
 		
-		for (Horas horas : horasInt) {
 			System.out.println(horasInt.toString());
-		}
 	}
 
 	private void bajaIntegranteAdmin(Integrante i) {

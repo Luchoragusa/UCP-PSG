@@ -256,7 +256,7 @@ public Horas getHorasDelIntegrante(int id) {
 	
 	}
 
-	public LinkedList<Horas> getTuplasIntegrante(int id, LocalDate fecha, LocalDate fechaFin) {
+	public LinkedList<Horas> getTuplasIntegrante(int id, LocalDate fecha, LocalDate fechaFin) {	//si fechaFin es null no lo muestra y tira error para el toString
 	
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -265,7 +265,7 @@ public Horas getHorasDelIntegrante(int id) {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select * FROM horas WHERE idIntegrante = ? BETWEEN fecha = ? and fechaFin = ?");
+			 "select * FROM horas WHERE idIntegrante = ? and fecha BETWEEN ? and ?");
 			
 			stmt.setInt(1, id);
 			stmt.setObject(2, fecha);
@@ -282,7 +282,7 @@ public Horas getHorasDelIntegrante(int id) {
 					h1.setFecha(rs.getDate("fecha").toLocalDate());
 					h1.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
 					h1.setHoraFin(rs.getObject("horaFin", LocalTime.class));	
-					h1.setFechaFin(rs.getDate("fechaFin").toLocalDate());
+					h1.setFechaFin(rs.getObject("fechaFin", LocalDate.class));
 					
 					h.add(h1);
 				}
