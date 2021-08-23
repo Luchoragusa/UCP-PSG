@@ -197,10 +197,12 @@ public Horas getHorasDelIntegrante(int id) {
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update horas set horaFin = ?, fechaFin = ? where idIntegrante=?");
+							"update horas set horaFin = ?, fechaFin = ? where idIntegrante=? and fecha = ? and horaInicio = ?");
 			stmt.setObject(1, hr.getHoraFin());		
 			stmt.setObject(2, hr.getFechaFin());
 			stmt.setInt(3, hr.getIdIntegrante());
+			stmt.setObject(4, hr.getFecha());
+			stmt.setObject(5, hr.getHoraInicio());
 			
 			stmt.executeUpdate();
 		} 

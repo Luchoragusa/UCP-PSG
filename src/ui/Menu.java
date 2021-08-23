@@ -373,42 +373,49 @@ public class Menu
 		Horas h = new Horas(); 
 		DataHoras dh = new DataHoras();
 		
-		
 		//agregar al h el integrante
 		h.setIdIntegrante(i.getIdIntegrante());
 			
 		//ultima tupla del integrante de la tabla horas
 		h = dh.getHorasDelIntegrante(h.getIdIntegrante());					
 				
-				System.out.println("1- ingresar hora fin manualmente ; 2- de forma automatica: ");
-				String op = s.nextLine();
-				
-				try 
-				{
-					if (op.equalsIgnoreCase("1")) 
-					{							
-						System.out.println("Hora Fin ("+timeFormat+"): ");
-						DateTimeFormatter tFormat = DateTimeFormatter.ofPattern(timeFormat);
-						h.setHoraFin(LocalTime.parse(s.nextLine(),tFormat));;
-					}
-					else if (op.equalsIgnoreCase("2")) 
-					{
-						LocalTime fin = LocalTime.now();
-						h.setHoraFin(fin);
-					}
-					else 
-					{
-						System.out.println("Opcion incorrecta.");
-					}		
+		if (h.getHoraFin() == null) 
+		{
+			System.out.println("1- ingresar hora fin manualmente ; 2- de forma automatica: ");
+			String op = s.nextLine();
+			
+			try 
+			{
+				if (op.equalsIgnoreCase("1")) 
+				{							
+					System.out.println("Hora Fin ("+timeFormat+"): ");
+					DateTimeFormatter tFormat = DateTimeFormatter.ofPattern(timeFormat);
+					h.setHoraFin(LocalTime.parse(s.nextLine(),tFormat));;
 				}
-				catch(Exception e) {
-					
-				}	
-		
-				LocalDate fechaF = LocalDate.now();
-				h.setFechaFin(fechaF);
+				else if (op.equalsIgnoreCase("2")) 
+				{
+					LocalTime fin = LocalTime.now();
+					h.setHoraFin(fin);
+				}
+				else 
+				{
+					System.out.println("Opcion incorrecta.");
+				}		
+			}
+			catch(Exception e) {
 				
-		dh.update(h);
+			}	
+	
+			LocalDate fechaF = LocalDate.now();
+			h.setFechaFin(fechaF);
+			
+			dh.update(h);
+		}
+		else
+		{
+			System.out.println("No hay ningun registro de hora abierto.");
+		}
+				
 	}
 
 	private void regSancion() {
