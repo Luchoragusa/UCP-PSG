@@ -150,6 +150,14 @@ public class Menu
 				System.out.println(showRangoSub());			
 			}
 				break;
+			case "MostrarHorasIntegrante":{
+				showHorasIntegrante(i);
+			}
+				break;
+			case "MostrarHoras":{
+				System.out.println(showHoras());
+			}
+				break;
 			case "registrarUnStock":{
 				regStock();									
 			}
@@ -233,6 +241,32 @@ public class Menu
 		}
 	}
 	
+	private char[] showHoras() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private void showHorasIntegrante(Integrante i) {
+		
+		Horas h = new Horas();
+		LinkedList<Horas> horasInt = new LinkedList<>();
+		DataHoras dh = new DataHoras();
+		
+		DateTimeFormatter dFormat = DateTimeFormatter.ofPattern(dateFormat);
+		System.out.print("Fecha inicio ("+dateFormat+"): ");
+		h.setFecha(LocalDate.parse(s.nextLine(),dFormat));;
+		
+		DateTimeFormatter dFormatFin = DateTimeFormatter.ofPattern(dateFormat);
+		System.out.print("Fecha Fin ("+dateFormat+"): ");
+		h.setFechaFin(LocalDate.parse(s.nextLine(),dFormatFin));;
+		
+		horasInt = dh.getTuplasIntegrante(i.getIdIntegrante(), h.getFecha(), h.getFechaFin());
+		
+		for (Horas horas : horasInt) {
+			System.out.println(horasInt.toString());
+		}
+	}
+
 	private void bajaIntegranteAdmin(Integrante i) {
 		System.out.println();
 		
@@ -1115,6 +1149,7 @@ public class Menu
 		System.out.print("\n mostrarRangos");
 		System.out.print("\n mostrarSubdivisiones");
 		System.out.print("\n mostrarRangoSub");
+		System.out.println("\n MostrarHorasIntegrante");
 		
 		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		

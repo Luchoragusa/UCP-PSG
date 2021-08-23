@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLType;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.LinkedList;
 
@@ -253,5 +254,106 @@ public Horas getHorasDelIntegrante(int id) {
             }
 		}
 	
+	}
+
+	public LinkedList<Horas> getTuplasIntegrante(int id, LocalDate fecha, LocalDate fechaFin) {
+	
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Horas> h = new LinkedList<>();
+		
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+			 "select * FROM horas WHERE idIntegrante = ? BETWEEN fecha = ? and fechaFin = ?");
+			
+			stmt.setInt(1, id);
+			stmt.setObject(2, fecha);
+			stmt.setObject(3, fechaFin);
+			
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+				{
+					Horas h1 = new Horas();
+					h1.setIdIntegrante(id);
+					h1.setFecha(rs.getDate("fecha").toLocalDate());
+					h1.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
+					h1.setHoraFin(rs.getObject("horaFin", LocalTime.class));	
+					h1.setFechaFin(rs.getDate("fechaFin").toLocalDate());
+					
+					h.add(h1);
+				}
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} 
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return h;
+		
+	}
+
+	public LinkedList<Horas> getAllTuplas(LocalDate fecha, LocalDate fechaFin){
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Horas> h = new LinkedList<>();
+		
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+			 "select * FROM horas BETWEEN fecha = ? and fechaFin = ?");
+			
+			stmt.setObject(1, fecha);
+			stmt.setObject(2, fechaFin);
+			
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+				{
+					Horas h1 = new Horas();
+					h1.setIdIntegrante(rs.getInt("idIntegrante"));
+					h1.setFecha(rs.getDate("fecha").toLocalDate());
+					h1.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
+					h1.setHoraFin(rs.getObject("horaFin", LocalTime.class));	
+					h1.setFechaFin(rs.getDate("fechaFin").toLocalDate());
+					
+					h.add(h1);
+				}
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} 
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return h;
 	}
 }
