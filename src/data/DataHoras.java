@@ -256,7 +256,8 @@ public Horas getHorasDelIntegrante(int id) {
 	
 	}
 
-	public LinkedList<Horas> getTuplasIntegrante(int id, LocalDate fecha, LocalDate fechaFin) {	//si fechaFin es null no lo muestra y tira error para el toString
+	public LinkedList<Horas> getTuplasIntegrante(int id, LocalDate fecha, LocalDate fechaFin) 
+	{
 	
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -265,7 +266,7 @@ public Horas getHorasDelIntegrante(int id) {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select horasJugadas FROM horas WHERE idIntegrante = ? and fecha BETWEEN ? and ?");
+			 "select horasJugadas FROM horas WHERE idIntegrante = ? and fecha BETWEEN ? and ? and horaFin is not null ");
 			
 			stmt.setInt(1, id);
 			stmt.setObject(2, fecha);

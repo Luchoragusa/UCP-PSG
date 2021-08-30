@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAmount;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -265,16 +266,17 @@ public class Menu
 		
 		horasInt = dh.getTuplasIntegrante(i.getIdIntegrante(), h.getFecha(), h.getFechaFin());
 		
-		//System.out.println(horasInt.toString());
 
-		LocalTime contadorHorasJugadas = null;
+		LocalTime contadorHorasJugadas = LocalTime.of(0, 0);
 		
 		for(Horas horasJugadas : horasInt) {
 			System.out.println(horasJugadas.toString());
-			//contadorHorasJugadas = 
+			contadorHorasJugadas = contadorHorasJugadas.plusHours(horasJugadas.getHorasJugadas().getHour())
+														.plusMinutes(horasJugadas.getHorasJugadas().getMinute())
+														.plusSeconds(horasJugadas.getHorasJugadas().getSecond());
 		}
 		
-		
+		System.out.println("La cantidad de horas jugadas por el Integrante en el rango de fechas es de: " + contadorHorasJugadas);
 	}
 
 	private void bajaIntegranteAdmin(Integrante i) {
