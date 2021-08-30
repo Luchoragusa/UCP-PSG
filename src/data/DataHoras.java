@@ -360,7 +360,7 @@ public Horas getHorasDelIntegrante(int id) {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().
-					prepareStatement("update horas set horasJugadas = timediff(horaInicio, horaFin) where idIntegrante = 3 and horaInicio = ? and horaFin = ?");
+					prepareStatement("update horas set horasJugadas = timediff(horaFin, horaInicio) where idIntegrante = ? and horaInicio = ? and horaFin = ?");
 			stmt.setInt(1, h.getIdIntegrante());
 			stmt.setObject(2, h.getHoraInicio());	
 			stmt.setObject(3, h.getHoraFin());	
