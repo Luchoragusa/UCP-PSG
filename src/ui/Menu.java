@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAmount;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -242,11 +243,48 @@ public class Menu
 		}
 	}
 	
-	private void showHoras(Integrante i) {
+	private void showHoras(Integrante i) 
+	{
 		Horas h = new Horas();
+		LinkedList<Horas> horasInt = new LinkedList<>();
 		DataHoras dh = new DataHoras();
+		
+		DateTimeFormatter dFormat = DateTimeFormatter.ofPattern(dateFormat);
+		System.out.print("Fecha inicio ("+dateFormat+"): ");
+		h.setFecha(LocalDate.parse(s.nextLine(),dFormat));;
+		
+		DateTimeFormatter dFormatFin = DateTimeFormatter.ofPattern(dateFormat);
+		System.out.print("Fecha Fin ("+dateFormat+"): ");
+		h.setFechaFin(LocalDate.parse(s.nextLine(),dFormatFin));;
+		
+		horasInt = dh.getAllTuplas(h.getFecha(), h.getFechaFin());
 
 		System.out.println("Se muestran las horas de todos los integrantes.");
+		
+		LocalTime comparar = LocalTime.of(0, 0);
+		LocalTime contadorHorasJugadas = LocalTime.of(0, 0);
+		for(Horas horasJugadas : horasInt) 
+		{
+			int id = horasJugadas.getIdIntegrante();
+			
+			for(Horas horasJugadass : horasInt) 
+			{
+				if (id == horasJugadass.getIdIntegrante())
+				{
+					System.out.println(horasJugadas.toString());
+					contadorHorasJugadas = contadorHorasJugadas.plusHours(horasJugadas.getHorasJugadas().getHour())
+																.plusMinutes(horasJugadas.getHorasJugadas().getMinute())
+																.plusSeconds(horasJugadas.getHorasJugadas().getSecond());
+					
+					horasInt.remove(horasJugadas); // a medida que cuento uno lo elimino para que dsp no se repita
+					
+					// TIRA ERRO CUANDO QUIERO SACAR EL QUE YA FUE USADO, NOSE OCMO PIJA SACARLO DEL LINKEDLIST SIN Q SE ROMPA
+				}
+			}
+			if (contadorHorasJugadas.compareTo(comparar) != 0)
+				System.out.println("La cantidad de horas jugadas por el Integrante "+ id +" en el rango de fechas es de: " + contadorHorasJugadas);
+			contadorHorasJugadas = LocalTime.of(0, 0);
+		}
 	}
 
 	private void showHorasIntegrante(Integrante i) {
@@ -265,16 +303,19 @@ public class Menu
 		
 		horasInt = dh.getTuplasIntegrante(i.getIdIntegrante(), h.getFecha(), h.getFechaFin());
 		
-		//System.out.println(horasInt.toString());
-
-		LocalTime contadorHorasJugadas = null;
-		
-		for(Horas horasJugadas : horasInt) {
+		LocalTime comparar = LocalTime.of(0, 0);
+		LocalTime contadorHorasJugadas = LocalTime.of(0, 0);
+		for(Horas horasJugadas : horasInt) 
+		{
 			System.out.println(horasJugadas.toString());
-			//contadorHorasJugadas = 
+			contadorHorasJugadas = contadorHorasJugadas.plusHours(horasJugadas.getHorasJugadas().getHour())
+														.plusMinutes(horasJugadas.getHorasJugadas().getMinute())
+														.plusSeconds(horasJugadas.getHorasJugadas().getSecond());
 		}
-		
-		
+		if (contadorHorasJugadas.compareTo(comparar) != 0)
+			System.out.println("La cantidad de horas jugadas por el Integrante en el rango de fechas es de: " + contadorHorasJugadas);
+		else
+			System.out.println("EL integrante nos registro actividad en ese tiempo");
 	}
 
 	private void bajaIntegranteAdmin(Integrante i) {
@@ -1164,6 +1205,7 @@ public class Menu
 		System.out.print("\n mostrarSubdivisiones");
 		System.out.print("\n mostrarRangoSub");
 		System.out.println("\n MostrarHorasIntegrante");
+		System.out.println("\n MostrarHoras");
 		
 		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		

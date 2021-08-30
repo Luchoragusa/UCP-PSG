@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `ucp-psg` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `ucp-psg`;
--- MySQL dump 10.13  Distrib 8.0.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
--- Host: localhost    Database: ucp-psg
+-- Host: 127.0.0.1    Database: ucp-psg
 -- ------------------------------------------------------
--- Server version	8.0.24
+-- Server version	8.0.26
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `arma` (
 
 LOCK TABLES `arma` WRITE;
 /*!40000 ALTER TABLE `arma` DISABLE KEYS */;
-INSERT INTO `arma` VALUES (1,'Pistola','Combate'),(2,'SubFusil','SMG'),(3,'Fusil','AK-47'),(8,'Metralleta','NSV');
+INSERT INTO `arma` VALUES (1,'Pistola','Combate'),(2,'SubFusil','SMG'),(3,'Fusil','AK-47');
 /*!40000 ALTER TABLE `arma` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,6 +54,8 @@ CREATE TABLE `horas` (
   `horaInicio` time NOT NULL,
   `horaFin` time DEFAULT NULL,
   `fecha` date NOT NULL,
+  `fechaFin` date DEFAULT NULL,
+  `horasJugadas` time DEFAULT NULL,
   PRIMARY KEY (`idIntegrante`,`horaInicio`,`fecha`),
   CONSTRAINT `id_Integrantehr` FOREIGN KEY (`idIntegrante`) REFERENCES `integrante` (`idIntegrante`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -65,7 +67,7 @@ CREATE TABLE `horas` (
 
 LOCK TABLES `horas` WRITE;
 /*!40000 ALTER TABLE `horas` DISABLE KEYS */;
-INSERT INTO `horas` VALUES (1,'17:34:00',NULL,'2021-07-23'),(2,'17:36:00',NULL,'2021-07-23'),(3,'17:35:00',NULL,'2021-07-23');
+INSERT INTO `horas` VALUES (1,'03:02:53','03:12:53','2021-08-30','2021-08-30','00:10:00'),(2,'03:02:53','03:12:53','2021-08-30','2021-08-30','00:10:00'),(3,'00:14:38','00:14:45','2021-08-30','2021-08-30','00:00:07'),(3,'02:22:50','02:23:00','2021-08-30','2021-08-30','00:00:10'),(3,'03:02:53','03:03:03','2021-08-30','2021-08-30','00:00:10');
 /*!40000 ALTER TABLE `horas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +87,7 @@ CREATE TABLE `integrante` (
   `usuario` varchar(45) NOT NULL,
   `pw` varchar(45) NOT NULL,
   PRIMARY KEY (`idIntegrante`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +96,7 @@ CREATE TABLE `integrante` (
 
 LOCK TABLES `integrante` WRITE;
 /*!40000 ALTER TABLE `integrante` DISABLE KEYS */;
-INSERT INTO `integrante` VALUES (1,'Juan','Pucheta','steam:123','558091838259724309','jpucheta','jp123'),(2,'Camilo','Pereyra','steam:321','404471332991008768','cpereyra','cp123'),(3,'Luciano','Ragusa','steam:890','328247693724090369','lragusa','lr123'),(4,'quetal','hola','steam:000','0000000','h','q');
+INSERT INTO `integrante` VALUES (1,'Juan','Pucheta','steam:123','558091838259724309','jpucheta','jp123'),(2,'Camilo','Pereyra','steam:321','404471332991008768','cpereyra','cp123'),(3,'Luciano','Ragusa','steam:890','328247693724090369','lragusa','lr123'),(4,'quetal','hola','steam:000','0000000','h','q'),(7,'asd','asd','zxc','123','asd','qwe'),(8,'ghj','ghj','ghj','123','ghj','ghj');
 /*!40000 ALTER TABLE `integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +140,7 @@ CREATE TABLE `medalla` (
   `nomMedalla` varchar(45) NOT NULL,
   `tipoMedalla` varchar(45) NOT NULL,
   PRIMARY KEY (`idMedalla`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +195,7 @@ CREATE TABLE `ran_subdivision` (
   PRIMARY KEY (`idRanSub`),
   KEY `id_Sub_idx` (`idSub`),
   CONSTRAINT `id_Sub` FOREIGN KEY (`idSub`) REFERENCES `subdivision` (`idSub`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +204,7 @@ CREATE TABLE `ran_subdivision` (
 
 LOCK TABLES `ran_subdivision` WRITE;
 /*!40000 ALTER TABLE `ran_subdivision` DISABLE KEYS */;
-INSERT INTO `ran_subdivision` VALUES (1,2,'Cadete'),(2,1,'Capitan de la Brigada'),(3,2,'Encargado de Infante'),(4,3,'Encargado de U.A'),(5,2,'Encargado de U.I'),(6,1,'Encargado de U.R.A'),(7,1,'Guardia'),(8,2,'Infante Supreme'),(9,3,'Piloto Avanzado'),(10,3,'Piloto Experto'),(11,3,'Piloto Instructor'),(12,3,'Piloto Novato'),(13,1,'Recluta'),(14,2,'Recluta'),(15,2,'Sargento'),(16,1,'Sub-Capitan'),(17,2,'Supervisor'),(18,1,'Teniente');
+INSERT INTO `ran_subdivision` VALUES (1,2,'Cadete'),(2,1,'Capitan de la Brigada'),(3,2,'Encargado de Infante'),(4,3,'Encargado de U.A'),(5,2,'Encargado de U.I'),(6,1,'Encargado de U.R.A'),(7,1,'Guardia'),(8,2,'Infante Supreme'),(9,3,'Piloto Avanzado'),(10,3,'Piloto Experto'),(11,3,'Piloto Instructor'),(12,3,'Piloto Novato'),(13,1,'Recluta'),(14,2,'Recluta'),(15,2,'Sargento'),(16,1,'Sub-Capitan'),(17,2,'Supervisor'),(18,1,'Teniente'),(19,2,'Camilin');
 /*!40000 ALTER TABLE `ran_subdivision` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +274,7 @@ CREATE TABLE `robo` (
   `maxIntegrantes` int NOT NULL,
   `minIntegrantes` int NOT NULL,
   PRIMARY KEY (`idLugarRobo`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,6 +363,7 @@ CREATE TABLE `rol_integrante` (
 
 LOCK TABLES `rol_integrante` WRITE;
 /*!40000 ALTER TABLE `rol_integrante` DISABLE KEYS */;
+INSERT INTO `rol_integrante` VALUES (2,7);
 /*!40000 ALTER TABLE `rol_integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -438,10 +441,6 @@ LOCK TABLES `subdivision` WRITE;
 INSERT INTO `subdivision` VALUES (1,'Unidad de rapida accion','U.R.A'),(2,'Unidad de infanteria','U.I'),(3,'Unidad aerea','U.A');
 /*!40000 ALTER TABLE `subdivision` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'ucp-psg'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -452,4 +451,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-23 23:51:05
+-- Dump completed on 2021-08-30 16:16:04

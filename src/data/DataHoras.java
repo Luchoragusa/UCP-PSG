@@ -256,8 +256,8 @@ public Horas getHorasDelIntegrante(int id) {
 	
 	}
 
-	public LinkedList<Horas> getTuplasIntegrante(int id, LocalDate fecha, LocalDate fechaFin) {	//si fechaFin es null no lo muestra y tira error para el toString
-	
+	public LinkedList<Horas> getTuplasIntegrante(int id, LocalDate fecha, LocalDate fechaFin) 
+	{
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Horas> h = new LinkedList<>();
@@ -265,7 +265,7 @@ public Horas getHorasDelIntegrante(int id) {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select horasJugadas FROM horas WHERE idIntegrante = ? and fecha BETWEEN ? and ?");
+			 "select horasJugadas FROM horas WHERE idIntegrante = ? and fecha BETWEEN ? and ? and horaFin is not null ");
 			
 			stmt.setInt(1, id);
 			stmt.setObject(2, fecha);
@@ -313,7 +313,7 @@ public Horas getHorasDelIntegrante(int id) {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select * FROM horas BETWEEN fecha = ? and fechaFin = ?");
+			 "select horasJugadas, idIntegrante FROM horas WHERE fecha BETWEEN ? and ? and horaFin is not null ");
 			
 			stmt.setObject(1, fecha);
 			stmt.setObject(2, fechaFin);
@@ -325,11 +325,9 @@ public Horas getHorasDelIntegrante(int id) {
 				while(rs.next()) 
 				{
 					Horas h1 = new Horas();
+
+					h1.setHorasJugadas(rs.getObject("horasJugadas", LocalTime.class));
 					h1.setIdIntegrante(rs.getInt("idIntegrante"));
-					h1.setFecha(rs.getDate("fecha").toLocalDate());
-					h1.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
-					h1.setHoraFin(rs.getObject("horaFin", LocalTime.class));	
-					h1.setFechaFin(rs.getDate("fechaFin").toLocalDate());
 					
 					h.add(h1);
 				}
@@ -360,7 +358,7 @@ public Horas getHorasDelIntegrante(int id) {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().
-					prepareStatement("update horas set horasJugadas = timediff(horaInicio, horaFin) where idIntegrante = 3 and horaInicio = ? and horaFin = ?");
+					prepareStatement("update horas set horasJugadas = timediff(horaFin, horaInicio) where idIntegrante = ? and horaInicio = ? and horaFin = ?");
 			stmt.setInt(1, h.getIdIntegrante());
 			stmt.setObject(2, h.getHoraInicio());	
 			stmt.setObject(3, h.getHoraFin());	
