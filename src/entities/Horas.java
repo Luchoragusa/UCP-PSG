@@ -4,19 +4,20 @@ import java.time.*;
 public class Horas 
 {
 	private int idIntegrante;
-	private LocalTime horaInicio, horaFin;
+	private LocalTime horaInicio, horaFin, horasJugadas;
 	private LocalDate fecha, fechaFin;
 	
 	public Horas () {
 		
 	}
-	public Horas(int idIntegrante, LocalTime horaInicio, LocalTime horaFin, LocalDate fecha, LocalDate fechaFin) {
+	public Horas(int idIntegrante, LocalTime horaInicio, LocalTime horaFin, LocalDate fecha, LocalDate fechaFin, LocalTime horasJugadas) {
 		super();
 		this.idIntegrante = idIntegrante;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 		this.fecha = fecha;
 		this.fechaFin = fechaFin;
+		this.horasJugadas = horasJugadas;
 	}
 	
 	public int getIdIntegrante() {
@@ -53,6 +54,12 @@ public class Horas
 	}
 	public void setFechaFin(LocalDate fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+	public LocalTime getHorasJugadas() {
+		return horasJugadas;
+	}
+	public void setHorasJugadas(LocalTime horasJugadas) {
+		this.horasJugadas = horasJugadas;
 	}
 
 }

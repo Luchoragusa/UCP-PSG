@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import data.DataArma;
 import data.DataHoras;
@@ -439,9 +440,13 @@ public class Menu
 			}	
 	
 			LocalDate fechaF = LocalDate.now();
-			h.setFechaFin(fechaF);
+			h.setFechaFin(fechaF);						
+			
+			/*Long dif = Math.abs(h.getHoraFin() - h.getHoraInicio());
+			TimeUnit.MINUTES.convert(dif, TimeUnit.MILLISECONDS);*/
 			
 			dh.update(h);
+			
 		}
 		else
 		{

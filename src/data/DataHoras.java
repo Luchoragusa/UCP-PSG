@@ -356,4 +356,6 @@ public Horas getHorasDelIntegrante(int id) {
 		}
 		return h;
 	}
+
+	
 }
