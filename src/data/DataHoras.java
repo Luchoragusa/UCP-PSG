@@ -25,7 +25,7 @@ public Horas getHorasDelIntegrante(int id) {
 	
 	try 
 	{
-		stmt=DbConnector.getInstancia().getConn().prepareStatement(
+		stmt = DbConnector.getInstancia().getConn().prepareStatement(
 		 "select * FROM horas WHERE idIntegrante = ? ORDER BY fecha desc, horaInicio desc limit 1");
 		stmt.setInt(1, id);
 		rs=stmt.executeQuery();
@@ -265,7 +265,7 @@ public Horas getHorasDelIntegrante(int id) {
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select * FROM horas WHERE idIntegrante = ? and fecha BETWEEN ? and ?");
+			 "select horasJugadas FROM horas WHERE idIntegrante = ? and fecha BETWEEN ? and ?");
 			
 			stmt.setInt(1, id);
 			stmt.setObject(2, fecha);
@@ -278,11 +278,8 @@ public Horas getHorasDelIntegrante(int id) {
 				while(rs.next()) 
 				{
 					Horas h1 = new Horas();
-					h1.setIdIntegrante(id);
-					h1.setFecha(rs.getDate("fecha").toLocalDate());
-					h1.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
-					h1.setHoraFin(rs.getObject("horaFin", LocalTime.class));	
-					h1.setFechaFin(rs.getObject("fechaFin", LocalDate.class));
+
+					h1.setHorasJugadas(rs.getObject("horasJugadas", LocalTime.class));
 					
 					h.add(h1);
 				}
@@ -355,6 +352,38 @@ public Horas getHorasDelIntegrante(int id) {
 			}
 		}
 		return h;
+	}
+	
+	public void diferenciaHoras(Horas h) {
+
+		PreparedStatement stmt= null;
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement("update horas set horasJugadas = timediff(horaInicio, horaFin) where idIntegrante = 3 and horaInicio = ? and horaFin = ?");
+			stmt.setInt(1, h.getIdIntegrante());
+			stmt.setObject(2, h.getHoraInicio());	
+			stmt.setObject(3, h.getHoraFin());	
+			
+			stmt.executeUpdate();
+		} 
+		catch (SQLException e) 
+		{
+            e.printStackTrace();
+		} 
+		finally 
+		{
+            try 
+            {
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } 
+            catch (SQLException e) 
+            {
+            	e.printStackTrace();
+            }
+		}
+	
 	}
 
 	

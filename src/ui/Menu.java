@@ -156,7 +156,7 @@ public class Menu
 			}
 				break;
 			case "MostrarHoras":{
-				System.out.println(showHoras());
+				showHoras(i);
 			}
 				break;
 			case "registrarUnStock":{
@@ -242,9 +242,11 @@ public class Menu
 		}
 	}
 	
-	private char[] showHoras() {
-		// TODO Auto-generated method stub
-		return null;
+	private void showHoras(Integrante i) {
+		Horas h = new Horas();
+		DataHoras dh = new DataHoras();
+
+		System.out.println("Se muestran las horas de todos los integrantes.");
 	}
 
 	private void showHorasIntegrante(Integrante i) {
@@ -263,7 +265,16 @@ public class Menu
 		
 		horasInt = dh.getTuplasIntegrante(i.getIdIntegrante(), h.getFecha(), h.getFechaFin());
 		
-			System.out.println(horasInt.toString());
+		//System.out.println(horasInt.toString());
+
+		LocalTime contadorHorasJugadas = null;
+		
+		for(Horas horasJugadas : horasInt) {
+			System.out.println(horasJugadas.toString());
+			//contadorHorasJugadas = 
+		}
+		
+		
 	}
 
 	private void bajaIntegranteAdmin(Integrante i) {
@@ -446,6 +457,7 @@ public class Menu
 			TimeUnit.MINUTES.convert(dif, TimeUnit.MILLISECONDS);*/
 			
 			dh.update(h);
+			dh.diferenciaHoras(h);
 			
 		}
 		else
