@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `ucp-psg` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `ucp-psg`;
--- MySQL dump 10.13  Distrib 8.0.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
--- Host: localhost    Database: ucp-psg
+-- Host: 127.0.0.1    Database: ucp-psg
 -- ------------------------------------------------------
--- Server version	8.0.24
+-- Server version	8.0.26
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -67,7 +67,7 @@ CREATE TABLE `horas` (
 
 LOCK TABLES `horas` WRITE;
 /*!40000 ALTER TABLE `horas` DISABLE KEYS */;
-INSERT INTO `horas` VALUES (1,'20:26:00',NULL,'2021-08-22',NULL,NULL),(3,'19:46:00','20:54:06','2021-08-22','2021-08-22','-01:08:06'),(3,'20:35:49','20:54:06','2021-08-22','2021-08-22',NULL),(3,'20:56:30','21:01:08','2021-08-22','2021-08-22',NULL),(3,'21:56:11','22:00:00','2021-08-22','2021-08-23',NULL),(3,'23:47:38','23:47:54','2021-08-29','2021-08-29',NULL);
+INSERT INTO `horas` VALUES (1,'03:02:53','03:12:53','2021-08-30','2021-08-30','00:10:00'),(2,'03:02:53','03:12:53','2021-08-30','2021-08-30','00:10:00'),(3,'00:14:38','00:14:45','2021-08-30','2021-08-30','00:00:07'),(3,'02:22:50','02:23:00','2021-08-30','2021-08-30','00:00:10'),(3,'03:02:53','03:03:03','2021-08-30','2021-08-30','00:00:10');
 /*!40000 ALTER TABLE `horas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,14 +441,6 @@ LOCK TABLES `subdivision` WRITE;
 INSERT INTO `subdivision` VALUES (1,'Unidad de rapida accion','U.R.A'),(2,'Unidad de infanteria','U.I'),(3,'Unidad aerea','U.A');
 /*!40000 ALTER TABLE `subdivision` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'ucp-psg'
---
-
---
--- Dumping routines for database 'ucp-psg'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -459,4 +451,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-29 23:56:31
+-- Dump completed on 2021-08-30 16:16:04
