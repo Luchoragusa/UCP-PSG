@@ -305,55 +305,57 @@ public Horas getHorasDelIntegrante(int id) {
 		
 	}
 
-	public LinkedList<Horas> getAllTuplas(LocalDate fecha, LocalDate fechaFin){
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
-		LinkedList<Horas> h = new LinkedList<>();
-		
-		try 
-		{
-			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-			 "select horasJugadas, idIntegrante FROM horas WHERE fecha BETWEEN ? and ? and horaFin is not null ");
-			
-			stmt.setObject(1, fecha);
-			stmt.setObject(2, fechaFin);
-			
-			rs=stmt.executeQuery();
-			
-			if(rs!=null) 
-			{
-				while(rs.next()) 
-				{
-					Horas h1 = new Horas();
+	public LinkedList<Horas> getHorasAllIntegrantes(LocalDate fecha, LocalDate fechaFin) 
+	{
+        PreparedStatement stmt=null;
+        ResultSet rs=null;
+        LinkedList<Horas> h = new LinkedList<>();
 
-					h1.setHorasJugadas(rs.getObject("horasJugadas", LocalTime.class));
-					h1.setIdIntegrante(rs.getInt("idIntegrante"));
-					
-					h.add(h1);
-				}
-			}	
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		} 
-		finally 
-		{
-			try 
-			{
-				if(rs!=null) {rs.close();}
-				if(stmt!=null) {stmt.close();}
-				DbConnector.getInstancia().releaseConn();
-			} 
-			catch (SQLException e) 
-			{
-				e.printStackTrace();
-			}
-		}
-		return h;
-	}
+        try 
+        {
+            stmt=DbConnector.getInstancia().getConn().prepareStatement(
+             "SELECT idIntegrante, time_format(sum(horasJugadas), \"%H:%i:%S\") as horasJugadas  from horas \n"
+             + " WHERE fecha BETWEEN ? and ? and horaFin is not null group by idIntegrante");
+
+            stmt.setObject(1, fecha);
+            stmt.setObject(2, fechaFin);
+            rs=stmt.executeQuery();
+
+            if(rs!=null) 
+            {
+                while(rs.next()) 
+                {
+                    Horas h1 = new Horas();
+
+                    h1.setHorasJugadas(rs.getObject("horasJugadas", LocalTime.class));
+                    h1.setIdIntegrante(rs.getInt("idIntegrante"));
+
+                    h.add(h1);
+                }
+            }
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        } 
+        finally 
+        {
+            try 
+            {
+                if(rs!=null) {rs.close();}
+                if(stmt!=null) {stmt.close();}
+                DbConnector.getInstancia().releaseConn();
+            } 
+            catch (SQLException e) 
+            {
+                e.printStackTrace();
+            }
+        }
+        return h;
+    }
 	
-	public void diferenciaHoras(Horas h) {
-
+	public void diferenciaHoras(Horas h) 
+	{
 		PreparedStatement stmt= null;
 		try 
 		{
