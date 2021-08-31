@@ -500,8 +500,7 @@ public class Menu
 			TimeUnit.MINUTES.convert(dif, TimeUnit.MILLISECONDS);*/
 			
 			dh.update(h);
-			dh.diferenciaHoras(h);
-			
+			dh.diferenciaHoras(h);			
 		}
 		else
 		{
