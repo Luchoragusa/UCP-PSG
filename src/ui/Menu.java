@@ -1,7 +1,5 @@
 package ui;
 
-//hola
-
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
