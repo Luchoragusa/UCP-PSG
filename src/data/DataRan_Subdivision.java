@@ -57,7 +57,7 @@ public class DataRan_Subdivision {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Ran_Subdivision> rsubs= new LinkedList<>();
-		//grg
+		
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(

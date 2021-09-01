@@ -236,7 +236,7 @@ public class DataRango
 		try 
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement( 
-					"select idRango from ran_integrante ORDER BY fecha_desde DESC WHERE idIntegrante=?");
+					"select idRango from ran_integrante  WHERE idIntegrante=? ORDER BY fecha_desde DESC LIMIT 1");
 			
 			stmt.setInt(1, intg.getIdIntegrante());
 			rs=stmt.executeQuery();

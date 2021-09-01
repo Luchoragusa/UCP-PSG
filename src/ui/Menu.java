@@ -540,12 +540,17 @@ public class Menu
 		
 		rsbi.setIdIntegrante(i.getIdIntegrante());
 		
+		System.out.println(i.toString());
+		Rango r = dr.getById_Int(i);
+		System.out.println(r.toString());
 		// Valido que el rango del integrante sea mayor a empleado antes de asignarle el rangodesub
-		if (dr.getById_Int(i).getIdRango() >= 2)
+		if (r.getIdRango() >= 2)
 		{
 			LocalDate fecha = LocalDate.now();
 			rsbi.setFecha_desde(fecha);
+			System.out.println("seteo fecha");
 			rsbi.setIdRangoSub(rsb.getIdRanSub());
+			System.out.println("seteo id ran sub");
 			
 			drsbi.add(rsbi);
 		}
@@ -903,14 +908,15 @@ public class Menu
 		System.out.println();
 		Ran_Subdivision rsb = new Ran_Subdivision();
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
+		rsb.setIdSub(sb.getIdSub());
 		
 		System.out.println("Listado de rangos de la subdivision encontrada: ");
 		System.out.println(drsb.getByIdSub(rsb));
 		
-		System.out.print("Ingrese la ID de la subdivision a encontrar en la tabla RangoSub: ");
+		System.out.print("Ingrese la NOMBRE de la subdivision a encontrar en la tabla RangoSub: ");
 		
-		rsb.setIdSub(Integer.parseInt(s.nextLine()));
-		//rsb = drsb.getByIdSub(rsb);
+		rsb.setNombreRangoSub(s.nextLine());
+		rsb = drsb.getByNombre(rsb);
 		return rsb;
 	}
 
