@@ -611,9 +611,10 @@ public class Menu
 		System.out.println(dr.getAll());
 		
 		System.out.println("Ingrese la ID del robo a registrar: ");
+		
 		r.setIdLugarRobo(Integer.parseInt(s.nextLine()));
 		rxd.setIdLugarRobo(r.getIdLugarRobo());
-		
+		r = dr.getById(r);
 		System.out.println("Cuantos fueron al robo?");
 		int integrantesCant = Integer.parseInt(s.nextLine());
 		
@@ -621,7 +622,7 @@ public class Menu
 			
 			System.out.println("Ingrese el resultado del robo: (V- Victoria ; E- Empate ; F- Fracaso)");
 			String op = s.nextLine();
-			if (op.equalsIgnoreCase("S")) {
+			if (op.equalsIgnoreCase("V")) {
 				resultado = "Victoria";
 			}
 			else if (op.equalsIgnoreCase("E")) 
@@ -636,7 +637,7 @@ public class Menu
 			LocalDate fecha = LocalDate.now();
 			LocalTime hora = LocalTime.now();
 			
-			for (int j = 0; j <= integrantesCant; j++) {
+			for (int j = 0; j < integrantesCant; j++) {
 				
 				i = find();	
 											
@@ -907,7 +908,9 @@ public class Menu
 		System.out.println(drsb.getByIdSub(rsb));
 		
 		System.out.print("Ingrese la ID de la subdivision a encontrar en la tabla RangoSub: ");
+		
 		rsb.setIdSub(Integer.parseInt(s.nextLine()));
+		//rsb = drsb.getByIdSub(rsb);
 		return rsb;
 	}
 
@@ -1330,9 +1333,7 @@ public class Menu
 		System.out.println();
 		System.out.print("Usuario(NUEVO): "); i.setUsuario(s.nextLine());
 		
-		System.out.print("Usuario(ACTUAL): " + i.getUsuario());
-		System.out.println();
-		System.out.print("Usuario(NUEVO): "); i.setUsuario(s.nextLine());
+		
 		
 		System.out.print("SteamHex(ACTUAL): " + i.getSteamHex());
 		System.out.println();

@@ -226,6 +226,7 @@ public class DataSubdivision {
 							"update subdivision set descripcion=?, nomSubdivision = ? where idSub=?");
 			stmt.setString(1, s.getDescripcion());
 			stmt.setString(2, s.getNomSubDivision());
+			stmt.setInt(3, s.getIdSub());
 			stmt.executeUpdate();
 		} 
 		catch (SQLException e) 

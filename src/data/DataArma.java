@@ -226,6 +226,7 @@ public class DataArma {
 							"update arma set nombreArma=?, tipoArma = ? where idArma=?");
 			stmt.setString(1, a.getNombreArma());
 			stmt.setString(2, a.getTipoArma());
+			stmt.setInt(3, a.getIdArma());
 			stmt.executeUpdate();
 		} 
 		catch (SQLException e) 

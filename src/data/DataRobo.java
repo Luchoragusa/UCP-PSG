@@ -144,7 +144,7 @@ public class DataRobo
 		{
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into robo(nomRobo, lugarRobo, maxIntegrantes, minIntegrantes) values(?,?,?,?,?)",
+							"insert into robo(nomRobo, lugarRobo, maxIntegrantes, minIntegrantes) values(?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, robo.getNomRobo());

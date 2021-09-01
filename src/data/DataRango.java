@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import entities.*;
 
@@ -65,7 +66,7 @@ public class DataRango
 			{
 				r=new Rango();
 				r.setIdRango(rs.getInt("idRango"));
-				r.setNomRango(rs.getString("nomRango"));
+				r.setNomRango(rs.getString("nombRango"));
 			}
 		} 
 		catch (SQLException e) 
@@ -276,7 +277,7 @@ public class DataRango
 			
 			stmt.setInt(1, rango.getIdRango());
 			stmt.setInt(2, intg.getIdIntegrante());
-			//stmt.setDate(3, ); funcion que de la fecha de hoy
+			stmt.setObject(3, LocalDate.now());
 			stmt.executeUpdate();
 		} 
 		catch (SQLException e) 

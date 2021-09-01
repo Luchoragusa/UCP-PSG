@@ -227,6 +227,7 @@ public class DataMedalla {
 							"update medalla set nomMedalla=?, tipoMedalla = ? where idMedalla=?");
 			stmt.setString(1, m.getNomMedalla());
 			stmt.setString(2, m.getTipoMedalla());
+			stmt.setInt(3, m.getIdMedalla());
 			stmt.executeUpdate();
 		} 
 		catch (SQLException e) 
