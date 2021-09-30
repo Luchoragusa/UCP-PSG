@@ -9,20 +9,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-import data.DataArma;
-import data.DataHoras;
-import data.DataIntegrante;
-import data.DataMed_Integrante;
-import data.DataMedalla;
-import data.DataRanSub_Integrante;
-import data.DataRan_Subdivision;
-import data.DataRango;
-import data.DataRobo;
-import data.DataRoboxdia;
-import data.DataRol;
-import data.DataSancion;
-import data.DataStockarma;
-import data.DataSubdivision;
+import data.*;
 import entities.*;
 import logic.Login;
 @SuppressWarnings("unused")
@@ -160,6 +147,10 @@ public class Menu
 				showHoras(i);
 			}
 				break;
+			case "MostrarListadoActivos":{
+				showListadoActivos();
+			}
+				break;
 			case "registrarUnStock":{
 				regStock();									
 			}
@@ -243,6 +234,27 @@ public class Menu
 		}
 	}
 	
+	private void showListadoActivos() 
+	{
+		LinkedList<Integrante> uActivos = new LinkedList<>(); 
+		DataIntegrante di = new DataIntegrante();
+		Rango r = new Rango();
+		DataRango dr = new DataRango();
+		
+		
+		uActivos = di.getServicio();
+		
+		
+		
+		for (Integrante i : uActivos) {
+			System.out.println("Apellido: "+i.getApellido()+" Nombre: " + i.getNombre()+" ID: " + i.getIdIntegrante());
+			// Busco el rango
+			r = dr.getById_Int(i);
+			System.out.print("Rango: "+r.getNomRango()); // Hay alguna manera mejorr de hacerlo, en lugar de para cada uno hacer una llamada  a la SQL ?
+		}
+		uActivos.toString();
+	}
+
 	private void showHoras(Integrante i) 
     {
         Horas h = new Horas();
@@ -1213,6 +1225,7 @@ public class Menu
 		System.out.print("\n mostrarRangoSub");
 		System.out.println("\n MostrarHorasIntegrante");
 		System.out.println("\n MostrarHoras");
+		System.out.println("\n MostrarListadoActivos");
 		
 		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		

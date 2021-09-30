@@ -97,8 +97,8 @@ public class DataIntegrante {
 		return i;
 	}
 	
-	public LinkedList<Integrante> getAll() {
-		
+	public LinkedList<Integrante> getAll() 
+	{
 		DataRol dr=new DataRol();
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -140,8 +140,6 @@ public class DataIntegrante {
 			}
 		}
 		return inte;
-		
-	
 	}
 	
 	public LinkedList<Integrante> getByApellido(Integrante inte) {
@@ -307,6 +305,52 @@ public class DataIntegrante {
             }
 		}
     
+	}
+
+	public LinkedList<Integrante> getServicio() 
+	{
+		DataRol dr=new DataRol();
+		Statement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Integrante> uActivos= new LinkedList<>();		
+		try {
+			stmt= DbConnector.getInstancia().getConn().createStatement();
+			rs= stmt.executeQuery("select nombre, apellido, i.idIntegrante\r\n"
+					+ "from horas\r\n"
+					+ "inner join integrante i on horas.idIntegrante = i.idIntegrante\r\n"
+					+ "where horaInicio is not null and horaFin is null");
+		
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+				{
+					Integrante i=new Integrante();
+					
+					i.setIdIntegrante(rs.getInt("idIntegrante"));
+					i.setNombre(rs.getString("nombre"));
+					i.setApellido(rs.getString("apellido"));
+					uActivos.add(i);
+				}
+			}	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return uActivos;
 	}
 
 }
