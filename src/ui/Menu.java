@@ -1177,7 +1177,7 @@ public class Menu
 
 	private String getCommand() {
 		
-		System.out.print(" \n-- COMANDOS --");	
+		System.out.print(" \n--- COMANDOS ---");	
 		
 		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		
