@@ -159,34 +159,24 @@ public class DataRol {
 		}
 	}
 
-	public void deleteRole(Integrante intg) 
-	{
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
-		try 
-		{
-			stmt=DbConnector.getInstancia().getConn().prepareStatement( 
-					"delete from rol_integrante where idIntegrante = ?");
-			
+	public void undoneRol(Integrante intg, Rol rol) {
+		PreparedStatement stmt= null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"delete from rol_persona where id_persona = ? and id_rol =?");
 			stmt.setInt(1, intg.getIdIntegrante());
-			stmt.execute();
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		finally 
-		{
-			try 
-			{
-				if(rs!=null) {rs.close();}
-				if(stmt!=null) {stmt.close();}
-				DbConnector.getInstancia().releaseConn();
-			} 
-			catch (SQLException e) 
-			{
-				e.printStackTrace();
-			}
+			stmt.setInt(2, rol.getIdRol());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
 		}
 	}
 	
@@ -334,4 +324,59 @@ public class DataRol {
 			}
 		}
 	}
+
+	public void saveRoles(Integrante inte, Rol rol) {
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"insert into rol_persona (id_persona, id_rol) values(?,?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setInt(1,inte.getIdIntegrante());
+			stmt.setInt(2, rol.getIdRol());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            if(keyResultSet!=null && keyResultSet.next()){
+            	inte.setIdIntegrante(keyResultSet.getInt(1));
+                rol.setIdRol(keyResultSet.getInt(2));
+            }
+
+			
+		} catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+
+	}
+	
+	public void undoneAllRoles(Integrante inte) {
+		PreparedStatement stmt= null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"delete from rol_persona where id_persona = ?");
+			stmt.setInt(1, inte.getIdIntegrante());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+	}
+	
 }

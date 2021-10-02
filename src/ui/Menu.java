@@ -349,7 +349,7 @@ public class Menu
 		if (op.equalsIgnoreCase("A")) {
 			
 			di.delete(i);
-			dr.deleteRole(i);	
+			dr.undoneAllRoles(i);	
 			drango.deleteRango(i);
 			System.out.println("Operacion de baja de integrante propia con roles y rangos completado.");
 			
@@ -357,7 +357,7 @@ public class Menu
 			
 			Integrante otro = find();
 			di.delete(otro);
-			dr.deleteRole(otro);
+			dr.undoneAllRoles(otro);
 			drango.deleteRango(otro);
 			System.out.println("Operacion de baja de otro integrante con roles y rangos completado.");
 		}
@@ -466,7 +466,7 @@ public class Menu
 		DataRango drango = new DataRango();
 		
 		di.delete(i);
-		dr.deleteRole(i);
+		dr.undoneAllRoles(i);
 		drango.deleteRango(i);
 		
 		System.out.println("Operacion de baja de integrante propia con roles y rangos completado.");
@@ -753,7 +753,7 @@ public class Menu
 		
 		i = find();
 		
-		dr.deleteRole(i);
+		dr.undoneAllRoles(i);
 		
 		System.out.print("Ingrese la descripcion del rol a registrar en el integrante: "); 
 		r.setDescripcion(s.nextLine());
@@ -1302,7 +1302,7 @@ public class Menu
 	{
 		System.out.println();
 		Integrante i=new Integrante();		
-		Rol r = new Rol();
+	
 		DataRol dr = new DataRol();
 		Rango rango = new Rango();
 		DataRango drango = new DataRango();
@@ -1317,22 +1317,14 @@ public class Menu
 		System.out.println("Lista de roles ");
 		System.out.println(dr.getAll());
 		
-		System.out.print("Ingrese la ID del rol: "); 
-		r.setIdRol(Integer.parseInt(s.nextLine()));
-		
-		System.out.println("La ID ingresada: ");
-		System.out.println(dr.getById(r).toString());
-		
 		System.out.println("A continuacion la lista de Rangos: ");
 		System.out.println(drango.getAll());
 		
 		System.out.println("Ingrese la ID del rango a cargarle: ");
 		rango.setIdRango(Integer.parseInt(s.nextLine()));
 		
-		i.addRol(r);
 		i.addRango(rango); 
 		ctrlLogin.add(i); 
-		dr.saveRole(i,r); 
 		drango.saveRango(i, rango); 
 		
 		System.out.println("Operacion realizada con Exito");
@@ -1343,7 +1335,7 @@ public class Menu
 		System.out.println();
 		Integrante i=new Integrante();
 
-		Rol r = new Rol(); i.addRol(r);
+	
 		DataRol dr = new DataRol();
 		
 		i = find();
@@ -1373,20 +1365,8 @@ public class Menu
 		System.out.print("PW(NUEVO): "); i.setPw(s.nextLine());
 		System.out.println();
 		
-		dr.deleteRole(i);
-		
-		System.out.println("Lista de roles ");
-		System.out.println(dr.getAll());
-		
-		System.out.print("Ingrese la ID del rol: "); 
-		r.setIdRol(Integer.parseInt(s.nextLine()));		
-		
-		System.out.println("El rol, actualizado, es: ");
-		System.out.println(dr.getById(r).toString());
-		
 		ctrlLogin.update(i);
 		
-		dr.saveRole(i,r);
 		
 		System.out.println();
 		System.out.println("Operacion realizada con Exito");

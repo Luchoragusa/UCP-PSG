@@ -12,10 +12,11 @@ import java.util.*;
 import entities.Horas;
 import entities.Integrante;
 import entities.Rango;
+import entities.Rol;
 import entities.Subdivision;
 
 public class DataIntegrante {
-
+	Scanner s = null;
 	public Integrante getByUser(Integrante inte) {
 		
 		DataRol dr=new DataRol();
@@ -202,6 +203,10 @@ public class DataIntegrante {
 	}
 
 	public void add(Integrante i) {
+		s = new Scanner(System.in);
+		Rol r = new Rol();
+		DataRol dr = new DataRol();
+		Boolean otroRol = true;
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try 
@@ -220,6 +225,27 @@ public class DataIntegrante {
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
+			
+			if(keyResultSet!=null && keyResultSet.next()){
+                i.setIdIntegrante(keyResultSet.getInt(1));
+            }
+            
+			while(otroRol) {
+				r = this.executeRol();
+				if (i.hasRol(r)) System.out.println("\n Esta persona ya tiene ese rol asignado ");
+				else {
+					dr.setRoles(i);
+					dr.saveRoles(i,r);
+					System.out.print("\n rol asinado correctamente ");
+				}
+				System.out.print("\n Desea agregar otro rol? \n (1 = SI / 2 = NO): ");
+				if(s.nextInt() == 1) {
+					otroRol = true;
+				}else otroRol =false;
+			}
+			
+			
+			
             if(keyResultSet!=null && keyResultSet.next())
             {
                 i.setIdIntegrante(keyResultSet.getInt(1));
@@ -244,6 +270,30 @@ public class DataIntegrante {
 		}
 	}
 
+	
+	public Rol executeRol() {
+		s = new Scanner(System.in);
+		DataRol dr = new DataRol();
+		Rol r = new Rol();
+		int idRol = 0;
+		Boolean band = true;
+		
+		System.out.println("Lista de Roles: ");
+		System.out.println(dr.getAll());
+		while(band) {
+			System.out.print("Ingrese ID del rol elegido: ");
+			idRol = s.nextInt();
+			r.setIdRol(idRol);
+			r = dr.getById(r);
+			if(r.getDescripcion() != null) {
+				band=false;
+			}
+			else System.out.print("\n ID de Rol invalido intente nuevamente.");
+		}
+		
+		return r;
+	}
+	
 	public void update(Integrante i) {
 
 		PreparedStatement stmt= null;
@@ -262,6 +312,7 @@ public class DataIntegrante {
 			stmt.setString(6, i.getSteamHex());	
 			stmt.setInt(7, i.getIdIntegrante());	
 			stmt.executeUpdate();
+			this.updateRoles(i);
 		}  
 		catch (SQLException e) 
 		{
@@ -314,9 +365,68 @@ public class DataIntegrante {
     
 	}
 
+	private void updateRoles(Integrante i) {
+		 s = new Scanner(System.in);
+		DataRol dr = new DataRol();
+		Rol r = new Rol();
+		Boolean tieneRol = false;
+		Boolean band = true;
+		int b1 = 1;
+		for(int p=1;p<=dr.getAll().size();p++) {
+			 r.setIdRol(p);
+			 if(i.hasRol(r)) tieneRol=true ; 
+		}
+		
+		if(tieneRol) {
+			System.out.println("\n Esta persona ya tiene roles asignados: ");
+			System.out.println("\n" + i);	
+			System.out.print("\n Desea añadir otro rol? (S/N): ");
+			if(s.nextLine().trim().equalsIgnoreCase("S")) {
+				r = this.executeRol();
+				dr.setRoles(i);
+				i.addRol(r);
+				dr.saveRoles(i, r);
+				System.out.print("\n rol asinado correctamente ");
+			}
+			System.out.print("\n Desea eliminar algun rol? (S/N): ");
+			if(s.nextLine().trim().equalsIgnoreCase("S")) {
+				while(band) {
+					r = this.executeRol();
+					if(i.hasRol(r)) {
+						dr.setRoles(i);
+						i.removeRol(r);
+						dr.undoneRol(i, r);
+						System.out.print("\n rol eliminado correctamente"
+								+"\n Desea eliminar otro? (S/N): ");
+						if(s.nextLine().trim().equalsIgnoreCase("S")) band = true; else band=false;
+					}else {
+						System.out.println("Esta persona no contiene ese rol"
+								+ "\n intente nuevamente");
+					}
+				}
+			}
+		}else {
+			System.out.println("\n Esta persona NO tiene roles asignados ");
+			System.out.println("\n A continuacion se asignaran roles: ");
+			while(b1 == 1) {
+				r = this.executeRol();
+				dr.setRoles(i);
+				i.addRol(r);
+				dr.saveRoles(i, r);
+				
+				System.out.print("\n rol asignado correctamente ");
+				System.out.println("\n Desea añadir otro rol? \n 1 = SI / 2 = NO: ");
+				if(s.nextInt() != 1) {
+					b1 = 2;
+				}
+				
+			}
+			
+		}
+	}
+	
 	public HashMap getServicio() 
 	{
-		DataRol dr=new DataRol();
 		Statement stmt=null;
 		ResultSet rs=null;
 		HashMap<HashMap<Integrante,Rango>,HashMap<Horas,Subdivision>> uActivos = new HashMap<>();
