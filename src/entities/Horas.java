@@ -63,7 +63,5 @@ public class Horas
 		this.horasJugadas = horasJugadas;
 	}
 	
-	
-	
-	
+
 }
