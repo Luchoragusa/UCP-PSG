@@ -4,8 +4,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedList;
+import java.time.LocalTime;
+import java.util.*;
+
+
+
+import entities.Horas;
 import entities.Integrante;
+import entities.Rango;
+import entities.Subdivision;
 
 public class DataIntegrante {
 
@@ -307,29 +314,54 @@ public class DataIntegrante {
     
 	}
 
-	public LinkedList<Integrante> getServicio() 
+	public HashMap getServicio() 
 	{
 		DataRol dr=new DataRol();
 		Statement stmt=null;
 		ResultSet rs=null;
-		LinkedList<Integrante> uActivos= new LinkedList<>();		
+		HashMap<HashMap<Integrante,Rango>,HashMap<Horas,Subdivision>> uActivos = new HashMap<>();
+		HashMap<Integrante,Rango> inteRango = null;
+		HashMap<Horas,Subdivision> horaSubdivision = null;
+		Integrante i=null;
+		Rango r = null;
+		Horas h = null;
+		Subdivision s = null;
+		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select nombre, apellido, i.idIntegrante\r\n"
+			rs= stmt.executeQuery("select nombre, apellido, r.nombRango, s.descripcion, horaInicio\r\n"
 					+ "from horas\r\n"
+					+ "\r\n"
 					+ "inner join integrante i on horas.idIntegrante = i.idIntegrante\r\n"
-					+ "where horaInicio is not null and horaFin is null");
+					+ "inner join ran_integrante ri on i.idIntegrante = ri.idIntegrante\r\n"
+					+ "inner join rango r on ri.idRango = r.idRango\r\n"
+					+ "\r\n"
+					+ "inner join ransub_integrante ri2 on i.idIntegrante = ri2.idIntegramte\r\n"
+					+ "inner join ran_subdivision rs on ri2.idRangoSub = rs.idRanSub\r\n"
+					+ "inner join  subdivision s on rs.idSub = s.idSub\r\n"
+					+ "\r\n"
+					+ "where horaInicio is not null and horaFin is null;");
 		
 			if(rs!=null) 
 			{
 				while(rs.next()) 
 				{
-					Integrante i=new Integrante();
-					
-					i.setIdIntegrante(rs.getInt("idIntegrante"));
+					i = new Integrante();
+					r = new Rango();
+					h = new Horas();
+					s = new Subdivision();
+				
+					inteRango = new HashMap<>();
+					horaSubdivision = new HashMap<>();
 					i.setNombre(rs.getString("nombre"));
 					i.setApellido(rs.getString("apellido"));
-					uActivos.add(i);
+					r.setNomRango(rs.getString("nombRango"));
+					h.setHoraInicio(rs.getObject("horaInicio", LocalTime.class));
+					s.setDescripcion(rs.getString("descripcion"));
+					inteRango.put(i,r);
+					horaSubdivision.put(h,s);
+					uActivos.put(inteRango,horaSubdivision);
+					
 				}
 			}	
 		} 

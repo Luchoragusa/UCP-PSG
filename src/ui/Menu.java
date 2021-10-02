@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAmount;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import data.*;
 import entities.*;
@@ -148,7 +150,8 @@ public class Menu
 			}
 				break;
 			case "MostrarListadoActivos":{
-				showListadoActivos();
+				
+				System.out.println(showListadoActivos());
 			}
 				break;
 			case "registrarUnStock":{
@@ -236,7 +239,9 @@ public class Menu
 	
 	private void showListadoActivos() 
 	{
-		LinkedList<Integrante> uActivos = new LinkedList<>(); 
+		HashMap<HashMap<Integrante,Rango>,HashMap<Horas,Subdivision>> uActivos = new HashMap<>();	
+		HashMap<Integrante,Rango> inteRango = new HashMap<>();
+		HashMap<Horas,Subdivision> horaSubdivision = new HashMap<>();
 		DataIntegrante di = new DataIntegrante();
 		Rango r = new Rango();
 		DataRango dr = new DataRango();
@@ -246,12 +251,12 @@ public class Menu
 		
 		
 		
-		for (Integrante i : uActivos) {
+		/*for (Integrante i : uActivos) {
 			System.out.println("Apellido: "+i.getApellido()+" Nombre: " + i.getNombre()+" ID: " + i.getIdIntegrante());
 			// Busco el rango
 			r = dr.getById_Int(i);
 			System.out.print("Rango: "+r.getNomRango()); // Hay alguna manera mejorr de hacerlo, en lugar de para cada uno hacer una llamada  a la SQL ?
-		}
+		}*/
 		uActivos.toString();
 	}
 
