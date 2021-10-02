@@ -241,13 +241,13 @@ DROP TABLE IF EXISTS `ransub_integrante`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ransub_integrante` (
-  `idIntegramte` int NOT NULL,
+  `idIntegrante` int NOT NULL,
   `fecha_desde` date NOT NULL,
   `idRangoSub` int NOT NULL,
-  PRIMARY KEY (`fecha_desde`,`idIntegramte`,`idRangoSub`),
-  KEY `id_Integranters_idx` (`idIntegramte`),
+  PRIMARY KEY (`fecha_desde`,`idIntegrante`,`idRangoSub`),
+  KEY `id_Integranters_idx` (`idIntegrante`),
   KEY `id_RangSub_idx` (`idRangoSub`),
-  CONSTRAINT `id_Integranters` FOREIGN KEY (`idIntegramte`) REFERENCES `integrante` (`idIntegrante`),
+  CONSTRAINT `id_Integranters` FOREIGN KEY (`idIntegrante`) REFERENCES `integrante` (`idIntegrante`),
   CONSTRAINT `id_RangSub` FOREIGN KEY (`idRangoSub`) REFERENCES `ran_subdivision` (`idRanSub`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -453,4 +453,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-02 15:24:09
+-- Dump completed on 2021-10-02 15:41:50
