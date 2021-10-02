@@ -151,7 +151,8 @@ public class Menu
 				break;
 			case "MostrarListadoActivos":{
 				
-				System.out.println(showListadoActivos());
+			
+				showListadoActivos();
 			}
 				break;
 			case "registrarUnStock":{
@@ -239,9 +240,10 @@ public class Menu
 	
 	private void showListadoActivos() 
 	{
-		HashMap<HashMap<Integrante,Rango>,HashMap<Horas,Subdivision>> uActivos = new HashMap<>();	
 		HashMap<Integrante,Rango> inteRango = new HashMap<>();
 		HashMap<Horas,Subdivision> horaSubdivision = new HashMap<>();
+		HashMap<HashMap<Integrante,Rango>,HashMap<Horas,Subdivision>> uActivos = new HashMap<>();	
+		
 		DataIntegrante di = new DataIntegrante();
 		Rango r = new Rango();
 		DataRango dr = new DataRango();
@@ -250,14 +252,15 @@ public class Menu
 		uActivos = di.getServicio();
 		
 		
-		
-		/*for (Integrante i : uActivos) {
+		/*
+		for (Integrante i : uActivos) {
 			System.out.println("Apellido: "+i.getApellido()+" Nombre: " + i.getNombre()+" ID: " + i.getIdIntegrante());
 			// Busco el rango
 			r = dr.getById_Int(i);
 			System.out.print("Rango: "+r.getNomRango()); // Hay alguna manera mejorr de hacerlo, en lugar de para cada uno hacer una llamada  a la SQL ?
 		}*/
-		uActivos.toString();
+		
+		System.out.println(uActivos);
 	}
 
 	private void showHoras(Integrante i) 

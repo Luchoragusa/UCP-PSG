@@ -336,7 +336,7 @@ public class DataIntegrante {
 					+ "inner join ran_integrante ri on i.idIntegrante = ri.idIntegrante\r\n"
 					+ "inner join rango r on ri.idRango = r.idRango\r\n"
 					+ "\r\n"
-					+ "inner join ransub_integrante ri2 on i.idIntegrante = ri2.idIntegramte\r\n"
+					+ "inner join ransub_integrante ri2 on i.idIntegrante = ri2.idIntegrante\r\n"
 					+ "inner join ran_subdivision rs on ri2.idRangoSub = rs.idRanSub\r\n"
 					+ "inner join  subdivision s on rs.idSub = s.idSub\r\n"
 					+ "\r\n"
