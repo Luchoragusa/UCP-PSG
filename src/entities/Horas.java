@@ -20,6 +20,11 @@ public class Horas
 		this.horasJugadas = horasJugadas;
 	}
 	
+	@Override
+	public String toString() {
+		return "Horas [idIntegrante=" + idIntegrante + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin
+				+ ", horasJugadas=" + horasJugadas + ", fecha=" + fecha + ", fechaFin=" + fechaFin + "]";
+	}
 	public int getIdIntegrante() {
 		return idIntegrante;
 	}
@@ -59,9 +64,6 @@ public class Horas
 	}
 	
 	
-	@Override
-	public String toString() {
-		return "Horas [horasJugadas=" + horasJugadas + "]\n";
-	}
+	
 	
 }
