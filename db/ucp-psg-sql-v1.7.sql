@@ -67,7 +67,7 @@ CREATE TABLE `horas` (
 
 LOCK TABLES `horas` WRITE;
 /*!40000 ALTER TABLE `horas` DISABLE KEYS */;
-INSERT INTO `horas` VALUES (1,'03:02:53','03:12:53','2021-08-30','2021-08-30','00:10:00'),(2,'03:02:53','03:12:53','2021-08-30','2021-08-30','00:10:00'),(3,'00:14:38','00:14:45','2021-08-30','2021-08-30','00:00:07'),(3,'02:22:50','02:23:00','2021-08-30','2021-08-30','00:00:10'),(3,'03:02:53','03:03:03','2021-08-30','2021-08-30','00:00:10');
+INSERT INTO `horas` VALUES (1,'03:02:53','03:12:53','2021-08-30','2021-08-30','00:10:00'),(2,'03:02:53','03:12:53','2021-08-30','2021-08-30','00:10:00'),(3,'00:14:38','00:14:45','2021-08-30','2021-08-30','00:00:07'),(3,'02:22:50','02:23:00','2021-08-30','2021-08-30','00:00:10'),(3,'03:02:53','03:03:03','2021-08-30','2021-08-30','00:00:10'),(3,'10:32:44',NULL,'2021-09-30',NULL,NULL);
 /*!40000 ALTER TABLE `horas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `integrante` (
 
 LOCK TABLES `integrante` WRITE;
 /*!40000 ALTER TABLE `integrante` DISABLE KEYS */;
-INSERT INTO `integrante` VALUES (1,'Juan','Pucheta','steam:123','558091838259724309','jpucheta','jp123'),(2,'Camilo','Pereyra','steam:321','404471332991008768','cpereyra','cp123'),(3,'Luciano','Ragusa','steam:890','328247693724090369','lragusa','lr123'),(4,'quetal','hola','steam:000','0000000','h','q'),(7,'asd','asd','zxc','123','asd','qwe'),(8,'ghj','ghj','ghj','123','ghj','ghj');
+INSERT INTO `integrante` VALUES (1,'Juan','Pucheta','steam:123','558091838259724309','jpucheta','jp123'),(2,'Camilo','Pereyra','steam:321','404471332991008768','cpereyra','cp123'),(3,'Luciano','Ragusa','steam:890','328247693724090369','lragusa','lr123'),(7,'hola','asd','zxc','123','asd','qwe'),(8,'ghj','ghj','ghj','123','ghj','ghj');
 /*!40000 ALTER TABLE `integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,6 +178,7 @@ CREATE TABLE `ran_integrante` (
 
 LOCK TABLES `ran_integrante` WRITE;
 /*!40000 ALTER TABLE `ran_integrante` DISABLE KEYS */;
+INSERT INTO `ran_integrante` VALUES (14,3,'0000-00-00');
 /*!40000 ALTER TABLE `ran_integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,6 +258,7 @@ CREATE TABLE `ransub_integrante` (
 
 LOCK TABLES `ransub_integrante` WRITE;
 /*!40000 ALTER TABLE `ransub_integrante` DISABLE KEYS */;
+INSERT INTO `ransub_integrante` VALUES (3,'2020-02-10',3);
 /*!40000 ALTER TABLE `ransub_integrante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -451,4 +453,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-30 16:16:04
+-- Dump completed on 2021-10-02 15:24:09
