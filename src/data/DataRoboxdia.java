@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
-import java.util.LinkedList;
 
 import entities.Integrante;
 import entities.Robo;
@@ -161,47 +160,6 @@ public class DataRoboxdia {
 		}
 		return rd;
 	}
-	
-	public void getLastRobos() 
-	{	
-		LinkedList<Roboxdia> lastR = null;
-		Roboxdia rd = null;
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
-		try 
-		{
-			stmt=DbConnector.getInstancia().getConn().prepareStatement( "select * from roboxdia where idLugarRobo = (select max(idLugarRobo) from roboxdia )");
-			rs= stmt.executeQuery();
-			if(rs!=null) 
-			{
-				while(rs.next()) 
-				{
-					Robo r=new Robo();
-					r.setIdLugarRobo(rs.getInt("idLugarRobo"));
-					r.setNomRobo(rs.getString("nomRobo"));
-					r.setLugarRobo(rs.getString("lugarRobo"));
-				}
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		finally 
-		{
-			try 
-			{
-				if(rs!=null) {rs.close();}
-				if(stmt!=null) {stmt.close();}
-				DbConnector.getInstancia().releaseConn();
-			} 
-			catch (SQLException e) 
-			{
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public void getUltimos5robos() // hacer el Hash para las 3 entidades
 	{	
 		PreparedStatement stmt=null;
