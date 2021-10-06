@@ -150,9 +150,11 @@ public class Menu
 			}
 				break;
 			case "MostrarListadoActivos":{
-				
-			
 				showListadoActivos();
+			}
+				break;
+			case "MostrarUltimos5Robos":{
+				showUltimos5robos();
 			}
 				break;
 			case "registrarUnStock":{
@@ -533,9 +535,6 @@ public class Menu
 			LocalDate fechaF = LocalDate.now();
 			h.setFechaFin(fechaF);						
 			
-			/*Long dif = Math.abs(h.getHoraFin() - h.getHoraInicio());
-			TimeUnit.MINUTES.convert(dif, TimeUnit.MILLISECONDS);*/
-			
 			dh.update(h);
 			dh.diferenciaHoras(h);			
 		}
@@ -639,7 +638,6 @@ public class Menu
 		medInt.setRecompensa(s.nextLine());
 		medInt.setFecha_recompensa(fecha = LocalDate.now());
 		
-		//dataMedInt.setMedallas(i);
 		dataMedInt.saveMedalla(i, m, medInt);
 	}
 
