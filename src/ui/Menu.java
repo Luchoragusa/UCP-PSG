@@ -250,8 +250,6 @@ public class Menu
 		
 		
 		uActivos = di.getServicio();
-		
-		
 		/*
 		for (Integrante i : uActivos) {
 			System.out.println("Apellido: "+i.getApellido()+" Nombre: " + i.getNombre()+" ID: " + i.getIdIntegrante());
@@ -263,6 +261,29 @@ public class Menu
 		System.out.println(uActivos);
 	}
 
+	private void showUltimos5robos() 
+	{
+		HashMap<Integrante,Rango> inteRango = new HashMap<>();
+		HashMap<Horas,Subdivision> horaSubdivision = new HashMap<>();
+		HashMap<HashMap<Integrante,Rango>,HashMap<Horas,Subdivision>> uActivos = new HashMap<>();	
+		
+		DataIntegrante di = new DataIntegrante();
+		Rango r = new Rango();
+		DataRango dr = new DataRango();
+		
+		
+		uActivos = di.getServicio();
+		/*
+		for (Integrante i : uActivos) {
+			System.out.println("Apellido: "+i.getApellido()+" Nombre: " + i.getNombre()+" ID: " + i.getIdIntegrante());
+			// Busco el rango
+			r = dr.getById_Int(i);
+			System.out.print("Rango: "+r.getNomRango()); // Hay alguna manera mejorr de hacerlo, en lugar de para cada uno hacer una llamada  a la SQL ?
+		}*/
+		
+		System.out.println(uActivos);
+	}
+	
 	private void showHoras(Integrante i) 
     {
         Horas h = new Horas();
@@ -665,10 +686,9 @@ public class Menu
 			LocalDate fecha = LocalDate.now();
 			LocalTime hora = LocalTime.now();
 			
-			System.out.println("Se busca la ultima Id de robo");
 			
-			rxd = Datarxd.getLastIdRobo();
-			System.out.println(rxd.getIdRobo());
+			rxd.setIdRobo(Datarxd.getLastIdRobo().getIdRobo());
+			
 			
 			for (int j = 0; j < integrantesCant; j++) 
 			{	
@@ -1242,6 +1262,7 @@ public class Menu
 		System.out.println("\n MostrarHorasIntegrante");
 		System.out.println("\n MostrarHoras");
 		System.out.println("\n MostrarListadoActivos");
+		System.out.println("\n MostrarUltimos5Robos");
 		
 		System.out.print("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		

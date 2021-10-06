@@ -134,12 +134,11 @@ public class DataRoboxdia {
 		{
 			stmt=DbConnector.getInstancia().getConn().prepareStatement("select max(idRobo) from roboxdia");
 			rs= stmt.executeQuery();
-			if(rs!=null) 
+			if(rs!=null && rs.next()) 
 			{
-				while (rs.next()) {
 					rd = new Roboxdia();
 					rd.setIdRobo(rs.getInt("max(idRobo)"));
-				}				
+					rd.setIdRobo(rd.getIdRobo()+1);
 			}
 		} 
 		catch (SQLException e) 
