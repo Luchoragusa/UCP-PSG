@@ -302,6 +302,7 @@ CREATE TABLE `roboxdia` (
   `fecha_robo` date NOT NULL,
   `hora_robo` time NOT NULL,
   `resultado` varchar(45) NOT NULL,
+  `idRobo` int NOT NULL,
   PRIMARY KEY (`idIntegrante`,`fecha_robo`,`hora_robo`),
   KEY `id_LugarRobo_idx` (`idLugarRobo`),
   CONSTRAINT `id_Integranterb` FOREIGN KEY (`idIntegrante`) REFERENCES `integrante` (`idIntegrante`),
@@ -315,6 +316,7 @@ CREATE TABLE `roboxdia` (
 
 LOCK TABLES `roboxdia` WRITE;
 /*!40000 ALTER TABLE `roboxdia` DISABLE KEYS */;
+INSERT INTO `roboxdia` VALUES (4,1,'2021-10-06','07:35:07','Victoria',1),(4,2,'2021-10-06','07:35:07','Victoria',1),(7,2,'2021-10-06','07:36:33','Empate',2),(7,3,'2021-10-06','07:36:33','Empate',2);
 /*!40000 ALTER TABLE `roboxdia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -453,4 +455,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-02 15:41:50
+-- Dump completed on 2021-10-06  9:18:13
