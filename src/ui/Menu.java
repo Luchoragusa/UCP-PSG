@@ -250,7 +250,6 @@ public class Menu
 		Rango r = new Rango();
 		DataRango dr = new DataRango();
 		
-		
 		uActivos = di.getServicio();
 		/*
 		for (Integrante i : uActivos) {
@@ -273,16 +272,7 @@ public class Menu
 		Rango r = new Rango();
 		DataRango dr = new DataRango();
 		
-		
 		uActivos = di.getServicio();
-		/*
-		for (Integrante i : uActivos) {
-			System.out.println("Apellido: "+i.getApellido()+" Nombre: " + i.getNombre()+" ID: " + i.getIdIntegrante());
-			// Busco el rango
-			r = dr.getById_Int(i);
-			System.out.print("Rango: "+r.getNomRango()); // Hay alguna manera mejorr de hacerlo, en lugar de para cada uno hacer una llamada  a la SQL ?
-		}*/
-		
 		System.out.println(uActivos);
 	}
 	
@@ -309,8 +299,6 @@ public class Menu
         for(Horas horasJugadas : horasInt) 
         {
             int id = horasJugadas.getIdIntegrante();
-
-
             for(Horas horasJugadass : horasInt) 
             {
                 if (id == horasJugadass.getIdIntegrante())
@@ -320,7 +308,6 @@ public class Menu
                                                                 .plusMinutes(horasJugadass.getHorasJugadas().getMinute())
                                                                 .plusSeconds(horasJugadass.getHorasJugadas().getSecond());
                 }
-
             }
             if ((contadorHorasJugadas.compareTo(comparar) != 0))
                 System.out.println("La cantidad de horas jugadas por el Integrante "+ id +" en el rango de fechas es de: " + contadorHorasJugadas);
@@ -389,7 +376,6 @@ public class Menu
 	}
 
 	private void bajaRangoSub() {
-		// TODO Auto-generated method stub
 		System.out.println();
 		Ran_Subdivision rsb = new Ran_Subdivision();
 		DataRan_Subdivision drsb = new DataRan_Subdivision();
@@ -402,7 +388,6 @@ public class Menu
 	}
 
 	private void bajaSubdivisiones() {
-		// TODO Auto-generated method stub
 		System.out.println();
 		Subdivision sb = new Subdivision();
 		DataSubdivision dsb = new DataSubdivision();
@@ -414,7 +399,6 @@ public class Menu
 
 	private void bajaRangos() 
 	{
-		// TODO Auto-generated method stub
 		System.out.println();
 		Rango r = new Rango();
 		DataRango dr = new DataRango();
@@ -679,14 +663,12 @@ public class Menu
 			{
 				resultado = "Fracaso";
 			}
-			
+
 			System.out.println("Se setea la fecha y hora actual del robo del dia para el integrante."); 
 			LocalDate fecha = LocalDate.now();
 			LocalTime hora = LocalTime.now();
 			
-			
 			rxd.setIdRobo(Datarxd.getLastIdRobo().getIdRobo());
-			
 			
 			for (int j = 0; j < integrantesCant; j++) 
 			{	
@@ -1362,7 +1344,6 @@ public class Menu
 		System.out.println();
 		Integrante i=new Integrante();
 
-	
 		DataRol dr = new DataRol();
 		
 		i = find();
@@ -1379,8 +1360,6 @@ public class Menu
 		System.out.println();
 		System.out.print("Usuario(NUEVO): "); i.setUsuario(s.nextLine());
 		
-		
-		
 		System.out.print("SteamHex(ACTUAL): " + i.getSteamHex());
 		System.out.println();
 		System.out.print("SteamHex(NUEVO): "); i.setSteamHex(s.nextLine());
@@ -1393,7 +1372,6 @@ public class Menu
 		System.out.println();
 		
 		ctrlLogin.update(i);
-		
 		
 		System.out.println();
 		System.out.println("Operacion realizada con Exito");
