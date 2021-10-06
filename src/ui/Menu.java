@@ -622,7 +622,8 @@ public class Menu
 		dataMedInt.saveMedalla(i, m, medInt);
 	}
 
-	private void regRoboxdia(Integrante i2) {
+	private void regRoboxdia(Integrante i2) 
+	{
 		System.out.println();
 		Robo r = new Robo();
 		DataRobo dr = new DataRobo();
@@ -643,18 +644,20 @@ public class Menu
 		System.out.println("Cuantos fueron al robo?");
 		int integrantesCant = Integer.parseInt(s.nextLine());
 		
-		if (integrantesCant >= r.getMinIntregantes() && integrantesCant <= r.getMaxIntegrantes()) {
-			
+		if (integrantesCant >= r.getMinIntregantes() && integrantesCant <= r.getMaxIntegrantes()) 
+		{		
 			System.out.println("Ingrese el resultado del robo: (V- Victoria ; E- Empate ; F- Fracaso)");
 			String op = s.nextLine();
-			if (op.equalsIgnoreCase("V")) {
+			if (op.equalsIgnoreCase("V")) 
+			{
 				resultado = "Victoria";
 			}
 			else if (op.equalsIgnoreCase("E")) 
 			{
 				resultado = "Empate";
 			}
-			else if (op.equalsIgnoreCase("F")) {
+			else if (op.equalsIgnoreCase("F")) 
+			{
 				resultado = "Fracaso";
 			}
 			
@@ -662,8 +665,13 @@ public class Menu
 			LocalDate fecha = LocalDate.now();
 			LocalTime hora = LocalTime.now();
 			
-			for (int j = 0; j < integrantesCant; j++) {
-				
+			System.out.println("Se busca la ultima Id de robo");
+			
+			rxd = Datarxd.getLastIdRobo();
+			System.out.println(rxd.getIdRobo());
+			
+			for (int j = 0; j < integrantesCant; j++) 
+			{	
 				i = find();	
 											
 				rxd.setFecha_robo(fecha);
@@ -674,7 +682,7 @@ public class Menu
 				
 				Datarxd.saveRobo(i, r, rxd);
 			}
-		}													
+		}									
 	}
 
 	private void regHorasJugadas(Integrante i) {			//no pedir ID

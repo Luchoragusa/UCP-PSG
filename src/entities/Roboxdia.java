@@ -6,7 +6,15 @@ public class Roboxdia {
 
 	private LocalTime hora_robo;
 	private LocalDate fecha_robo;
-	private int idIntegrante, idLugarRobo;
+	private int idIntegrante, idLugarRobo, idRobo;
+	public int getIdRobo() {
+		return idRobo;
+	}
+
+	public void setIdRobo(int idRobo) {
+		this.idRobo = idRobo;
+	}
+
 	private String resultado;
 	
 	public Roboxdia() {
@@ -56,7 +64,7 @@ public class Roboxdia {
 	@Override
 	public String toString() {
 		return "Roboxdia [hora_robo=" + hora_robo + ", fecha_robo=" + fecha_robo + ", idIntegrante=" + idIntegrante
-				+ ", idLugarRobo=" + idLugarRobo + ", resultado=" + resultado + "]";
+				+ ", idLugarRobo=" + idLugarRobo + ", idRobo=" + idRobo + ", resultado=" + resultado + "]";
 	}
 	
 }

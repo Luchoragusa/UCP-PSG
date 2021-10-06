@@ -15,7 +15,8 @@ import entities.Rango;
 import entities.Rol;
 import entities.Subdivision;
 
-public class DataIntegrante {
+public class DataIntegrante 
+{
 	Scanner s = null;
 	public Integrante getByUser(Integrante inte) {
 		
@@ -58,7 +59,7 @@ public class DataIntegrante {
 		}
 		return i;
 	}
-
+	
 	public Integrante getByIdIntegrante(Integrante inte) {
 
 
