@@ -264,16 +264,10 @@ public class Menu
 
 	private void showUltimos5robos() 
 	{
-		HashMap<Integrante,Rango> inteRango = new HashMap<>();
-		HashMap<Horas,Subdivision> horaSubdivision = new HashMap<>();
-		HashMap<HashMap<Integrante,Rango>,HashMap<Horas,Subdivision>> uActivos = new HashMap<>();	
+		DataRoboxdia drxd = new DataRoboxdia();
+		Roboxdia rxd = new Roboxdia();
 		
-		DataIntegrante di = new DataIntegrante();
-		Rango r = new Rango();
-		DataRango dr = new DataRango();
-		
-		uActivos = di.getServicio();
-		System.out.println(uActivos);
+		drxd.getUltimos5robos();
 	}
 	
 	private void showHoras(Integrante i) 
