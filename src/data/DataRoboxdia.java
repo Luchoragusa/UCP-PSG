@@ -3,6 +3,7 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.LinkedList;
 
 import entities.Integrante;
@@ -200,5 +201,58 @@ public class DataRoboxdia {
 			}
 		}
 	}
-	
+
+	public void getUltimos5robos() // hacer el Hash para las 3 entidades
+	{	
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		Integrante i = null;
+		Robo r = null;
+		Roboxdia rxd = null;
+		try 
+		{
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					  "select i.nombre, i.apellido, r.nomRobo, resultado, hora_robo, idRobo "
+					+ "from roboxdia "
+					+ "inner join integrante i on roboxdia.idIntegrante = i.idIntegrante "
+					+ "where idRobo between ((select max(idRobo)-5 from roboxdia)) and (select max(idRobo) from roboxdia) "
+					+ "order by idRobo asc"
+					);
+			rs= stmt.executeQuery();
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+				{
+					r=new Robo();
+					r.setNomRobo(rs.getString("nomRobo"));
+					
+					rxd=new Roboxdia();
+					rxd.setResultado(rs.getString("resultado"));
+					rxd.setIdRobo(rs.getInt("idRobo"));
+					rxd.setHora_robo(rs.getObject("hora_robo", LocalTime.class));
+					
+					i=new Integrante();
+					i.setNombre(rs.getString("nombre"));
+					i.setApellido(rs.getString("apellido"));
+				}
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}	
 }
