@@ -265,9 +265,9 @@ public class Menu
 	private void showUltimos5robos() 
 	{
 		DataRoboxdia drxd = new DataRoboxdia();
-		Roboxdia rxd = new Roboxdia();
-		
-		drxd.getUltimos5robos();
+		HashMap<HashMap<Integrante,Roboxdia>,Robo> inteRxdR = new HashMap<>();
+		inteRxdR = drxd.getUltimos5robos();
+		System.out.println(inteRxdR);
 	}
 	
 	private void showHoras(Integrante i) 

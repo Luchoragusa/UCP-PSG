@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.HashMap;
 
 import entities.Integrante;
+import entities.Rango;
 import entities.Robo;
 import entities.Roboxdia;
 
@@ -160,27 +162,32 @@ public class DataRoboxdia {
 		}
 		return rd;
 	}
-	public void getUltimos5robos() // hacer el Hash para las 3 entidades
+	public HashMap getUltimos5robos() // hacer el Hash para las 3 entidades
 	{	
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		Integrante i = null;
 		Robo r = null;
 		Roboxdia rxd = null;
+		
+		HashMap<Integrante,Roboxdia> irxd = null;
+	
+		HashMap<HashMap<Integrante,Roboxdia>, Robo> inteRxdR = null;
 		try 
 		{
-			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					  "select i.nombre, i.apellido, r.nomRobo, resultado, hora_robo, idRobo "
-					+ "from roboxdia "
-					+ "inner join integrante i on roboxdia.idIntegrante = i.idIntegrante "
-					+ "where idRobo between ((select max(idRobo)-5 from roboxdia)) and (select max(idRobo) from roboxdia) "
-					+ "order by idRobo asc"
-					);
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(" select i.nombre, i.apellido, r.nomRobo, resultado, hora_robo, idRobo \r\n"
+					+ "					from roboxdia \r\n"
+					+ "					inner join integrante i on roboxdia.idIntegrante = i.idIntegrante \r\n"
+					+ "                    inner join robo r on r.idLugarRobo = roboxdia.idLugarRobo \r\n"
+					+ "					where idRobo between ((select max(idRobo)-5 from roboxdia)) and (select max(idRobo) from roboxdia) \r\n"
+					+ "					order by idRobo asc");
 			rs= stmt.executeQuery();
 			if(rs!=null) 
 			{
 				while(rs.next()) 
 				{
+					irxd = new HashMap<>();
+					inteRxdR = new HashMap<>();
 					r=new Robo();
 					r.setNomRobo(rs.getString("nomRobo"));
 					
@@ -192,6 +199,10 @@ public class DataRoboxdia {
 					i=new Integrante();
 					i.setNombre(rs.getString("nombre"));
 					i.setApellido(rs.getString("apellido"));
+					irxd.put(i,rxd);
+					inteRxdR.put(irxd,r);
+					
+					
 				}
 			}
 		} 
@@ -212,5 +223,6 @@ public class DataRoboxdia {
 				e.printStackTrace();
 			}
 		}
+		return inteRxdR;
 	}	
 }
