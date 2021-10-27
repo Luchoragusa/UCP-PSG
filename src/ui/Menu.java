@@ -679,7 +679,8 @@ public class Menu
 		}									
 	}
 
-	private void regHorasJugadas(Integrante i) {			//no pedir ID
+	private void regHorasJugadas(Integrante i) 
+	{			//no pedir ID
 		System.out.println();
 		Horas h = new Horas();
 		DataHoras dh = new DataHoras();
